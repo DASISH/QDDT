@@ -1,0 +1,5 @@
+#IDE's create lots of files that we don't want in git
+target
+nb-configuration.xml
+context.xml
+jetty-env.xml

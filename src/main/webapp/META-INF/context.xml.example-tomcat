@@ -1,0 +1,23 @@
+<Context path="/qddt" reloadable="true" crossContext="true">
+	<Resource name="jdbc/qddt" 
+       		username="user" 
+       		password="pass"
+       		driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+       		url="jdbc:sqlserver://server;databaseName=qddt" 
+		auth="Container" 
+		type="javax.sql.DataSource"
+		factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+       		maxActive="2" 
+       		maxIdle="5" 
+       		maxWait="10000"
+	       	validationQuery="SELECT 1" 
+	       	testOnBorrow="true" 
+         	testWhileIdle="true" 
+         	timeBetweenEvictionRunsMillis="600000" 
+         	minEvictableIdleTimeMillis="600000" 
+         	numTestsPerEvictionRun="10" 
+	        removeAbandonedTimeout="60"
+	        removeAbandoned="true"
+	        logAbandoned="true"         	
+       	/>
+</Context>
