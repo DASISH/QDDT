@@ -1,11 +1,11 @@
+<% response.setStatus(javax.servlet.http.HttpServletResponse.SC_NOT_FOUND); %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>QDDT</title>
-   </head>
-   <body>
-      <h1>Not found</h1>
-   </body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:import url="/WEB-INF/jspf/top.jsp" />
+
+<h1>Not found</h1>
+
+<p>The requested resource/file was not found.</p>
+
+<c:import url="/WEB-INF/jspf/bottom.jsp" />

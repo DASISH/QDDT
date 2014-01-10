@@ -195,7 +195,7 @@ option {
  background: #415182;
  clear: both;
  display: block;
- padding: 10px 0 14px 0;
+ padding: 18px 0 8px 0;
  width: 100%;
  margin-bottom: 12px;
  margin-top: 0;
@@ -272,6 +272,17 @@ option {
  ***** MODULE
  *****************************************************************************************************
  */
+
+.headernav {
+   color: #BBBBBB;
+   text-align: right;
+}
+.headernav a {
+   color: #FFFFFF;
+}
+.headernav a:hover {
+ border-bottom: 1px dotted #FFFFFF;
+}
 
 .logoimg {
  float: left;

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.LoginAction;
+import no.nsd.qddt.actions.LogoutAction;
 
 public class ControllerServlet extends HttpServlet {
 
@@ -32,6 +33,9 @@ public class ControllerServlet extends HttpServlet {
       
       else if (uri.equals(context + "/login")) {
          new LoginAction().process(request, response);
+      }
+      else if (uri.equals(context + "/logout")) {
+         new LogoutAction().process(request, response);
       }
 
       else if (uri.equals(context + "/u/")) {

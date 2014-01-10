@@ -14,7 +14,14 @@
 
       <header class="l-headerwrapper">
          <div class="l-headercontent">
-            <span class="titleheader">QDDT - Questionnaire Design and Development Tool</span>
+            <div class="titleheader">QDDT - Questionnaire Design and Development Tool</div>
+            
+            <c:if test="${sessionScope.user != null}">
+               <div class="headernav">
+                  Logged in as ${sessionScope.user}:
+                  <a href="<c:url value="/u/" />">Home</a> / <a href="<c:url value="/logout" />">Log out</a>
+               </div>
+            </c:if>
 
          </div>
       </header>
