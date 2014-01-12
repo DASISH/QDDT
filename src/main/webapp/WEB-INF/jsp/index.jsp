@@ -3,16 +3,21 @@
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
-<h1>QDDT</h1>
+<div class="grid">
+   <div class="col">
 
-    <c:if test="${error}"><p>Wrong username/password.</p></c:if>
-    <form action="<c:url value="/login" />" method="post">
-           <p>Username: <input type="text" name="u" value=""></p>
-           <p>Password: <input type="password" name="p" value=""></p>
-           <p><input type="submit" value="OK"></p>
-        </form>
-        
+      <h1>QDDT</h1>
 
-           
+      <c:if test="${error}"><p>Wrong username/password.</p></c:if>
+      <form action="<c:url value="/login" />" method="post">
+         <p>Username: <input type="text" name="u" value=""></p>
+         <p>Password: <input type="password" name="p" value=""></p>
+         <p><input type="submit" value="OK"></p>
+      </form>
+
+
+   </div>
+</div>
+
 <c:import url="/WEB-INF/jspf/bottom.jsp" />
            

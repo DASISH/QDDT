@@ -25,9 +25,9 @@ a:hover {
 }
 
 body {
- background-color: white;
+ background-color: #F6F6F6;
  font-family: verdana, lucida, "lucida sans", "lucida grande", verdana, arial;
- font-size: 11px;
+ font-size: 13px;
  font-weight: normal;
  text-align: left;
 }
@@ -184,6 +184,10 @@ option {
  padding: 1px 4px;
 }
 
+input, textarea {
+   width: 100%;
+}
+
 
 /*
  *****************************************************************************************************
@@ -195,12 +199,11 @@ option {
  background: #415182;
  clear: both;
  display: block;
- padding: 18px 0 8px 0;
+ padding: 14px 0 2px;
  width: 100%;
  margin-bottom: 12px;
  margin-top: 0;
 }
-
 
 .l-footerwrapper {
  background-color: #EEEEEE;
@@ -214,55 +217,50 @@ option {
  width: 100%;
 }
 
-.l-headercontent, .l-footercontent, .l-maincontent {
- display: block;
- margin: 0 auto;
- max-width: 960px;
+
+.wrap {
+   display: block;
+   margin: 0 auto;
+   max-width: 960px;
+   padding: 0 5px;
 }
 
-.l-pagenav {
- background: none repeat scroll 0 0 transparent;
- float: left;
- margin: 14px 30px 20px 0;
- min-height: 220px;
- width: 160px;
+.col {
+   float: left;
+   padding: 5px;
+   width: 100%;
 }
 
-.l-main {
- float: left;
+.w12 {
+   width: 100%;
 }
-
-
-.l-sidebar {
- background: #EEEEEE;
- float: right;
- margin: 10px 0 30px 20px;
- min-height: 220px;
- padding: 10px 10px 20px;
- width: 240px;
- /* Browser specific rules. */
- background: -moz-linear-gradient(center top , #EAEAEA 0%, #FDFDFD 100%) repeat scroll 0 0 transparent;
+.w10 {
+   width: 83.33%;
 }
-
-
-.l-sitemap {
- float: left;
- margin-right: 55px;
- width: 540px;
+.w8 {
+   width: 66.66%;
 }
-
-.l-about {
- float: left;
- width: 360px;
+.w6 {
+   width: 50%;
 }
-
-.l-copyright {
- clear: both;
+.w4 {
+   width: 33.33%;
+}
+.w1 {
+   width: 8.33%;
 }
 
 
-.l-clear {
- clear: both;
+.grid:after {
+   content: "";
+   display: table;
+   clear: both;
+}
+
+*, *:after, *:before {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 
@@ -272,6 +270,13 @@ option {
  ***** MODULE
  *****************************************************************************************************
  */
+
+.titleheader {
+   font-family: Helvetica, Arial, sans-serif;
+   font-size: 22px;
+   font-weight: bold;
+   color: #EFEFEF;
+}
 
 .headernav {
    color: #BBBBBB;
@@ -284,162 +289,16 @@ option {
  border-bottom: 1px dotted #FFFFFF;
 }
 
-.logoimg {
- float: left;
- margin: 6px 10px 0 5px;
- width: 240px;
-}
-.headerimg {
- float: right;
- height: 60px;
- margin: 0 15px 0 0;
-}
-.footerimg {
- float: right;
- height: 60px;
- margin: 0 15px 0 0;
-}
 
-.breadcrumbs {
- color: #A7AEBF;
- font-size: 10px;
- margin: 0 0 20px;
- }
-.breadcrumbs a {
- color: #666666;
-}
-.breadcrumbs a:hover {
- border-bottom: 1px dotted #A7AEBF;
-}
-
-.titleheader {
-   font-family: Helvetica, Arial, sans-serif;
-   font-size: 20px;
-   color: #FFFFFF;
-}
-
-
-.oppgave {
- background-color: #F6F6F6;
- margin: 10px 0 20px;
- padding: 15px;
-}
-.oppgave h2 {
- background-color: #AAAAAA;
- border-bottom: none;
- color: #FFFFFF;
- font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
- font-size: 14px;
- font-weight: normal;
- margin: -15px -15px 10px;
- padding: 5px 10px;
-}
-.oppgave h4 {
- color: #333333;
-}
-.oppgave p, .oppgave li {
- color: #000000;
+.button {
+    background-color: lightgreen;
+    padding: 3px 15px;
+    width: auto;
 }
 
 .plain-list {
  list-style: none;
  padding-left: 0;
-}
-
-.link-list {
- list-style: none;
- margin: 0;
- padding-left: 2px;
-}
-.link-list li {
- border-bottom: 1px dotted #DDDDDD;
- margin: 0;
-}
-.link-list a {
- color: #454545;
- display: block;
- padding: 4px 0 4px 1px;
-}
-.link-list a:hover {
- background-color: #EFEFEF;
- border-bottom: 0;
- color: #BB5555;
-}
-.link-list ul {
- list-style: none;
- margin: 0;
- padding-left: 12px;
-}
-.link-list li ul li {
- border-bottom: 0;
- font-size: 10px;
-}
-
-.current {
- background-color: #EFEFEF;
-}
-
-
-.sitemap, .sitemap ul {
- list-style: none;
- padding-left: 0;
- margin-top: 2px;
-}
-.sitemap li {
- display: block;
- float: left;
- font-weight: bold;
- padding: 0 3px 0 0;
- width: 176px;
-}
-.sitemap li ul li {
- float: none;
- font-weight: normal;
- padding: 0;
-}
-.sitemap a {
- color: #454545;
- text-decoration: none;
-}
-.sitemap a:hover {
- border-bottom: 1px dotted #454545;
-}
-
-.quote {
- color: #777777;
- font-style: italic;
-}
-
-.about-links {
- float: left;
- list-style: none;
- padding-left: 0;
- margin-top: 12px;
-}
-
-.footernote {
- color: #777777;
-}
-
-.tablenote {
- color: #777777;
-}
-
-.prosentgraf {
- width: 510px;
- padding: 3px 4px;
- text-align: left;
-}
-
-.prosentgraf div {
- height: 14px;
- float: left;
- margin-right: 3px;
-}
-
-.chart_img {
- border: 1px solid #CCCCCC;
- padding: 5px;
 }
 
 .header-tabs {
@@ -475,95 +334,6 @@ option {
  white-space: nowrap;
 }
 
-.sidebar-img {
- margin: -1px -10px 0 -10px; 
- width: 260px;
-}
-
-
-.boxheader {
- color: #415182;
- border-bottom: 1px dotted #415182;
- font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
- font-size: 16px;
- font-weight: bold;
- margin: 14px 0 6px;
- padding: 0 0 2px;
-}
-.boxheader a {
- color: #415182;
-}
-
-.boxheader-2 {
- border-bottom: 1px dotted #666666;
- color: #666666;
- font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
- font-size: 15px;
- font-weight: normal;
- margin: 10px 0 8px;
- padding-bottom: 2px;
-}
-
-.boxheader-3 {
- border: 0;
- color: #000000;
- font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
- font-size: 18px;
- font-weight: bold;
- margin: 10px 0 8px 0;
- padding: 0;
-}
-.boxheader-3 a {
- color: #000000;
-}
-
-
-.featured-box {
- background-color: #EEEEEE;
- margin: 15px 0;
- padding: 15px;
-}
-
-.featured-box-title {
- background-color: #AAAAAA;
- border-bottom: none;
- color: #FFFFFF;
- display: block;
- font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
- font-size: 15px;
- font-weight: normal;
- margin: -15px -15px 10px;
- padding: 5px 10px;
-}
-
-.frontpage-box {
- background-color: #EEEEEE;
- float: left;
- margin: 20px 20px 0 0;
- min-height: 150px;
- padding: 12px 20px;
- width: 266px;
- background: -moz-linear-gradient(center top , #EAEAEA 0%, #FDFDFD 100%) repeat scroll 0 0 transparent;
-}
-.frontpage-box .boxheader-img {
- margin: -12px -20px 10px;
- max-width: inherit;
- width: 306px;
-}
-
-.frontpage-box-large {
- width: 100%;
- height: 320px;
- background-image: url("http://www.samfunnsveven.no/common/img/forside_oppslag_960.jpg");
-}
-.frontpage-box-text {
- width: 210px;
- float: left;
- background-color: #FFFFFF;
- opacity: .9;
- padding: 20px 20px 9px;
- margin: 70px 0 0 60px;
-}	
 
 .button a {
  background: #cc7700;
@@ -582,23 +352,6 @@ option {
 }
 .button a:hover {
  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.9);
-}
-
-.top-btm-margin-s {
- margin: 2px 0;
-}
-.top-btm-margin-m {
- margin: 8px 0;
-}
-
-.disp-block {
- display: block;
-}
-
-.column-two {
- float: left;
- width: 47%;
- margin-right: 5%;
 }
 
 .error {

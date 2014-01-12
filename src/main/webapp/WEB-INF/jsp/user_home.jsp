@@ -3,8 +3,13 @@
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
-        <h1>QDDT</h1>
-        <p>Logged in as ${sessionScope.user}.</p>
+<div class="grid">
+   <div class="col">
 
+      <h1>QDDT</h1>
+      <p><a href="<c:url value="/u/r/regmodule" />">Register new module</a></p>
+
+   </div>
+</div>
 
 <c:import url="/WEB-INF/jspf/bottom.jsp" />

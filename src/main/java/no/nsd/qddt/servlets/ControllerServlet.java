@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.LoginAction;
 import no.nsd.qddt.actions.LogoutAction;
+import no.nsd.qddt.actions.UserHomeAction;
 
 public class ControllerServlet extends HttpServlet {
 
@@ -39,7 +40,10 @@ public class ControllerServlet extends HttpServlet {
       }
 
       else if (uri.equals(context + "/u/")) {
-         ServletUtil.forward("/WEB-INF/jsp/user_home.jsp", request, response);
+         new UserHomeAction().process(request, response);
+      }
+      if (uri.equals(context + "/u/r/regmodule")) {
+         ServletUtil.forward("/WEB-INF/jsp/reg_module.jsp", request, response);
       }
       
       else {
