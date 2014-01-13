@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
-import javax.servlet.jsp.jstl.sql.Result;
-import no.nsd.qddt.model.User;
+import no.nsd.qddt.model.Module;
 
 public class ModuleLogic {
 
@@ -16,37 +16,54 @@ public class ModuleLogic {
       this.conn = conn;
    }
    
-   public User getUser(String username, String password) throws SQLException {
-      String sqlSelect = "select * from admin_user where username = ? and password = ?";
+   public void registerNewModule(Module module) throws SQLException {
+      String sql = "insert into "
+              + "module(module_urn, module_study, module_title, module_authors, module_authors_affiliation, module_abstract, repeat_module) "
+              + "values (?, ?, ?, ?, ?, ?, ?)";
+
       List values = new ArrayList();
-      values.add(username);
-      values.add(password);
-      
-      SortedMap[] rows = this.executeQuery(sqlSelect, values);
-      return this.getFirstUser(rows);
+      values.add(module.getUrn());
+      values.add(module.getStudy());
+      values.add(module.getTitle());
+      values.add(module.getAuthors());
+      values.add(module.getAuthorsAffiliation());
+      values.add(module.getModuleAbstract());
+      values.add(module.getRepeat());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
    
-   private SortedMap[] executeQuery(String sql, List values) throws SQLException {
-      SqlCommand sqlCB = new SqlCommand(conn);
-      sqlCB.setSqlString(sql);
-      sqlCB.setValues(values);
-      Result res = sqlCB.executeQuery();
-      SortedMap[] rows = res.getRows();
-      return rows;
+
+   public List<Module> getModules() throws SQLException {
+      String sql = "select * from module";
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      return this.getModuleList(rows);
    }
    
-   private User getFirstUser(SortedMap[] rows) {
+   private List<Module> getModuleList(SortedMap[] rows) throws SQLException {
       if (rows == null || rows.length == 0) {
          return null;
       }
-      return this.getUser(rows[0]);
+      List<Module> modules = new ArrayList<Module>();
+      for (SortedMap row : rows) {
+         modules.add(this.getModule(row));
+      }
+      return modules;
    }
    
-   private User getUser(SortedMap rad) {
-      User user = new User();
-      user.setId((Integer) rad.get("id"));
-      user.setUsername((String) rad.get("username"));
-      return user;
+   private Module getModule(Map map) throws SQLException {
+      Module module = new Module();
+      module.setId((Integer) map.get("module_id"));
+      module.setUrn(SqlUtil.getString("module_urn", map));
+      module.setStudy(SqlUtil.getString("module_study", map));
+      module.setTitle(SqlUtil.getString("module_title", map));
+      module.setAuthors(SqlUtil.getString("module_authors", map));
+      module.setAuthorsAffiliation(SqlUtil.getString("module_authors_affiliation", map));
+      module.setModuleAbstract(SqlUtil.getString("module_abstract", map));
+      module.setRepeat((Boolean) map.get("repeat_module"));
+      return module;
    }   
+   
+   
    
 }

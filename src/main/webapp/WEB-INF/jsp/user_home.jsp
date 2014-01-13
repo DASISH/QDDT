@@ -6,7 +6,14 @@
 <div class="grid">
    <div class="col">
 
-      <h1>QDDT</h1>
+      <h1>Modules</h1>
+      
+      <ul>
+      <c:forEach items="${modules}" var="m">
+         <li>${m.study} - ${m.title}</li>
+      </c:forEach>
+      </ul>
+      
       <p><a href="<c:url value="/u/r/regmodule" />">Register new module</a></p>
 
    </div>

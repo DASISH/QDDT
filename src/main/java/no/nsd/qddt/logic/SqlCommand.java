@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.SortedMap;
 import javax.servlet.jsp.jstl.sql.Result;
 import javax.servlet.jsp.jstl.sql.ResultSupport;
 
@@ -19,6 +20,32 @@ public class SqlCommand {
       this.conn = conn;
    }
 
+   
+   public static SortedMap[] executeSqlQueryWithValuesOnConnection(String sql, List values, Connection conn) throws SQLException {
+      SqlCommand sqlCB = new SqlCommand(conn);
+      sqlCB.setSqlString(sql);
+      sqlCB.setValues(values);
+      Result res = sqlCB.executeQuery();
+      SortedMap[] rows = res.getRows();
+      return rows;
+   }
+
+   public static SortedMap[] executeSqlQueryOnConnection(String sql, Connection conn) throws SQLException {
+      SqlCommand sqlCB = new SqlCommand(conn);
+      sqlCB.setSqlString(sql);
+      Result res = sqlCB.executeQuery();
+      SortedMap[] rows = res.getRows();
+      return rows;
+   }
+   
+   public static void executeSqlUpdateWithValuesOnConnection(String sql, List values, Connection conn) throws SQLException {
+      SqlCommand sqlCB = new SqlCommand(conn);
+      sqlCB.setSqlString(sql);
+      sqlCB.setValues(values);
+      sqlCB.executeUpdate();
+   }
+   
+   
    /**
     * Set the SQL string, possibly with question mark placeholders for values
     * set by setValues().

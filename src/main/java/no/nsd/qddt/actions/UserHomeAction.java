@@ -2,22 +2,19 @@ package no.nsd.qddt.actions;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
+import no.nsd.qddt.logic.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.UserLogic;
-import no.nsd.qddt.model.User;
+import no.nsd.qddt.model.Module;
 import no.nsd.qddt.servlets.ServletUtil;
 
 public class UserHomeAction {
 
    private Connection conn;
-   private String username;
-   private String password;
-   private User user;
    private HttpServletRequest request;
    private HttpServletResponse response;
    
@@ -25,22 +22,13 @@ public class UserHomeAction {
       this.request = request;
       this.response = response;
 
+      this.setModules();
       this.forwardPage();
-      
    }
    
-   private void setRequestParameters() {
-      username = request.getParameter("u");
-      password = request.getParameter("p");
-   }
-   
-   private boolean isParameterValuesEmpty() {
-      return username == null || username.isEmpty() || password == null || password.isEmpty();
-   }
-   
-   private void setUser() throws ServletException {
+   private void setModules() throws ServletException {
       try {
-         this.setUserFromdb();
+         this.setModulesDb();
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {
@@ -48,16 +36,15 @@ public class UserHomeAction {
       }
    }
    
-   private void setUserFromdb() throws Exception {
+   private void setModulesDb() throws Exception {
       conn = DatabaseConnectionFactory.getConnection();
-      UserLogic logic = new UserLogic(conn);
-      this.user = logic.getUser(username, password);
+      ModuleLogic logic = new ModuleLogic(conn);
+      List<Module> modules = logic.getModules();
+      request.setAttribute("modules", modules);
    }
    
    private void forwardPage() throws ServletException, IOException {
-      request.setAttribute("error", true);
       ServletUtil.forward("/WEB-INF/jsp/user_home.jsp", request, response);
    }
-   
    
 }
