@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Module implements Serializable {
    
    private Integer id;
-   private String urn;
+   private Urn urn;
    private String study;
    private String title;
    private String authors;
@@ -21,11 +21,11 @@ public class Module implements Serializable {
       this.id = id;
    }
 
-   public String getUrn() {
+   public Urn getUrn() {
       return urn;
    }
 
-   public void setUrn(String urn) {
+   public void setUrn(Urn urn) {
       this.urn = urn;
    }
 

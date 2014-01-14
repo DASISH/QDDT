@@ -1,6 +1,7 @@
 package no.nsd.qddt.logic;
 
 import java.util.UUID;
+import no.nsd.qddt.model.Urn;
 
 public final class UrnUtil {
 
@@ -10,8 +11,13 @@ public final class UrnUtil {
    private UrnUtil() {
    }
 
-   public static String createNewUrn() {
-      return agency  + ":" + createNewId() + ":" + firstDraftVersion;
+   public static Urn createNewUrn() {
+      Urn urn = new Urn();
+      urn.setAgency(agency);
+      urn.setId(createNewId());
+      urn.setVersion(firstDraftVersion);
+      
+      return urn;
    }
    
    

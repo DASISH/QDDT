@@ -6,11 +6,14 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Modules</h1>
+      <h1>Module</h1>
       
       <ul>
       <c:forEach items="${modules}" var="m">
-         <li><a href="<c:url value="/u/module?agency=${m.urn.agency}&id=${m.urn.id}" />">${m.study} - ${m.title}</a></li>
+         <li>
+            ${m.urn.version} - ${m.study} - ${m.title}
+            - <a href="<c:url value="/u/r/updatemodule" />">[Update module]</a>
+         </li>
       </c:forEach>
       </ul>
       

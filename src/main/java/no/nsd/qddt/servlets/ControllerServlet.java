@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.LoginAction;
 import no.nsd.qddt.actions.LogoutAction;
+import no.nsd.qddt.actions.ModuleAction;
 import no.nsd.qddt.actions.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 
@@ -48,6 +49,9 @@ public class ControllerServlet extends HttpServlet {
       }
       else if (uri.equals(context + "/u/r/savemodule")) {
          new SaveModuleAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/module")) {
+         new ModuleAction().process(request, response);
       }
       
       else {
