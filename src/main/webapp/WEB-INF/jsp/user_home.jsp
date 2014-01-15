@@ -6,8 +6,8 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Modules</h1>
-      
+
+      <h2>Modules</h2>
       <ul>
       <c:forEach items="${modules}" var="m">
          <li><a href="<c:url value="/u/module?agency=${m.urn.agency}&id=${m.urn.id}" />">${m.study} - ${m.title}</a></li>

@@ -7,48 +7,41 @@
 
    <div class="col">
       <h1>New module</h1>
-   </div>
+      <ul class="header-tabs">
+         <li class="active-tab"><a href="<c:url value="/u/r/savemodule" />">Title/Authors...</a></li>
+         <li><a href="<c:url value="/u/r/savemodule" />">Concepts</a></li>
+         <li><a href="<c:url value="/u/r/savemodule" />">Instrument</a></li>
+      </ul>
 
-   <form action="<c:url value="/u/r/savemodule" />" method="post">
+      <form class="tab-box" action="<c:url value="/u/r/savemodule" />" method="post">
 
-      <div class="col w10">
          <h3>Study:</h3>
-         <input class="w12" type="text" name="study" value="">
-      </div>
+         <input class="w10" type="text" name="study" value="">
 
-      <div class="col w10">
          <h3>Title:</h3>
-         <input class="w12" type="text" name="title" value="">
-      </div>
+         <input class="w10" type="text" name="title" value="">
 
-      <div class="col w10">
          <h3>Module Authors:</h3>
-         <textarea class="w12" name="authors" rows="5"></textarea>
-      </div>
+         <textarea class="w10" name="authors" rows="5"></textarea>
 
-      <div class="col w10">
          <h3>Module Author's affiliation:</h3>
-         <textarea class="w12" name="affiliation" rows="5"></textarea>
-      </div>
+         <textarea class="w10" name="affiliation" rows="5"></textarea>
 
-      <div class="col w10">
          <h3>Abstract:</h3>
-         <textarea class="w12" name="abstract" rows="10"></textarea>
-      </div>
+         <textarea class="w10" name="abstract" rows="10"></textarea>
 
-      <div class="col w10">
          <h3>Repeat or new module?</h3>
          <p>(Module previously used in same study)</p>
          <div><input id="repeatYes" type="radio" name="repeat" value="yes"> <label for="repeatYes">Repeat</label></div>
          <div><input id="repeatNo" type="radio" name="repeat" value="no"> <label for="repeatNo">new</label></div>
-      </div>
-      
-      
-      <div class="col">
+
+
          <input class="button" type="submit" value="OK">
-      </div>
 
       </form>
+
+   </div>
+
 
 </div>
 

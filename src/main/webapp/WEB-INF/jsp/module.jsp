@@ -16,8 +16,6 @@
          </li>
       </c:forEach>
       </ul>
-      
-      <p><a href="<c:url value="/u/r/regmodule" />">Register new module</a></p>
 
    </div>
 </div>
