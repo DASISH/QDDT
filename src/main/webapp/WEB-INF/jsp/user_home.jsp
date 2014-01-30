@@ -6,15 +6,17 @@
 <div class="grid">
    <div class="col">
 
-
       <h2>Modules</h2>
+      <h3>Existing modules</h3>
       <ul>
       <c:forEach items="${modules}" var="m">
          <li><a href="<c:url value="/u/module?agency=${m.urn.agency}&id=${m.urn.id}" />">${m.study} - ${m.title}</a></li>
       </c:forEach>
       </ul>
       
-      <p><a href="<c:url value="/u/r/regmodule" />">Register new module</a></p>
+      <form action="<c:url value="/u/r/regmodule" />" method="get">
+         <input class="button" type="submit" value="New module">
+      </form>
 
    </div>
 </div>

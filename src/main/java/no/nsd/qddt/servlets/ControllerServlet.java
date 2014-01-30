@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.LoginAction;
 import no.nsd.qddt.actions.LogoutAction;
 import no.nsd.qddt.actions.ModuleAction;
+import no.nsd.qddt.actions.ModuleConceptAction;
+import no.nsd.qddt.actions.RegModuleAction;
 import no.nsd.qddt.actions.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 
@@ -44,9 +46,30 @@ public class ControllerServlet extends HttpServlet {
       else if (uri.equals(context + "/u/")) {
          new UserHomeAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/regmodule")) {
-         ServletUtil.forward("/WEB-INF/jsp/reg_module.jsp", request, response);
+      else if (uri.equals(context + "/u/r/modulescheme")) {
+         ServletUtil.forward("/WEB-INF/jsp/module_scheme.jsp", request, response);
       }
+      else if (uri.equals(context + "/u/r/moduledoc")) {
+         ServletUtil.forward("/WEB-INF/jsp/module_document.jsp", request, response);
+      }
+      else if (uri.equals(context + "/u/r/moduleoutput")) {
+         ServletUtil.forward("/WEB-INF/jsp/module_output.jsp", request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulequest")) {
+         ServletUtil.forward("/WEB-INF/jsp/module_questionnaire.jsp", request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulestatus")) {
+         ServletUtil.forward("/WEB-INF/jsp/module_status.jsp", request, response);
+      }
+
+      else if (uri.equals(context + "/u/r/regmodule")) {
+         new RegModuleAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/r/moduleconcept")) {
+         new ModuleConceptAction().process(request, response);
+      }
+
+      
       else if (uri.equals(context + "/u/r/savemodule")) {
          new SaveModuleAction().process(request, response);
       }

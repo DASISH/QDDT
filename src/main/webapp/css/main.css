@@ -34,7 +34,7 @@ body {
 
 h1 {
    font-family: Georgia, "Times New Roman", Times, serif;
-   font-size: 30px;
+   font-size: 24px;
    font-weight: normal;
    margin: 0 0 8px;
    margin-top: 0 !important;
@@ -129,11 +129,11 @@ caption {
 }
 th, td {
    border: 1px solid #DEE2E5;
-   padding: 4px 5px;
+   padding: 4px 6px;
    font-weight: normal;
 }
 td {
-   text-align: right;
+   text-align: left;
 }
 th {
    text-align: left;
@@ -143,7 +143,7 @@ thead th {
    text-align: center;
 }
 tbody th, tbody td {
-   padding: 2px 5px;
+   padding: 3px 6px;
    border-top: none;
    border-bottom: none;
 }
@@ -267,6 +267,14 @@ option {
  *****************************************************************************************************
  */
 
+.topmarg {
+   margin-top: 10px;
+}
+
+.border-r {
+   border-right: 1px solid #DDDDDD;
+}
+
 .titleheader {
    font-family: Helvetica, Arial, sans-serif;
    font-size: 22px;
@@ -297,11 +305,47 @@ option {
    padding-left: 0;
 }
 
+
+.link-list {
+ list-style: none;
+ margin: 0;
+ padding-left: 2px;
+}
+.link-list li {
+ border-bottom: 1px dotted #DDDDDD;
+ margin: 0;
+}
+.link-list a {
+ color: #454545;
+ display: block;
+ padding: 4px 0 4px 1px;
+}
+.link-list a:hover {
+ background-color: #EFEFEF;
+ border-bottom: 0;
+ color: #BB5555;
+}
+.link-list ul {
+ list-style: none;
+ margin: 0;
+ padding-left: 12px;
+}
+.link-list li ul li {
+ border-bottom: 0;
+ font-size: 11px;
+}
+
+.current {
+ background-color: #EFEFEF;
+}
+
+
+
 .header-tabs {
    border-bottom: 1px solid #DDDDDD;
    list-style-type: none;
    margin: 5px 0 0;
-   padding: 0 0 0 3px;
+   padding: 0 0 0 5px;
 }
 .header-tabs:after {
    content: "";
@@ -313,7 +357,7 @@ option {
    border-right: 1px solid #DDDDDD;
    border-top: 1px solid #DDDDDD;
    float: left;
-   margin: 0 5px -1px 0;
+   margin: 0 3px -1px 0;
    padding: 3px 5px;
 }
 .header-tabs a {
@@ -328,6 +372,7 @@ option {
    border-right: 1px solid #DDDDDD;
    border-bottom: 1px solid #DDDDDD;
    padding: 5px 15px;
+   min-height: 300px;
 }
 
 .nowrap {

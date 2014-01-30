@@ -6,16 +6,30 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Module</h1>
-      
-      <ul>
-      <c:forEach items="${modules}" var="m">
-         <li>
-            ${m.urn.version} - ${m.study} - ${m.title}
-            - <a href="<c:url value="/u/r/updatemodule" />">[Update module]</a>
-         </li>
-      </c:forEach>
-      </ul>
+      <h1>Module development history</h1>
+
+      <table>
+         <thead>
+            <tr>
+               <th>Version</th>
+               <th>Study</th>
+               <th>Title</th>
+               <th>Status</th>
+               <th>Action</th>
+            </tr>
+         </thead>
+         <tbody>
+            <c:forEach items="${modules}" var="m">
+               <tr>
+                  <td>${m.versionText}</td>
+                  <td>${m.study}</td>
+                  <td>${m.title}</td>
+                  <td>${m.statusText}</td>
+                  <td><a href="<c:url value="/u/r/regmodule?id=${m.id}" />">Update</a></td>
+               </tr>
+            </c:forEach>
+         </tbody>
+      </table>
 
    </div>
 </div>

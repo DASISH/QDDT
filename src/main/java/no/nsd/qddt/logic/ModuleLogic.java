@@ -35,12 +35,44 @@ public class ModuleLogic {
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
+
+   public void updateModule(Module module) throws SQLException {
+      String sql = "update module set "
+              + "module_study = ?, "
+              + "module_title = ?, "
+              + "module_authors = ?, "
+              + "module_authors_affiliation = ?, "
+              + "module_abstract = ?, "
+              + "repeat_module = ? "
+              + "where module_id = ?";
+
+      List values = new ArrayList();
+      values.add(module.getStudy());
+      values.add(module.getTitle());
+      values.add(module.getAuthors());
+      values.add(module.getAuthorsAffiliation());
+      values.add(module.getModuleAbstract());
+      values.add(module.getRepeat());
+      values.add(module.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
    
 
    public List<Module> getModules() throws SQLException {
       String sql = "select * from module";
       SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
       return this.getModuleList(rows);
+   }
+
+   public Module getModule(Integer id) throws SQLException {
+      String sql = "select * from module where module_id = ?";
+      
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(id);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      return this.getModuleFromFirstRow(rows);
    }
    
    public List<Module> getModules(Urn urn) throws SQLException {
@@ -65,10 +97,18 @@ public class ModuleLogic {
       }
       return modules;
    }
+
+   private Module getModuleFromFirstRow(SortedMap[] rows) throws SQLException {
+      if (rows == null || rows.length == 0) {
+         return null;
+      }
+      return this.getModule(rows[0]);
+   }
    
    private Module getModule(Map map) throws SQLException {
       Module module = new Module();
       module.setId((Integer) map.get("module_id"));
+      module.setStatus((Integer) map.get("module_status"));
       module.setUrn(this.getUrn(map));
       module.setStudy(SqlUtil.getString("module_study", map));
       module.setTitle(SqlUtil.getString("module_title", map));
@@ -76,6 +116,7 @@ public class ModuleLogic {
       module.setAuthorsAffiliation(SqlUtil.getString("module_authors_affiliation", map));
       module.setModuleAbstract(SqlUtil.getString("module_abstract", map));
       module.setRepeat((Boolean) map.get("repeat_module"));
+      module.setConceptSchemeId((Integer) map.get("concept_scheme_id"));
       return module;
    }   
    

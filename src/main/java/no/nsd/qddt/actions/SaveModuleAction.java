@@ -24,19 +24,30 @@ public class SaveModuleAction {
       this.response = response;
 
       this.createNewModule();
-      this.registerNewModule();
+      this.registerNewOrUpdateModule();
       this.redirectSuccessPage();
    }
    
    private void createNewModule() {
       module = new Module();
-      module.setUrn(UrnUtil.createNewUrn());
+      module.setId(this.getModuleId());
+      if (module.getId() == null) {
+         module.setUrn(UrnUtil.createNewUrn());
+      }
       module.setStudy(request.getParameter("study"));
       module.setTitle(request.getParameter("title"));
       module.setAuthors(request.getParameter("authors"));
       module.setAuthorsAffiliation(request.getParameter("affiliation"));
       module.setModuleAbstract(request.getParameter("abstract"));
       module.setRepeat(this.getRepeatValue());
+   }
+   
+   private Integer getModuleId() {
+      try {
+         return Integer.valueOf(request.getParameter("id"));
+      } catch (Exception ignored) {
+         return null;
+      }
    }
    
    private Boolean getRepeatValue() {
@@ -50,9 +61,10 @@ public class SaveModuleAction {
       return null;
    }
    
-   private void registerNewModule() throws ServletException {
+   private void registerNewOrUpdateModule() throws ServletException {
       try {
-         this.registerNewModuleDb();
+         conn = DatabaseConnectionFactory.getConnection();
+         this.registerNewOrUpdateModuleDb();
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {
@@ -60,14 +72,21 @@ public class SaveModuleAction {
       }
    }
    
-   private void registerNewModuleDb() throws Exception {
-      conn = DatabaseConnectionFactory.getConnection();
+   private void registerNewOrUpdateModuleDb() throws Exception {
       ModuleLogic logic = new ModuleLogic(conn);
-      logic.registerNewModule(module);
+      if (module.getId() == null) {
+         logic.registerNewModule(module);
+      } else {
+         logic.updateModule(module);
+      }
    }
    
    private void redirectSuccessPage() throws IOException {
-      ServletUtil.redirect("/u/", request, response);
+      if (module.getId() == null) {
+         ServletUtil.redirect("/u/", request, response);
+      } else {
+         ServletUtil.redirect("/u/r/regmodule?id=" + module.getId(), request, response);
+      }
    }
    
 }

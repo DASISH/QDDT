@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Module implements Serializable {
    
    private Integer id;
+   private Integer status;
    private Urn urn;
    private String study;
    private String title;
@@ -13,6 +14,9 @@ public class Module implements Serializable {
    private String moduleAbstract;
    private Boolean repeat;
 
+   private Integer conceptSchemeId;
+   
+   
    public Integer getId() {
       return id;
    }
@@ -20,6 +24,15 @@ public class Module implements Serializable {
    public void setId(Integer id) {
       this.id = id;
    }
+
+   public Integer getStatus() {
+      return status;
+   }
+
+   public void setStatus(Integer status) {
+      this.status = status;
+   }
+   
 
    public Urn getUrn() {
       return urn;
@@ -77,7 +90,56 @@ public class Module implements Serializable {
       this.repeat = repeat;
    }
 
+   public Integer getConceptSchemeId() {
+      return conceptSchemeId;
+   }
 
+   public void setConceptSchemeId(Integer conceptSchemeId) {
+      this.conceptSchemeId = conceptSchemeId;
+   }
+
+   public String getVersionText() {
+      if (this.isDraft()) {
+         return "Draft " + this.getSubMinorVersion();
+      } else {
+         return urn.getVersion();
+      }
+   }
+
+   public boolean isDraft() {
+      if (this.urn == null || this.urn.getVersion() == null) {
+         return false;
+      }
+      return this.urn.getVersion().startsWith("0.0.");
+   }
+
+   public String getSubMinorVersion() {
+      try {
+         String s = this.urn.getVersion();
+         int index = s.lastIndexOf(".");
+         return s.substring(index + 1);
+      } catch (Exception ignored) {
+         return null;
+      }
+   }
+   
+   public String getStatusText() {
+      if (this.status == null) {
+         return "";
+      }
+      if (this.status == 1) {
+         return "Development";
+      }
+      if (this.status == 2) {
+         return "Comment";
+      }
+      if (this.status == 3) {
+         return "Closed";
+      }
+      return "";
+   }
+   
+   
    @Override
    public int hashCode() {
       if (this.id == null) {
