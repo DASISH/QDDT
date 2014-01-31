@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
@@ -24,7 +24,7 @@
          <input type="hidden" name="id" value="${module.id}">
          
          <c:if test="${module.id == null}">
-            <h3>Version:</h3>
+            <h4>Version:</h4>
             <select name="version">
                <option value=""></option>
                <option value="draft">Draft</option>
@@ -32,26 +32,26 @@
             </select>
          </c:if>
          <c:if test="${module.id != null}">
-            <h3>Version: ${module.versionText}</h3>
+            <h4>Version: ${module.versionText}</h4>
          </c:if>
 
 
-         <h3>Study:</h3>
+         <h4>Study:</h4>
          <input class="w10" type="text" name="study" value="${module.study}">
 
-         <h3>Title:</h3>
+         <h4>Title:</h4>
          <input class="w10" type="text" name="title" value="${module.title}">
 
-         <h3>Module Authors:</h3>
+         <h4>Module Authors:</h4>
          <textarea class="w10" name="authors" rows="5">${module.authors}</textarea>
 
-         <h3>Module Author's affiliation:</h3>
+         <h4>Module Author's affiliation:</h4>
          <textarea class="w10" name="affiliation" rows="5">${module.authorsAffiliation}</textarea>
 
-         <h3>Abstract:</h3>
+         <h4>Abstract:</h4>
          <textarea class="w10" name="abstract" rows="10">${module.moduleAbstract}</textarea>
 
-         <h3>Repeat or new module?</h3>
+         <h4>Repeat or new module?</h4>
          <div><input id="repeatYes" type="radio" name="repeat" value="yes" ${module.repeat ? 'checked' : ''}> <label for="repeatYes">Repeat</label></div>
          <div><input id="repeatNo" type="radio" name="repeat" value="no" ${module.repeat ? '' : 'checked'} > <label for="repeatNo">new</label></div>
 

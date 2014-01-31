@@ -62,6 +62,7 @@ public class ModuleConceptAction {
          conn = DatabaseConnectionFactory.getConnection();
          this.setModulesDb();
          this.setConceptsDb();
+         this.setConceptDb();
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {
@@ -74,14 +75,15 @@ public class ModuleConceptAction {
       module = logic.getModule(id);
       request.setAttribute("module", module);
    }
-
    private void setConceptsDb() throws Exception {
       ConceptLogic logic = new ConceptLogic(conn);
       ConceptScheme conceptScheme = logic.getConceptsForScheme(module.getConceptSchemeId());
       request.setAttribute("conceptScheme", conceptScheme);
-      
+   }
+   private void setConceptDb() throws Exception {
       if (this.conceptId != null) {
-         Concept c = conceptScheme.getConcept(conceptId);
+         ConceptLogic logic = new ConceptLogic(conn);
+         Concept c = logic.getConcept(conceptId);
          request.setAttribute("concept", c);
       }
    }

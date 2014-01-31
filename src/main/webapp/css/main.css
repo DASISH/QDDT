@@ -77,7 +77,7 @@ h4 {
    color: #666666;
    font-size: 12px;
    font-weight: bold;
-   margin: 6px 0 2px;
+   margin: 10px 0 2px;
 }
 
 h5 {
@@ -272,8 +272,26 @@ option {
 }
 
 .border-r {
-   border-right: 1px solid #DDDDDD;
+   border-right: 1px dotted #DDDDDD;
 }
+
+.padding-l {
+   padding-left: 10px;
+}
+.padding-r {
+   padding-right: 10px;
+}
+
+.boxheader {
+   background-color: #999999;
+   color: #FEFEFE;
+   font-family: Helvetica, Arial, sans-serif;
+   font-size: 14px;
+   font-weight: bold;
+   margin: 12px 0 6px;
+   padding: 4px 5px;
+}
+
 
 .titleheader {
    font-family: Helvetica, Arial, sans-serif;
@@ -337,6 +355,7 @@ option {
 
 .current {
  background-color: #EFEFEF;
+ font-weight: bold;
 }
 
 

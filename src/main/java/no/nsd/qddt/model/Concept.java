@@ -8,6 +8,9 @@ public class Concept implements Serializable {
    
    private Integer id;
    private String name;
+   private String label;
+   private String description;
+   private String relationshipConcept;
    private Integer parentConceptId;
    private List<Concept> subConcepts;
    
@@ -29,6 +32,30 @@ public class Concept implements Serializable {
 
    public void setName(String name) {
       this.name = name;
+   }
+
+   public String getLabel() {
+      return label;
+   }
+
+   public void setLabel(String label) {
+      this.label = label;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public String getRelationshipConcept() {
+      return relationshipConcept;
+   }
+
+   public void setRelationshipConcept(String relationshipConcept) {
+      this.relationshipConcept = relationshipConcept;
    }
 
    public List<Concept> getSubConcepts() {

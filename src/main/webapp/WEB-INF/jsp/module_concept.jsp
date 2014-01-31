@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
@@ -22,16 +23,16 @@
       <div class="tab-box">
 
          <div class="grid">
-            <div class="col w4 border-r">
+            <div class="col w4 border-r padding-r">
 
-               <h3>Concept hierarchy</h3>
+               <div class="boxheader">Concept hierarchy</div>
                <ul class="link-list">
                   <c:forEach items="${conceptScheme.concepts}" var="c">
-                     <li><a href="?id=${param.id}&cid=${c.id}"><c:out value="${c.name}" default="(name missing)" /></a>
+                     <li><a ${param.cid eq c.id ? 'class="current"' : ''} href="?id=${param.id}&cid=${c.id}"><c:out value="${c.name}" default="(name missing)" /></a>
                         <c:if test="${!empty c.subConcepts}">
                            <ul>
                               <c:forEach items="${c.subConcepts}" var="sub">
-                                 <li><a href="?id=${param.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
+                                 <li><a ${param.cid eq sub.id ? 'class="current"' : ''} href="?id=${param.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
                               </c:forEach>
                            </ul>
                         </c:if>
@@ -39,28 +40,28 @@
                      </c:forEach>
                </ul>
             </div>
-            <div class="col w8">
+            <div class="col w8 padding-l">
 
-               <h3>Concepts and questions</h3>
+               <div class="boxheader">Concept</div>
 
 
                <form action="<c:url value="" />" method="post">
                   <input type="hidden" name="id" value="${module.id}">
                   <input type="hidden" name="cid" value="${concept.id}">
 
-                  <h3>Name:</h3>
-                  <input class="w10" type="text" name="name" value="${concept.name}">
+                  <h4>Name:</h4>
+                  <input class="w10" type="text" name="name" value="${fn:escapeXml(concept.name)}">
 
-                  <h3>Label:</h3>
-                  <input class="w10" type="text" name="label" value="${concept.name}">
+                  <h4>Label:</h4>
+                  <input class="w10" type="text" name="label" value="${concept.label}">
 
-                  <h3>description:</h3>
-                  <textarea class="w10" name="description" rows="5">${concept.name}</textarea>
+                  <h4>Description:</h4>
+                  <textarea class="w10" name="description" rows="5">${concept.description}</textarea>
 
-                  <h3>relationship_concept:</h3>
-                  <textarea class="w10" name="relationship_concept" rows="5">${concept.name}</textarea>
+                  <h4>Relationship with other concepts:</h4>
+                  <textarea class="w10" name="relationship_concept" rows="5">${concept.relationshipConcept}</textarea>
 
-                  <input class="button topmarg" type="submit" value="Save">
+                  <div><input class="button topmarg" type="submit" value="Save"></div>
                </form>
 
                

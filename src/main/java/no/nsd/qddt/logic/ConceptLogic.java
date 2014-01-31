@@ -18,6 +18,20 @@ public class ConceptLogic {
    public ConceptLogic(Connection conn) {
       this.conn = conn;
    }
+
+   public Concept getConcept(Integer id) throws SQLException {
+      String sql = "select * from concept where concept_id = ?";
+      
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(id);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      List<Concept> list = this.getConceptList(rows);
+      if (list == null || list.isEmpty()) {
+         return null;
+      }
+      return list.get(0);
+   }
    
 
 
@@ -69,6 +83,9 @@ public class ConceptLogic {
       concept.setId((Integer) map.get("concept_id"));
       concept.setParentConceptId((Integer) map.get("parent_concept_id"));
       concept.setName(SqlUtil.getString("concept_name", map));
+      concept.setLabel(SqlUtil.getString("label", map));
+      concept.setDescription(SqlUtil.getString("description", map));
+      concept.setRelationshipConcept(SqlUtil.getString("relationship_concept", map));
       return concept;
    }   
    
