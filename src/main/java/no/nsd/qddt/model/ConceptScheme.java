@@ -24,6 +24,14 @@ public class ConceptScheme implements Serializable {
       this.id = id;
    }
 
+   public SortedMap<Integer, Concept> getConceptMap() {
+      return conceptMap;
+   }
+
+   public void setConceptMap(SortedMap<Integer, Concept> conceptMap) {
+      this.conceptMap = conceptMap;
+   }
+
    public Collection<Concept> getConcepts() {
       return this.conceptMap.values();
    }

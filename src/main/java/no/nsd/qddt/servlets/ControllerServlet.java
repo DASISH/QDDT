@@ -9,6 +9,11 @@ import no.nsd.qddt.actions.LoginAction;
 import no.nsd.qddt.actions.LogoutAction;
 import no.nsd.qddt.actions.ModuleAction;
 import no.nsd.qddt.actions.ModuleConceptAction;
+import no.nsd.qddt.actions.ModuleDocumentAction;
+import no.nsd.qddt.actions.ModuleQuestionnaireAction;
+import no.nsd.qddt.actions.ModuleReportAction;
+import no.nsd.qddt.actions.ModuleSchemeAction;
+import no.nsd.qddt.actions.ModuleStatusAction;
 import no.nsd.qddt.actions.RegModuleAction;
 import no.nsd.qddt.actions.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
@@ -46,27 +51,27 @@ public class ControllerServlet extends HttpServlet {
       else if (uri.equals(context + "/u/")) {
          new UserHomeAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/modulescheme")) {
-         ServletUtil.forward("/WEB-INF/jsp/module_scheme.jsp", request, response);
-      }
-      else if (uri.equals(context + "/u/r/moduledoc")) {
-         ServletUtil.forward("/WEB-INF/jsp/module_document.jsp", request, response);
-      }
-      else if (uri.equals(context + "/u/r/moduleoutput")) {
-         ServletUtil.forward("/WEB-INF/jsp/module_output.jsp", request, response);
-      }
-      else if (uri.equals(context + "/u/r/modulequest")) {
-         ServletUtil.forward("/WEB-INF/jsp/module_questionnaire.jsp", request, response);
-      }
-      else if (uri.equals(context + "/u/r/modulestatus")) {
-         ServletUtil.forward("/WEB-INF/jsp/module_status.jsp", request, response);
-      }
 
       else if (uri.equals(context + "/u/r/regmodule")) {
          new RegModuleAction().process(request, response);
       }
+      else if (uri.equals(context + "/u/r/moduledoc")) {
+         new ModuleDocumentAction().process(request, response);
+      }
       else if (uri.equals(context + "/u/r/moduleconcept")) {
          new ModuleConceptAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulescheme")) {
+         new ModuleSchemeAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulequest")) {
+         new ModuleQuestionnaireAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulereport")) {
+         new ModuleReportAction().process(request, response);
+      }
+      else if (uri.equals(context + "/u/r/modulestatus")) {
+         new ModuleStatusAction().process(request, response);
       }
 
       

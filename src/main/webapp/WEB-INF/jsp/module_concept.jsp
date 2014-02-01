@@ -10,15 +10,9 @@
       
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
       
-      <ul class="header-tabs">
-         <li><a href="<c:url value="/u/r/regmodule?id=${param.id}" />">Title/Authors...</a></li>
-         <li><a href="<c:url value="/u/r/moduledoc?id=${param.id}" />">Background documents</a></li>
-         <li class="active-tab"><a href="<c:url value="/u/r/moduleconcept?id=${param.id}" />">Concepts/Questions</a></li>
-         <li><a href="<c:url value="/u/r/modulescheme?id=${param.id}" />">Question scheme</a></li>
-         <li><a href="<c:url value="/u/r/modulequest?id=${param.id}" />">Questionnaire</a></li>
-         <li><a href="<c:url value="/u/r/moduleoutput?id=${param.id}" />">Outputs</a></li>
-         <li><a href="<c:url value="/u/r/modulestatus?id=${param.id}" />">Status</a></li>
-      </ul>
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
+         <c:param name="page" value="concept" />
+      </c:import>
 
       <div class="tab-box">
 
@@ -53,18 +47,57 @@
                   <input class="w10" type="text" name="name" value="${fn:escapeXml(concept.name)}">
 
                   <h4>Label:</h4>
-                  <input class="w10" type="text" name="label" value="${concept.label}">
+                  <input class="w10" type="text" name="label" value="${fn:escapeXml(concept.label)}">
 
                   <h4>Description:</h4>
-                  <textarea class="w10" name="description" rows="5">${concept.description}</textarea>
+                  <textarea class="w10" name="description" rows="5">${fn:escapeXml(concept.description)}</textarea>
 
                   <h4>Relationship with other concepts:</h4>
-                  <textarea class="w10" name="relationship_concept" rows="5">${concept.relationshipConcept}</textarea>
+                  <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
 
-                  <div><input class="button topmarg" type="submit" value="Save"></div>
+                  <c:if test="${param.cid == null}"><div><input class="button topmarg" type="submit" value="Register new concept"></div></c:if>
+                  
+                  <c:if test="${param.cid != null}">
+                     <div class="topmarg">
+                        <input class="button" type="submit" value="Update concept">
+                        <input class="deletebutton" type="submit" value="Remove concept">
+                     </div>
+                     
+                     <h3>Comments</h3>
+                     
+                     <a href="">Add comment to this concept</a>
+                     
+                  </c:if>
+                  
                </form>
 
-               
+               <c:if test="${concept.id != null}">
+                  
+                  <div class="boxheader">Sub-concepts</div>
+                  
+                  <c:set var="c" value="${conceptScheme.conceptMap[concept.id]}" />
+                  <ul class="plain-list">
+                  <c:forEach items="${c.subConcepts}" var="sub">
+                     <li><a href="?id=${param.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a></li>
+                  </c:forEach>
+                  </ul>
+                  
+                  <form action="<c:url value="" />" method="post">
+                     <input class="button" type="submit" value="Add sub-concept">
+                  </form>
+
+                     
+                  <div class="boxheader">Questions</div>
+                     
+                  <form action="<c:url value="" />" method="post">
+                     <input class="button" type="submit" value="Add question">
+                  </form>
+                     
+                     <h3>Comments</h3>
+                     
+                     <a href="">Add comment to question group</a>
+                     
+               </c:if>
                
                
                

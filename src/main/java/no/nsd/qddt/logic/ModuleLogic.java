@@ -60,7 +60,9 @@ public class ModuleLogic {
    
 
    public List<Module> getModules() throws SQLException {
-      String sql = "select * from module";
+      String sql = "select * from module " 
+              + "where module_id in (select max(module_id) from module group by urn_id) " 
+              + "order by module_study, module_title";
       SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
       return this.getModuleList(rows);
    }

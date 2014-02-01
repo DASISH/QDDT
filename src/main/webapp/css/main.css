@@ -317,6 +317,11 @@ option {
    padding: 3px 15px;
    width: auto;
 }
+.deletebutton {
+   background-color: lightpink;
+   padding: 3px 15px;
+   width: auto;
+}
 
 .plain-list {
    list-style: none;

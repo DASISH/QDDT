@@ -28,6 +28,12 @@ public class Module implements Serializable {
    public Integer getStatus() {
       return status;
    }
+   public Long getStatusAsLong() {
+      if (status == null) {
+         return null;
+      }
+      return status.longValue();
+   }
 
    public void setStatus(Integer status) {
       this.status = status;

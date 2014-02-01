@@ -1,26 +1,32 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
 <div class="grid">
 
    <div class="col">
-      <h1>New module</h1>
-      <ul class="header-tabs">
-         <li><a href="<c:url value="/u/r/regmodule?id=${param.id}" />">Title/Authors...</a></li>
-         <li><a href="<c:url value="/u/r/moduledoc?id=${param.id}" />">Background documents</a></li>
-         <li><a href="<c:url value="/u/r/moduleconcept?id=${param.id}" />">Concepts/Questions</a></li>
-         <li><a href="<c:url value="/u/r/modulescheme?id=${param.id}" />">Question scheme</a></li>
-         <li><a href="<c:url value="/u/r/modulequest?id=${param.id}" />">Questionnaire</a></li>
-         <li><a href="<c:url value="/u/r/moduleoutput?id=${param.id}" />">Outputs</a></li>
-         <li class="active-tab"><a href="<c:url value="/u/r/modulestatus?id=${param.id}" />">Status</a></li>
-      </ul>
+      <c:import url="/WEB-INF/jspf/module_header.jsp" />
+      
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
+         <c:param name="page" value="status" />
+      </c:import>
 
       <div class="tab-box">
 
-         <h3>Module status</h3>
-         <p>(Not implemented.)</p>
+         <h3>The status of this module version (${fn:escapeXml(module.versionText)}) is: "${fn:escapeXml(module.statusText)}"</h3>
+         
+         <c:if test="${module.statusAsLong eq 1}">
+            <form action="<c:url value="" />" method="post">
+               <input class="button" type="submit" value="Change status to comment">
+            </form>
+         </c:if>
+         <c:if test="${module.statusAsLong eq 2}">
+            <form action="<c:url value="" />" method="post">
+               <input class="button" type="submit" value="Change status to closed">
+            </form>
+         </c:if>
 
       </div>
 

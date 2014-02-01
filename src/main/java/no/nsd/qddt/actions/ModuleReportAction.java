@@ -12,7 +12,7 @@ import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.Urn;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class RegModuleAction {
+public class ModuleReportAction {
 
    private Integer id;
    private Urn urn;
@@ -62,7 +62,7 @@ public class RegModuleAction {
    }
    
    private void forwardPage() throws ServletException, IOException {
-      ServletUtil.forward("/WEB-INF/jsp/module_title.jsp", request, response);
+      ServletUtil.forward("/WEB-INF/jsp/module_report.jsp", request, response);
    }
    
 }
