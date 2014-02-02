@@ -55,15 +55,22 @@
                   <h4>Relationship with other concepts:</h4>
                   <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
 
-                  <c:if test="${param.cid == null}"><div><input class="button topmarg" type="submit" value="Register new concept"></div></c:if>
+                  <c:if test="${param.cid == null}"><div><input class="okbutton topmarg" type="submit" value="Register new concept"></div></c:if>
                   
                   <c:if test="${param.cid != null}">
                      <div class="topmarg">
-                        <input class="button" type="submit" value="Update concept">
+                        <input class="okbutton" type="submit" value="Update concept">
                         <input class="deletebutton" type="submit" value="Remove concept">
                      </div>
                      
                      <h3>Comments</h3>
+                     
+                     <c:forEach items="${comments}" var="comment">
+                        <div class="comment w10">
+                           <strong>(source: ${fn:escapeXml(comment.source)})</strong><br>
+                           ${fn:escapeXml(comment.text)}
+                        </div>
+                     </c:forEach>
                      
                      <a href="">Add comment to this concept</a>
                      

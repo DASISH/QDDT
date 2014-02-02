@@ -52,7 +52,7 @@
          <div><input id="repeatNo" type="radio" name="repeat" value="no" ${module.repeat ? '' : 'checked'} > <label for="repeatNo">new</label></div>
 
 
-         <input class="button topmarg" type="submit" value="Save">
+         <input class="okbutton topmarg" type="submit" value="Save">
 
       </form>
 

@@ -289,7 +289,7 @@ option {
    font-size: 14px;
    font-weight: bold;
    margin: 12px 0 6px;
-   padding: 4px 5px;
+   padding: 5px;
 }
 
 
@@ -311,14 +311,26 @@ option {
    border-bottom: 1px dotted #FFFFFF;
 }
 
+.comment {
+   background-color: lightyellow;
+   border: 1px solid #CCCCCC;
+   padding: 5px;
+   margin-bottom: 10px;
+}
+
 
 .button {
-   background-color: lightgreen;
+   background-color: lightblue;
    padding: 3px 15px;
    width: auto;
 }
 .deletebutton {
-   background-color: lightpink;
+   background-color: pink;
+   padding: 3px 15px;
+   width: auto;
+}
+.okbutton {
+   background-color: lightgreen;
    padding: 3px 15px;
    width: auto;
 }

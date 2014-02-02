@@ -7,9 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
+import no.nsd.qddt.logic.CommentLogic;
 import no.nsd.qddt.logic.ConceptLogic;
 import no.nsd.qddt.logic.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.model.Comment;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.Module;
@@ -63,6 +65,7 @@ public class ModuleConceptAction {
          this.setModulesDb();
          this.setConceptsDb();
          this.setConceptDb();
+         this.setCommentDb();
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {
@@ -85,6 +88,13 @@ public class ModuleConceptAction {
          ConceptLogic logic = new ConceptLogic(conn);
          Concept c = logic.getConcept(conceptId);
          request.setAttribute("concept", c);
+      }
+   }
+   private void setCommentDb() throws Exception {
+      if (this.conceptId != null) {
+         CommentLogic logic = new CommentLogic(conn);
+         List<Comment> c = logic.getComments(id, conceptId);
+         request.setAttribute("comments", c);
       }
    }
    
