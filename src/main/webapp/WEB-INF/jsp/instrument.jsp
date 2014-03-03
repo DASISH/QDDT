@@ -9,12 +9,12 @@
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
       
       <c:import url="/WEB-INF/jspf/module_tabs.jsp">
-         <c:param name="page" value="scheme" />
+         <c:param name="page" value="instrument" />
       </c:import>
 
       <div class="tab-box">
 
-         <h3>Question scheme</h3>
+         <h3>Instrument</h3>
          <p>(Not implemented.)</p>
 
       </div>

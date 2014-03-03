@@ -5,18 +5,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import no.nsd.qddt.actions.LoginAction;
-import no.nsd.qddt.actions.LogoutAction;
-import no.nsd.qddt.actions.ModuleAction;
-import no.nsd.qddt.actions.ModuleConceptAction;
-import no.nsd.qddt.actions.ModuleDocumentAction;
-import no.nsd.qddt.actions.ModuleQuestionnaireAction;
-import no.nsd.qddt.actions.ModuleReportAction;
-import no.nsd.qddt.actions.ModuleSchemeAction;
-import no.nsd.qddt.actions.ModuleStatusAction;
-import no.nsd.qddt.actions.RegModuleAction;
-import no.nsd.qddt.actions.SaveModuleAction;
+import no.nsd.qddt.actions.UserLoginAction;
+import no.nsd.qddt.actions.UserLogoutAction;
+import no.nsd.qddt.actions.HistoryAction;
+import no.nsd.qddt.actions.ConceptSchemeAction;
+import no.nsd.qddt.actions.DocumentAction;
+import no.nsd.qddt.actions.InstrumentAction;
+import no.nsd.qddt.actions.ReportAction;
+import no.nsd.qddt.actions.QuestionSchemeAction;
+import no.nsd.qddt.actions.StatusAction;
+import no.nsd.qddt.actions.TitleAction;
+import no.nsd.qddt.actions.update.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
+import no.nsd.qddt.model.Module;
+import no.nsd.qddt.service.ModuleService;
 
 public class ControllerServlet extends HttpServlet {
 
@@ -34,6 +36,23 @@ public class ControllerServlet extends HttpServlet {
       request.setCharacterEncoding("UTF-8");
       response.setContentType("text/html;charset=UTF-8");
       
+      
+      this.setModule(request);
+      this.urlMapping(request, response);
+   }
+   
+   private void setModule(HttpServletRequest request) throws ServletException {
+      Integer moduleId = ServletUtil.getRequestParamAsInteger(request, "mid");
+
+      if (moduleId == null) {
+         return;
+      }
+      
+      Module module = ModuleService.getModule(moduleId);
+      request.setAttribute("module", module);
+   }
+   
+   private void urlMapping(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String uri = ServletUtil.getUriWithoutJsessionId(request.getRequestURI());
       String context = request.getContextPath();
       
@@ -42,52 +61,53 @@ public class ControllerServlet extends HttpServlet {
       }
       
       else if (uri.equals(context + "/login")) {
-         new LoginAction().process(request, response);
+         new UserLoginAction().process(request, response);
       }
       else if (uri.equals(context + "/logout")) {
-         new LogoutAction().process(request, response);
+         new UserLogoutAction().process(request, response);
       }
 
       else if (uri.equals(context + "/u/")) {
          new UserHomeAction().process(request, response);
       }
 
-      else if (uri.equals(context + "/u/r/regmodule")) {
-         new RegModuleAction().process(request, response);
+      else if (uri.equals(context + "/u/title")) {
+         new TitleAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/moduledoc")) {
-         new ModuleDocumentAction().process(request, response);
+      else if (uri.equals(context + "/u/document")) {
+         new DocumentAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/moduleconcept")) {
-         new ModuleConceptAction().process(request, response);
+      else if (uri.equals(context + "/u/conceptscheme")) {
+         new ConceptSchemeAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/modulescheme")) {
-         new ModuleSchemeAction().process(request, response);
+      else if (uri.equals(context + "/u/questionscheme")) {
+         new QuestionSchemeAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/modulequest")) {
-         new ModuleQuestionnaireAction().process(request, response);
+      else if (uri.equals(context + "/u/instrument")) {
+         new InstrumentAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/modulereport")) {
-         new ModuleReportAction().process(request, response);
+      else if (uri.equals(context + "/u/report")) {
+         new ReportAction().process(request, response);
       }
-      else if (uri.equals(context + "/u/r/modulestatus")) {
-         new ModuleStatusAction().process(request, response);
+      else if (uri.equals(context + "/u/status")) {
+         new StatusAction().process(request, response);
       }
 
       
+      else if (uri.equals(context + "/u/history")) {
+         new HistoryAction().process(request, response);
+      }
+
       else if (uri.equals(context + "/u/r/savemodule")) {
          new SaveModuleAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/module")) {
-         new ModuleAction().process(request, response);
       }
       
       else {
          ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response);
       }
-      
-      
    }
+   
+   
    
    
    @Override

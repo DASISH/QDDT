@@ -29,13 +29,13 @@
                   
                   <td>
                      <c:if test="${m.statusAsLong eq 1}">
-                        <a href="<c:url value="/u/r/regmodule?id=${m.id}" />">Update</a>
+                        <a href="<c:url value="/u/title?mid=${m.id}" />">Update</a>
                      </c:if>
                      <c:if test="${m.statusAsLong eq 2}">
-                        <a href="<c:url value="/u/r/regmodule?id=${m.id}" />">View/Comment</a>
+                        <a href="<c:url value="/u/title?mid=${m.id}" />">View/Comment</a>
                      </c:if>
                      <c:if test="${m.statusAsLong eq 3}">
-                        <a href="<c:url value="/u/r/regmodule?id=${m.id}" />">View</a>
+                        <a href="<c:url value="/u/title?mid=${m.id}" />">View</a>
                      </c:if>
                   </td>
                </tr>

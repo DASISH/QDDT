@@ -35,4 +35,13 @@ public class ServletUtil {
       return uri.substring(0, i);
    }
    
+   public static Integer getRequestParamAsInteger(HttpServletRequest request, String param) {
+      try {
+         return Integer.valueOf(request.getParameter(param));
+      } catch (Exception ignored) {
+         return null;
+      }      
+   }
+   
+   
 }

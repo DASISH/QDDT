@@ -17,7 +17,7 @@
 
       <form class="tab-box" action="<c:url value="/u/r/savemodule" />" method="post">
 
-         <input type="hidden" name="id" value="${module.id}">
+         <input type="hidden" name="mid" value="${module.id}">
          
          <c:if test="${module.id == null}">
             <h4>Version:</h4>

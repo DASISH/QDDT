@@ -4,17 +4,23 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class LogoutAction {
+public class ReportAction {
+
+   private HttpServletRequest request;
+   private HttpServletResponse response;
    
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      HttpSession session = request.getSession();
-      session.invalidate();
-      
-      ServletUtil.redirect("/", request, response);
+      this.request = request;
+      this.response = response;
+
+      this.forwardPage();
    }
    
+   
+   private void forwardPage() throws ServletException, IOException {
+      ServletUtil.forward("/WEB-INF/jsp/report.jsp", request, response);
+   }
    
 }

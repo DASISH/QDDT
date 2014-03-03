@@ -1,4 +1,4 @@
-package no.nsd.qddt.actions;
+package no.nsd.qddt.actions.update;
 
 import java.io.IOException;
 import java.sql.Connection;
