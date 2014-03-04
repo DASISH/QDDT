@@ -56,55 +56,28 @@ public class ControllerServlet extends HttpServlet {
       String uri = ServletUtil.getUriWithoutJsessionId(request.getRequestURI());
       String context = request.getContextPath();
       
-      if (uri.equals(context + "/")) {
-         ServletUtil.forward("/WEB-INF/jsp/index.jsp", request, response);
-      }
+      if (uri.equals(context + "/")) { ServletUtil.forward("/WEB-INF/jsp/index.jsp", request, response); }
       
-      else if (uri.equals(context + "/login")) {
-         new UserLoginAction().process(request, response);
-      }
-      else if (uri.equals(context + "/logout")) {
-         new UserLogoutAction().process(request, response);
-      }
+      else if (uri.equals(context + "/login")) { new UserLoginAction().process(request, response); }
+      else if (uri.equals(context + "/logout")) { new UserLogoutAction().process(request, response); }
 
-      else if (uri.equals(context + "/u/")) {
-         new UserHomeAction().process(request, response);
-      }
+      else if (uri.equals(context + "/u/")) { new UserHomeAction().process(request, response); }
 
-      else if (uri.equals(context + "/u/title")) {
-         new TitleAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/document")) {
-         new DocumentAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/conceptscheme")) {
-         new ConceptSchemeAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/questionscheme")) {
-         new QuestionSchemeAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/instrument")) {
-         new InstrumentAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/report")) {
-         new ReportAction().process(request, response);
-      }
-      else if (uri.equals(context + "/u/status")) {
-         new StatusAction().process(request, response);
-      }
+      else if (uri.equals(context + "/u/title")) { new TitleAction().process(request, response); }
+      else if (uri.equals(context + "/u/document")) { new DocumentAction().process(request, response); }
+      else if (uri.equals(context + "/u/conceptscheme")) { new ConceptSchemeAction().process(request, response); }
+      else if (uri.equals(context + "/u/questionscheme")) { new QuestionSchemeAction().process(request, response); }
+      else if (uri.equals(context + "/u/instrument")) { new InstrumentAction().process(request, response); }
+      else if (uri.equals(context + "/u/report")) { new ReportAction().process(request, response); }
+      else if (uri.equals(context + "/u/status")) { new StatusAction().process(request, response); }
 
       
-      else if (uri.equals(context + "/u/history")) {
-         new HistoryAction().process(request, response);
-      }
+      else if (uri.equals(context + "/u/history")) { new HistoryAction().process(request, response); }
 
-      else if (uri.equals(context + "/u/r/savemodule")) {
-         new SaveModuleAction().process(request, response);
-      }
+      else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }
       
-      else {
-         ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response);
-      }
+      else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }
+      
    }
    
    

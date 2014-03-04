@@ -3,7 +3,7 @@ package no.nsd.qddt.service;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.ConceptLogic;
+import no.nsd.qddt.logic.orm.ConceptLogic;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;

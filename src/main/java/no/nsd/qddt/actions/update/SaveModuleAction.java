@@ -6,9 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.UrnUtil;
+import no.nsd.qddt.logic.orm.persistence.ModulePersistenceLogic;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.servlets.ServletUtil;
 
@@ -73,7 +73,7 @@ public class SaveModuleAction {
    }
    
    private void registerNewOrUpdateModuleDb() throws Exception {
-      ModuleLogic logic = new ModuleLogic(conn);
+      ModulePersistenceLogic logic = new ModulePersistenceLogic(conn);
       if (module.getId() == null) {
          logic.registerNewModule(module);
       } else {

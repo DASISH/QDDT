@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic;
+package no.nsd.qddt.logic.orm;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.Urn;
