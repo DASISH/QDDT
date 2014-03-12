@@ -5,17 +5,11 @@ import java.io.Serializable;
 public class Module implements Serializable {
    
    private Integer id;
-   private Integer status;
-   private Urn urn;
-   private String study;
-   private String title;
-   private String authors;
-   private String authorsAffiliation;
-   private String moduleAbstract;
+   private Agency agency;
+   private String urnId;
+   private Study study;
+   private String name;
    private Boolean repeat;
-
-   private Integer conceptSchemeId;
-   
    
    public Integer getId() {
       return id;
@@ -25,67 +19,36 @@ public class Module implements Serializable {
       this.id = id;
    }
 
-   public Integer getStatus() {
-      return status;
-   }
-   public Long getStatusAsLong() {
-      if (status == null) {
-         return null;
-      }
-      return status.longValue();
+   public Agency getAgency() {
+      return agency;
    }
 
-   public void setStatus(Integer status) {
-      this.status = status;
-   }
-   
-
-   public Urn getUrn() {
-      return urn;
+   public void setAgency(Agency agency) {
+      this.agency = agency;
    }
 
-   public void setUrn(Urn urn) {
-      this.urn = urn;
+   public String getUrnId() {
+      return urnId;
    }
 
-   public String getTitle() {
-      return title;
+   public void setUrnId(String urnId) {
+      this.urnId = urnId;
    }
 
-   public void setTitle(String title) {
-      this.title = title;
-   }
-
-   public String getStudy() {
+   public Study getStudy() {
       return study;
    }
 
-   public void setStudy(String study) {
+   public void setStudy(Study study) {
       this.study = study;
    }
 
-   public String getAuthors() {
-      return authors;
+   public String getName() {
+      return name;
    }
 
-   public void setAuthors(String authors) {
-      this.authors = authors;
-   }
-
-   public String getAuthorsAffiliation() {
-      return authorsAffiliation;
-   }
-
-   public void setAuthorsAffiliation(String authorsAffiliation) {
-      this.authorsAffiliation = authorsAffiliation;
-   }
-
-   public String getModuleAbstract() {
-      return moduleAbstract;
-   }
-
-   public void setModuleAbstract(String moduleAbstract) {
-      this.moduleAbstract = moduleAbstract;
+   public void setName(String name) {
+      this.name = name;
    }
 
    public Boolean getRepeat() {
@@ -95,56 +58,7 @@ public class Module implements Serializable {
    public void setRepeat(Boolean repeat) {
       this.repeat = repeat;
    }
-
-   public Integer getConceptSchemeId() {
-      return conceptSchemeId;
-   }
-
-   public void setConceptSchemeId(Integer conceptSchemeId) {
-      this.conceptSchemeId = conceptSchemeId;
-   }
-
-   public String getVersionText() {
-      if (this.isDraft()) {
-         return "Draft " + this.getSubMinorVersion();
-      } else {
-         return urn.getVersion();
-      }
-   }
-
-   public boolean isDraft() {
-      if (this.urn == null || this.urn.getVersion() == null) {
-         return false;
-      }
-      return this.urn.getVersion().startsWith("0.0.");
-   }
-
-   public String getSubMinorVersion() {
-      try {
-         String s = this.urn.getVersion();
-         int index = s.lastIndexOf(".");
-         return s.substring(index + 1);
-      } catch (Exception ignored) {
-         return null;
-      }
-   }
-   
-   public String getStatusText() {
-      if (this.status == null) {
-         return "";
-      }
-      if (this.status == 1) {
-         return "Development";
-      }
-      if (this.status == 2) {
-         return "Comment";
-      }
-      if (this.status == 3) {
-         return "Closed";
-      }
-      return "";
-   }
-   
+  
    
    @Override
    public int hashCode() {
@@ -169,7 +83,7 @@ public class Module implements Serializable {
 
    @Override
    public String toString() {
-      return this.title;
+      return this.name;
    }
    
 }

@@ -17,18 +17,14 @@ public class ModulePersistenceLogic {
    
    public void registerNewModule(Module module) throws SQLException {
       String sql = "insert into "
-              + "module(urn_agency, urn_id, urn_version, module_study, module_title, module_authors, module_authors_affiliation, module_abstract, repeat_module) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+              + "module(agency_id, study_id, urn_id, name, repeat_module) "
+              + "values (?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
-      values.add(module.getUrn().getAgency());
-      values.add(module.getUrn().getId());
-      values.add(module.getUrn().getVersion());
-      values.add(module.getStudy());
-      values.add(module.getTitle());
-      values.add(module.getAuthors());
-      values.add(module.getAuthorsAffiliation());
-      values.add(module.getModuleAbstract());
+      values.add(module.getAgency().getId());
+      values.add(module.getStudy().getId());
+      values.add(module.getUrnId());
+      values.add(module.getName());
       values.add(module.getRepeat());
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
@@ -36,20 +32,18 @@ public class ModulePersistenceLogic {
 
    public void updateModule(Module module) throws SQLException {
       String sql = "update module set "
-              + "module_study = ?, "
-              + "module_title = ?, "
-              + "module_authors = ?, "
-              + "module_authors_affiliation = ?, "
-              + "module_abstract = ?, "
+              + "agency_id = ?, "
+              + "study_id = ?, "
+              + "urn_id = ?, "
+              + "name = ?, "
               + "repeat_module = ? "
               + "where module_id = ?";
 
       List values = new ArrayList();
-      values.add(module.getStudy());
-      values.add(module.getTitle());
-      values.add(module.getAuthors());
-      values.add(module.getAuthorsAffiliation());
-      values.add(module.getModuleAbstract());
+      values.add(module.getAgency().getId());
+      values.add(module.getStudy().getId());
+      values.add(module.getUrnId());
+      values.add(module.getName());
       values.add(module.getRepeat());
       values.add(module.getId());
 

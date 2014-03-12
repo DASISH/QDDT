@@ -18,7 +18,9 @@ import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 import no.nsd.qddt.model.Module;
+import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.ModuleService;
+import no.nsd.qddt.service.ModuleVersionService;
 
 public class ControllerServlet extends HttpServlet {
 
@@ -37,19 +39,21 @@ public class ControllerServlet extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       
       
-      this.setModule(request);
+      this.doFilterModule(request);
       this.urlMapping(request, response);
    }
    
-   private void setModule(HttpServletRequest request) throws ServletException {
-      Integer moduleId = ServletUtil.getRequestParamAsInteger(request, "mid");
+   private void doFilterModule(HttpServletRequest request) throws ServletException {
+      Integer moduleVersionId = ServletUtil.getRequestParamAsInteger(request, "mvid");
 
-      if (moduleId == null) {
+      if (moduleVersionId == null) {
          return;
       }
       
-      Module module = ModuleService.getModule(moduleId);
-      request.setAttribute("module", module);
+      ModuleVersion moduleVersion = ModuleVersionService.getModuleVersion(moduleVersionId);
+      Module module = ModuleService.getModule(moduleVersion.getModule().getId());
+      moduleVersion.setModule(module);
+      request.setAttribute("moduleVersion", moduleVersion);
    }
    
    private void urlMapping(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

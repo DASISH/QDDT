@@ -17,9 +17,9 @@
 
       <form class="tab-box" action="<c:url value="/u/r/savemodule" />" method="post">
 
-         <input type="hidden" name="mid" value="${module.id}">
+         <input type="hidden" name="mvid" value="${moduleVersion.id}">
          
-         <c:if test="${module.id == null}">
+         <c:if test="${moduleVersion.id == null}">
             <h4>Version:</h4>
             <select name="version">
                <option value=""></option>
@@ -27,25 +27,22 @@
                <option value="final">Final</option>
             </select>
          </c:if>
-         <c:if test="${module.id != null}">
-            <h4>Version: ${fn:escapeXml(module.versionText)}</h4>
+         <c:if test="${moduleVersion.id != null}">
+            <h4>Version: ${fn:escapeXml(moduleVersion.versionText)}</h4>
          </c:if>
 
 
-         <h4>Study:</h4>
-         <input class="w10" type="text" name="study" value="${fn:escapeXml(module.study)}">
-
          <h4>Title:</h4>
-         <input class="w10" type="text" name="title" value="${fn:escapeXml(module.title)}">
+         <input class="w10" type="text" name="title" value="${fn:escapeXml(moduleVersion.title)}">
 
          <h4>Module Authors:</h4>
-         <textarea class="w10" name="authors" rows="5">${fn:escapeXml(module.authors)}</textarea>
+         <textarea class="w10" name="authors" rows="5">${fn:escapeXml(moduleVersion.authors)}</textarea>
 
          <h4>Module Author's affiliation:</h4>
-         <textarea class="w10" name="affiliation" rows="5">${fn:escapeXml(module.authorsAffiliation)}</textarea>
+         <textarea class="w10" name="affiliation" rows="5">${fn:escapeXml(moduleVersion.authorsAffiliation)}</textarea>
 
          <h4>Abstract:</h4>
-         <textarea class="w10" name="abstract" rows="10">${fn:escapeXml(module.moduleAbstract)}</textarea>
+         <textarea class="w10" name="abstract" rows="10">${fn:escapeXml(moduleVersion.moduleAbstract)}</textarea>
 
          <h4>Repeat or new module?</h4>
          <div><input id="repeatYes" type="radio" name="repeat" value="yes" ${module.repeat ? 'checked' : ''}> <label for="repeatYes">Repeat</label></div>

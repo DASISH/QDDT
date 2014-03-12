@@ -4,17 +4,18 @@ import java.io.Serializable;
 
 public class Urn implements Serializable {
    
-   private String agency;
+   private Agency agency;
    private String id;
    private String version;
 
-   public String getAgency() {
+   public Agency getAgency() {
       return agency;
    }
 
-   public void setAgency(String agency) {
+   public void setAgency(Agency agency) {
       this.agency = agency;
    }
+
 
    public String getId() {
       return id;
@@ -36,7 +37,7 @@ public class Urn implements Serializable {
    
    @Override
    public String toString() {
-      return this.agency + ":" + this.id + ":" + this.version;
+      return this.agency.getUrnId() + ":" + this.id + ":" + this.version;
    }
    
 }

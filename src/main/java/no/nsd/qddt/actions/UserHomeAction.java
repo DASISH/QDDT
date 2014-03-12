@@ -1,20 +1,16 @@
 package no.nsd.qddt.actions;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.orm.ModuleLogic;
-import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Module;
+import no.nsd.qddt.service.ModuleService;
 import no.nsd.qddt.servlets.ServletUtil;
 
 public class UserHomeAction {
 
-   private Connection conn;
    private HttpServletRequest request;
    private HttpServletResponse response;
    
@@ -27,19 +23,7 @@ public class UserHomeAction {
    }
    
    private void setModules() throws ServletException {
-      try {
-         this.setModulesDb();
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
-   }
-   
-   private void setModulesDb() throws Exception {
-      conn = DatabaseConnectionFactory.getConnection();
-      ModuleLogic logic = new ModuleLogic(conn);
-      List<Module> modules = logic.getModules();
+      List<Module> modules = ModuleService.getModules();
       request.setAttribute("modules", modules);
    }
    

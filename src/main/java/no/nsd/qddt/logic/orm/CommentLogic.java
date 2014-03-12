@@ -9,7 +9,6 @@ import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Comment;
-import no.nsd.qddt.model.Urn;
 
 public class CommentLogic {
 
@@ -50,13 +49,6 @@ public class CommentLogic {
       return comment;
    }   
    
-   private Urn getUrn(Map map) throws SQLException {
-      Urn urn = new Urn();
-      urn.setAgency(SqlUtil.getString("urn_agency", map));
-      urn.setId(SqlUtil.getString("urn_id", map));
-      urn.setVersion(SqlUtil.getString("urn_version", map));
-      return urn;
-   }   
    
    
 }

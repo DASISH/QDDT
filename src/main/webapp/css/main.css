@@ -144,12 +144,6 @@ thead th {
 }
 tbody th, tbody td {
    padding: 3px 6px;
-   border-top: none;
-   border-bottom: none;
-}
-tfoot th, tfoot td {
-   border-top: 1px solid #CCCCCC;
-   border-bottom: 1px solid #CCCCCC;
 }
 .check td {
    text-align: center;
@@ -284,12 +278,12 @@ option {
 
 .boxheader {
    background-color: #999999;
-   color: #FEFEFE;
+   color: #FFFFFF;
    font-family: Helvetica, Arial, sans-serif;
-   font-size: 14px;
+   font-size: 15px;
    font-weight: bold;
    margin: 12px 0 6px;
-   padding: 5px;
+   padding: 5px 10px;
 }
 
 

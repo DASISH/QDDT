@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
-import no.nsd.qddt.model.Urn;
 
 public class ConceptLogic {
 
@@ -91,13 +89,6 @@ public class ConceptLogic {
       return concept;
    }   
    
-   private Urn getUrn(Map map) throws SQLException {
-      Urn urn = new Urn();
-      urn.setAgency(SqlUtil.getString("urn_agency", map));
-      urn.setId(SqlUtil.getString("urn_id", map));
-      urn.setVersion(SqlUtil.getString("urn_version", map));
-      return urn;
-   }   
    
    
 }

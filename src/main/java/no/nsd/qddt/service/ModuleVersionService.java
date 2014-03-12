@@ -4,22 +4,22 @@ import java.sql.Connection;
 import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.orm.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.model.Module;
+import no.nsd.qddt.logic.orm.ModuleVersionLogic;
+import no.nsd.qddt.model.ModuleVersion;
 
-public class ModuleService {
+public class ModuleVersionService {
    
-   private ModuleService() {
+   private ModuleVersionService() {
    }
 
    
-   public static List<Module> getModules() throws ServletException {
+   public static List<ModuleVersion> getModuleVersions(Integer moduleId) throws ServletException {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleLogic logic = new ModuleLogic(conn);
-         return logic.getModules();
+         ModuleVersionLogic logic = new ModuleVersionLogic(conn);
+         return logic.getModuleVersions(moduleId);
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {
@@ -28,12 +28,12 @@ public class ModuleService {
    }
    
    
-   public static Module getModule(Integer moduleId) throws ServletException {
+   public static ModuleVersion getModuleVersion(Integer moduleVersionId) throws ServletException {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleLogic logic = new ModuleLogic(conn);
-         return logic.getModule(moduleId);
+         ModuleVersionLogic logic = new ModuleVersionLogic(conn);
+         return logic.getModuleVersion(moduleVersionId);
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {

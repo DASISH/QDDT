@@ -2,10 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:if test="${module.id == null}">
-<h1>New module</h1>
-</c:if>
-<c:if test="${module.id != null}">
-<h1>Update module: '${fn:escapeXml(module.title)}' (${fn:escapeXml(module.versionText)})</h1>
-</c:if>
+<h1>Module: ${fn:escapeXml(moduleVersion.module.name)}</h1>
 
+<h2 class="boxheader">Module details</h2>
+<ul class="plain-list">
+   <li>Name: ${fn:escapeXml(moduleVersion.module.name)}</li>
+   <li>Study: ${fn:escapeXml(moduleVersion.module.study)}</li>
+</ul>
+
+<h2 class="boxheader">Update revision #${moduleVersion.id}</h2>

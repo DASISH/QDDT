@@ -7,35 +7,43 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Module development history</h1>
+      <h1>Module: ${fn:escapeXml(module.name)}</h1>
+
+      <h2 class="boxheader">Module details</h2>
+      <ul class="plain-list">
+         <li>Name: ${fn:escapeXml(module.name)}</li>
+         <li>Study: ${fn:escapeXml(module.study)}</li>
+      </ul>
+      
+      <h2 class="boxheader">Module development history</h2>
 
       <table>
          <thead>
             <tr>
-               <th>Version</th>
-               <th>Study</th>
-               <th>Title</th>
+               <th>Rev.ID</th>
+               <th>Version number</th>
+               <th>Version description</th>
                <th>Status</th>
                <th>Action</th>
             </tr>
          </thead>
          <tbody>
-            <c:forEach items="${modules}" var="m">
+            <c:forEach items="${moduleVersions}" var="mv">
                <tr>
-                  <td>${fn:escapeXml(m.versionText)}</td>
-                  <td>${fn:escapeXml(m.study)}</td>
-                  <td>${fn:escapeXml(m.title)}</td>
-                  <td>${fn:escapeXml(m.statusText)}</td>
+                  <td>#${mv.id}</td>
+                  <td>${fn:escapeXml(mv.versionNumber)}</td>
+                  <td>${fn:escapeXml(mv.versionDescription)}</td>
+                  <td>${fn:escapeXml(mv.statusText)}</td>
                   
                   <td>
-                     <c:if test="${m.statusAsLong eq 1}">
-                        <a href="<c:url value="/u/title?mid=${m.id}" />">Update</a>
+                     <c:if test="${mv.statusAsLong eq 1}">
+                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">Update</a>
                      </c:if>
-                     <c:if test="${m.statusAsLong eq 2}">
-                        <a href="<c:url value="/u/title?mid=${m.id}" />">View/Comment</a>
+                     <c:if test="${mv.statusAsLong eq 2}">
+                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">View/Comment</a>
                      </c:if>
-                     <c:if test="${m.statusAsLong eq 3}">
-                        <a href="<c:url value="/u/title?mid=${m.id}" />">View</a>
+                     <c:if test="${mv.statusAsLong eq 3}">
+                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">View</a>
                      </c:if>
                   </td>
                </tr>

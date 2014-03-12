@@ -6,14 +6,28 @@
 <div class="grid">
    <div class="col">
 
-      <h2>Modules</h2>
-      <h3>Existing modules</h3>
-      <ul>
-      <c:forEach items="${modules}" var="m">
-         <li><a href="<c:url value="/u/history?agency=${m.urn.agency}&id=${m.urn.id}" />">${m.study} - ${m.title}</a></li>
-      </c:forEach>
-      </ul>
-      
+      <h1>Home</h1>
+      <div class="boxheader">Modules</div>
+      <table>
+         <thead>
+            <tr>
+               <th>Survey</th>
+               <th>Study</th>
+               <th>Module</th>
+            </tr>
+         </thead>
+         <tbody>
+            <c:forEach items="${modules}" var="m">
+               <tr>
+                  <td>${m.study.agency}</td>
+                  <td>${m.study}</td>
+                  <td><a href="<c:url value="/u/history?id=${m.id}" />">${m.name}</a></td>
+               </tr>
+            </c:forEach>
+
+         </tbody>
+      </table>
+
       <form action="<c:url value="/u/title" />" method="get">
          <input class="button" type="submit" value="New module">
       </form>

@@ -22,11 +22,11 @@
                <div class="boxheader">Concept hierarchy</div>
                <ul class="link-list">
                   <c:forEach items="${conceptScheme.concepts}" var="c">
-                     <li><a ${param.cid eq c.id ? 'class="current"' : ''} href="?mid=${module.id}&cid=${c.id}"><c:out value="${c.name}" default="(name missing)" /></a>
+                     <li><a ${param.cid eq c.id ? 'class="current"' : ''} href="?mvid=${moduleVersion.id}&cid=${c.id}"><c:out value="${c.name}" default="(name missing)" /></a>
                         <c:if test="${!empty c.subConcepts}">
                            <ul>
                               <c:forEach items="${c.subConcepts}" var="sub">
-                                 <li><a ${param.cid eq sub.id ? 'class="current"' : ''} href="?mid=${module.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
+                                 <li><a ${param.cid eq sub.id ? 'class="current"' : ''} href="?mvid=${moduleVersion.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
                               </c:forEach>
                            </ul>
                         </c:if>
@@ -40,7 +40,7 @@
 
 
                <form action="<c:url value="" />" method="post">
-                  <input type="hidden" name="mid" value="${module.id}">
+                  <input type="hidden" name="mvid" value="${moduleVersion.id}">
                   <input type="hidden" name="cid" value="${concept.id}">
 
                   <h4>Name:</h4>
@@ -85,7 +85,7 @@
                   <c:set var="c" value="${conceptScheme.conceptMap[concept.id]}" />
                   <ul class="plain-list">
                   <c:forEach items="${c.subConcepts}" var="sub">
-                     <li><a href="?mid=${param.mid}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a></li>
+                     <li><a href="?mvid=${param.mvid}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a></li>
                   </c:forEach>
                   </ul>
                   

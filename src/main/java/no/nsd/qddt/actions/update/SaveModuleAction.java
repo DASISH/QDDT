@@ -30,24 +30,16 @@ public class SaveModuleAction {
    
    private void createNewModule() {
       module = new Module();
-      module.setId(this.getModuleId());
+      module.setId(ServletUtil.getRequestParamAsInteger(request, "id"));
       if (module.getId() == null) {
-         module.setUrn(UrnUtil.createNewUrn());
+         module.setUrnId(UrnUtil.createNewId());
       }
-      module.setStudy(request.getParameter("study"));
-      module.setTitle(request.getParameter("title"));
-      module.setAuthors(request.getParameter("authors"));
-      module.setAuthorsAffiliation(request.getParameter("affiliation"));
-      module.setModuleAbstract(request.getParameter("abstract"));
+      //module.setStudy(request.getParameter("study"));
+      //module.setTitle(request.getParameter("title"));
+      //module.setAuthors(request.getParameter("authors"));
+      //module.setAuthorsAffiliation(request.getParameter("affiliation"));
+      //module.setModuleAbstract(request.getParameter("abstract"));
       module.setRepeat(this.getRepeatValue());
-   }
-   
-   private Integer getModuleId() {
-      try {
-         return Integer.valueOf(request.getParameter("id"));
-      } catch (Exception ignored) {
-         return null;
-      }
    }
    
    private Boolean getRepeatValue() {
