@@ -5,20 +5,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import no.nsd.qddt.actions.UserLoginAction;
 import no.nsd.qddt.actions.UserLogoutAction;
 import no.nsd.qddt.actions.HistoryAction;
 import no.nsd.qddt.actions.ConceptSchemeAction;
 import no.nsd.qddt.actions.DocumentAction;
 import no.nsd.qddt.actions.InstrumentAction;
+import no.nsd.qddt.actions.ModuleAction;
 import no.nsd.qddt.actions.ReportAction;
 import no.nsd.qddt.actions.QuestionSchemeAction;
 import no.nsd.qddt.actions.StatusAction;
 import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
+import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.ModuleVersion;
+import no.nsd.qddt.model.User;
+import no.nsd.qddt.service.ActorService;
 import no.nsd.qddt.service.ModuleService;
 import no.nsd.qddt.service.ModuleVersionService;
 
@@ -50,10 +55,15 @@ public class ControllerServlet extends HttpServlet {
          return;
       }
       
+      HttpSession httpSession = request.getSession();
+      User user = (User) httpSession.getAttribute("user");
+      
       ModuleVersion moduleVersion = ModuleVersionService.getModuleVersion(moduleVersionId);
       Module module = ModuleService.getModule(moduleVersion.getModule().getId());
       moduleVersion.setModule(module);
+      Actor actor = ActorService.getActorForUserAndModule(user.getId(), module.getId());
       request.setAttribute("moduleVersion", moduleVersion);
+      request.setAttribute("actor", actor);
    }
    
    private void urlMapping(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,6 +87,8 @@ public class ControllerServlet extends HttpServlet {
 
       
       else if (uri.equals(context + "/u/history")) { new HistoryAction().process(request, response); }
+
+      else if (uri.equals(context + "/u/module")) { new ModuleAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }
       

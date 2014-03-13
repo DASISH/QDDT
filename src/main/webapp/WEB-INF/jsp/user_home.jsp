@@ -19,7 +19,7 @@
          <tbody>
             <c:forEach items="${modules}" var="m">
                <tr>
-                  <td>${m.study.agency}</td>
+                  <td>${m.study.survey}</td>
                   <td>${m.study}</td>
                   <td><a href="<c:url value="/u/history?id=${m.id}" />">${m.name}</a></td>
                </tr>
@@ -28,8 +28,8 @@
          </tbody>
       </table>
 
-      <form action="<c:url value="/u/title" />" method="get">
-         <input class="button" type="submit" value="New module">
+      <form action="<c:url value="/u/module" />" method="get">
+         <input class="button topmarg" type="submit" value="New module">
       </form>
 
    </div>

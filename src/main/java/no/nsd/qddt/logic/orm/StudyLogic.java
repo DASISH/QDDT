@@ -9,22 +9,22 @@ import java.util.Map;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Study;
+import no.nsd.qddt.model.Survey;
 
 public class StudyLogic {
 
    private final Connection conn;
-   private final Map<Integer, Agency> agencies;
+   private final Map<Integer, Survey> surveys;
    
    public StudyLogic(Connection conn) throws SQLException {
       this.conn = conn;
-      AgencyLogic logic = new AgencyLogic(conn);
-      this.agencies = logic.getAgencyMap();
+      SurveyLogic logic = new SurveyLogic(conn);
+      this.surveys = logic.getSurveyMap();
    }
    
    public List<Study> getStudies() throws SQLException {
-      String sql = "select * from study"; 
+      String sql = "select * from study order by title"; 
       SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
       return this.getStudyList(rows);
    }
@@ -76,8 +76,8 @@ public class StudyLogic {
       
       study.setId((Integer) map.get("study_id"));
       
-      Integer agencyId = (Integer) map.get("agency_id");
-      study.setAgency(this.agencies.get(agencyId));
+      Integer surveyId = (Integer) map.get("survey_id");
+      study.setSurvey(this.surveys.get(surveyId));
       
       study.setTitle(SqlUtil.getString("title", map));
       study.setDescription(SqlUtil.getString("abstract", map));      

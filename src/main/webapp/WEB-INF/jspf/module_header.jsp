@@ -8,6 +8,7 @@
 <ul class="plain-list">
    <li>Name: ${fn:escapeXml(moduleVersion.module.name)}</li>
    <li>Study: ${fn:escapeXml(moduleVersion.module.study)}</li>
+   <li>Maintenance agency ID: ${fn:escapeXml(moduleVersion.module.agency.urnId)}</li>
 </ul>
 
-<h2 class="boxheader">Update revision #${moduleVersion.id}</h2>
+<h2 class="boxheader">Update revision #${moduleVersion.id} as ${fn:escapeXml(actor.name)}</h2>

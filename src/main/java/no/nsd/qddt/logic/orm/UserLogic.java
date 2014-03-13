@@ -35,7 +35,7 @@ public class UserLogic {
    
    private User getUser(SortedMap row) {
       User user = new User();
-      user.setId((Integer) row.get("id"));
+      user.setId((Integer) row.get("user_id"));
       user.setUsername((String) row.get("username"));
       return user;
    }   

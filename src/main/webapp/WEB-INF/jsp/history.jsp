@@ -13,7 +13,13 @@
       <ul class="plain-list">
          <li>Name: ${fn:escapeXml(module.name)}</li>
          <li>Study: ${fn:escapeXml(module.study)}</li>
+         <li>Maintenance agency ID: ${fn:escapeXml(module.agency.urnId)}</li>
       </ul>
+      
+      <form action="<c:url value="/u/module" />" method="get">
+         <input type="hidden" name="id" value="${module.id}">
+         <input class="button" type="submit" value="Edit module details">
+      </form>
       
       <h2 class="boxheader">Module development history</h2>
 
@@ -21,6 +27,7 @@
          <thead>
             <tr>
                <th>Rev.ID</th>
+               <th>DDI version</th>
                <th>Version number</th>
                <th>Version description</th>
                <th>Status</th>
@@ -31,6 +38,7 @@
             <c:forEach items="${moduleVersions}" var="mv">
                <tr>
                   <td>#${mv.id}</td>
+                  <td>${fn:escapeXml(mv.urnVersion)}</td>
                   <td>${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
                   <td>${fn:escapeXml(mv.statusText)}</td>

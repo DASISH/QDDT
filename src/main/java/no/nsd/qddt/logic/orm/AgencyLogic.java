@@ -20,7 +20,7 @@ public class AgencyLogic {
    }
    
    public List<Agency> getAgencies() throws SQLException {
-      String sql = "select * from agency"; 
+      String sql = "select * from agency order by name"; 
       SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
       return this.getAgencyList(rows);
    }

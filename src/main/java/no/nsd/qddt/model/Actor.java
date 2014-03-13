@@ -2,13 +2,11 @@ package no.nsd.qddt.model;
 
 import java.io.Serializable;
 
-public class Study implements Serializable {
+public class Actor implements Serializable {
 
    private Integer id;
-   private String title;
-   private String description;
+   private String name;
 
-   private Survey survey;
 
    public Integer getId() {
       return id;
@@ -18,30 +16,14 @@ public class Study implements Serializable {
       this.id = id;
    }
 
-   public String getTitle() {
-      return title;
+   public String getName() {
+      return name;
    }
 
-   public void setTitle(String title) {
-      this.title = title;
+   public void setName(String name) {
+      this.name = name;
    }
-
-   public String getDescription() {
-      return description;
-   }
-
-   public void setDescription(String description) {
-      this.description = description;
-   }
-
-   public Survey getSurvey() {
-      return survey;
-   }
-
-   public void setSurvey(Survey survey) {
-      this.survey = survey;
-   }
-
+   
 
    @Override
    public int hashCode() {
@@ -60,7 +42,7 @@ public class Study implements Serializable {
       if (getClass() != obj.getClass()) {
          return false;
       }
-      final Study other = (Study) obj;
+      final Actor other = (Actor) obj;
       if (this.id == null || other.id == null) {
          return false;
       }
@@ -69,7 +51,7 @@ public class Study implements Serializable {
 
    @Override
    public String toString() {
-      return title;
+      return name;
    }
    
    

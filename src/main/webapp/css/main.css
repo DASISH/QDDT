@@ -312,6 +312,10 @@ option {
    margin-bottom: 10px;
 }
 
+.helptext {
+   font-style: italic;
+   color: #777777;
+}
 
 .button {
    background-color: lightblue;
@@ -403,6 +407,12 @@ option {
    border-bottom: 1px solid #DDDDDD;
    padding: 5px 15px;
    min-height: 300px;
+}
+
+.box {
+   background-color: #F6F6F6;
+   border: 1px solid #DDDDDD;
+   padding: 15px;
 }
 
 .nowrap {
