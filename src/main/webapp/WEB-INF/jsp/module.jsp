@@ -12,7 +12,7 @@
          <h1>New module</h1>
       </c:if>
       <c:if test="${module != null}">
-         <h1>Update module</h1>
+         <h1>Update module details</h1>
       </c:if>
 
       <form class="box" action="<c:url value="/u/r/savemodule" />" method="post">
@@ -42,7 +42,7 @@
             <select name="agency">
                <option value=""></option>
                <c:forEach items="${agencies}" var="a">
-                  <option value="${a.id}">${fn:escapeXml(a.name)}</option>
+                  <option value="${a.id}">${fn:escapeXml(a.name)} - ${fn:escapeXml(a.urnId)}</option>
                </c:forEach>
             </select>
          </c:if>

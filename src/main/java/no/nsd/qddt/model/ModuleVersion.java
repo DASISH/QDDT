@@ -6,6 +6,7 @@ public class ModuleVersion implements Serializable {
    
    private Integer id;
    private Module module;
+   private Actor actor;
    private Integer status;
    private String urnVersion;
    private String versionNumber;
@@ -32,6 +33,14 @@ public class ModuleVersion implements Serializable {
 
    public void setId(Integer id) {
       this.id = id;
+   }
+
+   public Actor getActor() {
+      return actor;
+   }
+
+   public void setActor(Actor actor) {
+      this.actor = actor;
    }
 
    public Integer getStatus() {

@@ -3,7 +3,9 @@ package no.nsd.qddt.logic.orm;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.Actor;
@@ -27,6 +29,40 @@ public class ActorLogic {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return this.getFirstActor(rows);
    }
+   
+   
+   public List<Actor> getActors() throws SQLException {
+      String sql = "select * from admin_actor order by name"; 
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      return this.getActorList(rows);
+   }
+
+   public Map<Integer, Actor> getActorMap() throws SQLException {
+      List<Actor> list = getActors();
+      Map<Integer, Actor> map = new HashMap<Integer, Actor>();
+      if (list == null) {
+         return null;
+      }
+      for (Actor a : list) {
+         map.put(a.getId(), a);
+      }
+      return map;
+   }
+   
+   
+   
+   private List<Actor> getActorList(SortedMap[] rows) throws SQLException {
+      if (rows == null || rows.length == 0) {
+         return null;
+      }
+      List<Actor> list = new ArrayList<Actor>();
+      for (SortedMap row : rows) {
+         list.add(this.getActor(row));
+      }
+      return list;
+   }
+   
+   
    
    private Actor getFirstActor(SortedMap[] rows) {
       if (rows == null || rows.length == 0) {

@@ -8,15 +8,19 @@ import java.util.Map;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.ModuleVersion;
 
 public class ModuleVersionLogic {
 
    private final Connection conn;
+   private final Map<Integer, Actor> actors;
    
-   public ModuleVersionLogic(Connection conn) {
+   public ModuleVersionLogic(Connection conn) throws SQLException {
       this.conn = conn;
+      ActorLogic logic = new ActorLogic(conn);
+      this.actors = logic.getActorMap();
    }
 
    public ModuleVersion getModuleVersion(Integer moduleVersionId) throws SQLException {
@@ -65,6 +69,10 @@ public class ModuleVersionLogic {
       
       mv.setId((Integer) map.get("module_version_id"));
       module.setId((Integer) map.get("module_id"));
+      
+      Integer actorId = (Integer) map.get("actor_id");
+      mv.setActor(this.actors.get(actorId));
+      
       mv.setStatus((Integer) map.get("module_status"));
       mv.setUrnVersion(SqlUtil.getString("urn_version", map));
       mv.setVersionNumber(SqlUtil.getString("version_number", map));

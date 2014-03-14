@@ -30,6 +30,7 @@
                <th>DDI version</th>
                <th>Version number</th>
                <th>Version description</th>
+               <th>Actor</th>
                <th>Status</th>
                <th>Action</th>
             </tr>
@@ -41,6 +42,7 @@
                   <td>${fn:escapeXml(mv.urnVersion)}</td>
                   <td>${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
+                  <td>${fn:escapeXml(mv.actor.name)}</td>
                   <td>${fn:escapeXml(mv.statusText)}</td>
                   
                   <td>
