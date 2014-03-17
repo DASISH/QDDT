@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.orm.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.logic.orm.persistence.ModulePersistenceLogic;
 import no.nsd.qddt.model.Module;
 
 public class ModuleService {
@@ -41,5 +42,34 @@ public class ModuleService {
       }
    }
 
+   
+   
+   public static Integer registerNewModule(Module module) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ModulePersistenceLogic logic = new ModulePersistenceLogic(conn);
+         Integer moduleId = logic.registerNewModule(module);
+         return moduleId;
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+   
+   public static void updateModule(Module module) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ModulePersistenceLogic logic = new ModulePersistenceLogic(conn);
+         logic.updateModule(module);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+   
 
 }

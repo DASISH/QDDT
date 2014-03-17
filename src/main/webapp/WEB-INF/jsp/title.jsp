@@ -19,19 +19,6 @@
 
          <input type="hidden" name="mvid" value="${moduleVersion.id}">
          
-         <c:if test="${moduleVersion.id == null}">
-            <h4>Version:</h4>
-            <select name="version">
-               <option value=""></option>
-               <option value="draft">Draft</option>
-               <option value="final">Final</option>
-            </select>
-         </c:if>
-         <c:if test="${moduleVersion.id != null}">
-            <h4>Version: ${fn:escapeXml(moduleVersion.versionText)}</h4>
-         </c:if>
-
-
          <h4>Title:</h4>
          <input class="w10" type="text" name="title" value="${fn:escapeXml(moduleVersion.title)}">
 
@@ -44,12 +31,10 @@
          <h4>Abstract:</h4>
          <textarea class="w10" name="abstract" rows="10">${fn:escapeXml(moduleVersion.moduleAbstract)}</textarea>
 
-         <h4>Repeat or new module?</h4>
-         <div><input id="repeatYes" type="radio" name="repeat" value="yes" ${module.repeat ? 'checked' : ''}> <label for="repeatYes">Repeat</label></div>
-         <div><input id="repeatNo" type="radio" name="repeat" value="no" ${module.repeat ? '' : 'checked'} > <label for="repeatNo">new</label></div>
 
-
+         <div>
          <input class="okbutton topmarg" type="submit" value="Save">
+         </div>
 
       </form>
 

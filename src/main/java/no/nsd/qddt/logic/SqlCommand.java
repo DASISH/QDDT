@@ -166,6 +166,39 @@ public class SqlCommand {
       return result;
    }
 
+   
+   /**
+    * Execute and return generated key.
+    *
+    * @return The generated key.
+    * @throws java.sql.SQLException
+    */
+   public Integer executeAndReturnGeneratedKey() throws SQLException {
+      PreparedStatement pstmt = null;
+      ResultSet rs = null;
+
+      try {
+         pstmt = conn.prepareStatement(this.sqlString, PreparedStatement.RETURN_GENERATED_KEYS);
+         this.setValues(pstmt);
+         pstmt.executeUpdate();
+
+         rs = pstmt.getGeneratedKeys();
+         if (rs != null && rs.next()) {
+            Number n = (Number) rs.getObject(1);
+            if (n != null) {
+               return n.intValue();
+            } else {
+               return null;
+            }
+         }
+      } finally {
+         SqlUtil.close(rs);
+         SqlUtil.close(pstmt);
+      }
+      return null;
+   }
+   
+   
    /**
     * Calls setObject() method on the PreparedStatement for all objects in the
     * values list of this bean.
@@ -174,7 +207,7 @@ public class SqlCommand {
     * @throws SQLException
     */
    private void setValues(PreparedStatement pstmt) throws SQLException {
-      for (int i = 0; i < this.values.size(); i++) {
+      for (int i = 0; this.values != null && i < this.values.size(); i++) {
          Object v = this.values.get(i);
          // Set the value using the method corresponding to the type.
          // Note! Set methods are indexed from 1, so we add 1 to i

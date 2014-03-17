@@ -16,10 +16,8 @@
          <li>Maintenance agency ID: ${fn:escapeXml(module.agency.urnId)}</li>
       </ul>
       
-      <form action="<c:url value="/u/module" />" method="get">
-         <input type="hidden" name="id" value="${module.id}">
-         <input class="button" type="submit" value="Edit module details">
-      </form>
+      
+      <p><a href="<c:url value="/u/module?id=${module.id}" />">[Edit module details]</a></p>
       
       <h2 class="boxheader">Module development history</h2>
 
