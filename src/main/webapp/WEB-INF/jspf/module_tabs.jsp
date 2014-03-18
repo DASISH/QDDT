@@ -9,5 +9,6 @@
    <li ${param.page eq 'questionscheme' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/questionscheme?mvid=${param.mvid}" />">Questions</a></li>
    <li ${param.page eq 'instrument' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/instrument?mvid=${param.mvid}" />">Instrument</a></li>
    <li ${param.page eq 'report' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/report?mvid=${param.mvid}" />">Reports</a></li>
+   <li ${param.page eq 'versioninfo' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/versioninfo?mvid=${param.mvid}" />">Version info</a></li>
    <li ${param.page eq 'status' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/status?mvid=${param.mvid}" />">Status</a></li>
 </ul>

@@ -14,6 +14,22 @@ public class ModuleVersionPersistenceLogic {
    public ModuleVersionPersistenceLogic(Connection conn) {
       this.conn = conn;
    }
+
+   
+   public void registerNewVersionModule(ModuleVersion mv) throws SQLException {
+      String sql = "insert into "
+              + "module_version(module_id, actor_id, module_status) "
+              + "values (?, ?, ?)";
+
+      List values = new ArrayList();
+      values.add(mv.getModule().getId());
+      values.add(mv.getActor().getId());
+      values.add(mv.getStatus());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   
    
    public void registerNewModule(ModuleVersion mv) throws SQLException {
       String sql = "insert into "

@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.orm.ModuleVersionLogic;
+import no.nsd.qddt.logic.orm.persistence.ModuleVersionPersistenceLogic;
 import no.nsd.qddt.model.ModuleVersion;
 
 public class ModuleVersionService {
@@ -41,5 +42,17 @@ public class ModuleVersionService {
       }
    }
 
+   public static void registerNewModuleVersion(ModuleVersion mv) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         logic.registerNewVersionModule(mv);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
 
 }
