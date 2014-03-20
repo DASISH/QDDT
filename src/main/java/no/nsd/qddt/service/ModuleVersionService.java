@@ -55,4 +55,19 @@ public class ModuleVersionService {
       }
    }
 
+   
+   public static void updateTitle(ModuleVersion mv) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         logic.updateTitle(mv);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+   
+   
 }

@@ -7,7 +7,10 @@ import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.orm.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.orm.persistence.ModulePersistenceLogic;
+import no.nsd.qddt.logic.orm.persistence.UserPersistenceLogic;
+import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
+import no.nsd.qddt.model.User;
 
 public class ModuleService {
    
@@ -44,14 +47,23 @@ public class ModuleService {
 
    
    
-   public static Integer registerNewModule(Module module) throws ServletException {
+   public static Integer registerNewModule(Module module, User user, Actor actor) throws ServletException {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModulePersistenceLogic logic = new ModulePersistenceLogic(conn);
-         Integer moduleId = logic.registerNewModule(module);
+         conn.setAutoCommit(false);
+         
+         ModulePersistenceLogic moduleLogic = new ModulePersistenceLogic(conn);
+         Integer moduleId = moduleLogic.registerNewModule(module);
+         
+         UserPersistenceLogic userLogic = new UserPersistenceLogic(conn);
+         userLogic.registerNewUserModuleActor(user.getId(), moduleId, actor.getId());
+         
+         conn.commit();
+         
          return moduleId;
       } catch (Exception e) {
+         SqlUtil.rollback(conn);
          throw new ServletException(e);
       } finally {
          SqlUtil.close(conn);

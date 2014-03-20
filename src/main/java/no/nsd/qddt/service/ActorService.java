@@ -25,4 +25,17 @@ public class ActorService {
       }
    }
 
+   public static Actor getActorForUserSurveyAndAgency(Integer userId, Integer surveyId, Integer agencyId) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ActorLogic logic = new ActorLogic(conn);
+         return logic.getActorForUserSurveyAndAgency(userId, surveyId, agencyId);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+
 }

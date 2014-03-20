@@ -38,6 +38,15 @@ public final class SqlUtil {
          }
       }
    }
+
+   public static void rollback(Connection conn) {
+      if (conn != null) {
+         try {
+            conn.rollback();
+         } catch (SQLException e) {
+         }
+      }
+   }
    
    public static String getString(String key, Map map) throws SQLException {
       Object o = map.get(key);

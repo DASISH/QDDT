@@ -13,11 +13,13 @@
       <c:import url="/WEB-INF/jspf/module_tabs.jsp">
          <c:param name="page" value="title" />
       </c:import>
-      
 
-      <form class="tab-box" action="<c:url value="/u/r/savemodule" />" method="post">
+
+      <form class="tab-box" action="<c:url value="/u/r/savetitle" />" method="post">
 
          <input type="hidden" name="mvid" value="${moduleVersion.id}">
+
+         <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
          
          <h4>Title:</h4>
          <input class="w10" type="text" name="title" value="${fn:escapeXml(moduleVersion.title)}">

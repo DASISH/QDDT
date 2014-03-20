@@ -317,6 +317,17 @@ option {
    color: #777777;
 }
 
+.ok {
+   color: darkgreen;
+   font-weight: bold;
+}
+
+.error {
+   color: red;
+   font-weight: bold;
+}
+
+
 .button {
    background-color: lightblue;
    padding: 3px 15px;
@@ -439,10 +450,6 @@ option {
    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.9);
 }
 
-.error {
-   color: red;
-   font-weight: bold;
-}
 
 
 /* *********** begin: hidden ************ */

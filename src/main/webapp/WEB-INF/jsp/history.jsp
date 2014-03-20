@@ -58,6 +58,13 @@
             </c:forEach>
          </tbody>
       </table>
+      
+
+      <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
+         <input type="hidden" name="mid" value="${module.id}">
+         <input class="okbutton topmarg" type="submit" value="Create new module revision">
+      </form>
+      
 
    </div>
 </div>

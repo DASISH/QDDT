@@ -30,6 +30,21 @@ public class ActorLogic {
       return this.getFirstActor(rows);
    }
    
+   public Actor getActorForUserSurveyAndAgency(Integer userId, Integer surveyId, Integer agencyId) throws SQLException {
+      String sql = "select a.actor_id, a.name "
+              + "from admin_user_actor as ua inner join admin_actor as a on ua.actor_id = a.actor_id "
+              + "where ua.user_id = ? and a.survey_id = ? and a.agency_id = ?";
+
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(userId);
+      values.add(surveyId);
+      values.add(agencyId);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      return this.getFirstActor(rows);
+   }
+
+   
    
    public List<Actor> getActors() throws SQLException {
       String sql = "select * from admin_actor order by name"; 

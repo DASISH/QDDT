@@ -26,4 +26,17 @@ public class StudyService {
       }
    }
 
+   public static Study getStudy(Integer studyId) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         StudyLogic logic = new StudyLogic(conn);
+         return logic.getStudy(studyId);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+
 }

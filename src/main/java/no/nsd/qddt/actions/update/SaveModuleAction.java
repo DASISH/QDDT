@@ -4,16 +4,23 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import no.nsd.qddt.logic.UrnUtil;
+import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.Study;
+import no.nsd.qddt.model.User;
+import no.nsd.qddt.service.ActorService;
 import no.nsd.qddt.service.ModuleService;
+import no.nsd.qddt.service.StudyService;
 import no.nsd.qddt.servlets.ServletUtil;
 
 public class SaveModuleAction {
 
    private Module module;
+   private User user;
+   private Actor actor;
    private HttpServletRequest request;
    private HttpServletResponse response;
 
@@ -22,11 +29,12 @@ public class SaveModuleAction {
       this.response = response;
 
       this.createNewModule();
+      this.setUserAndActor();
       this.registerNewOrUpdateModule();
       this.redirectSuccessPage();
    }
 
-   private void createNewModule() {
+   private void createNewModule() throws ServletException {
       module = new Module();
       module.setId(ServletUtil.getRequestParamAsInteger(request, "id"));
 
@@ -39,9 +47,9 @@ public class SaveModuleAction {
       module.setRepeat(this.getRepeatValue());
    }
 
-   private Study getStudy() {
-      Study study = new Study();
-      study.setId(ServletUtil.getRequestParamAsInteger(request, "study"));
+   private Study getStudy() throws ServletException {
+      Integer studyId = ServletUtil.getRequestParamAsInteger(request, "study");
+      Study study = StudyService.getStudy(studyId);
       return study;
    }
 
@@ -62,9 +70,15 @@ public class SaveModuleAction {
       return null;
    }
 
+   private void setUserAndActor() throws ServletException {
+      HttpSession session = this.request.getSession();
+      this.user = (User) session.getAttribute("user");
+      this.actor = ActorService.getActorForUserSurveyAndAgency(user.getId(), module.getStudy().getSurvey().getId(), module.getAgency().getId());
+   }
+   
    private void registerNewOrUpdateModule() throws ServletException {
       if (module.getId() == null) {
-         Integer moduleId = ModuleService.registerNewModule(module);
+         Integer moduleId = ModuleService.registerNewModule(module, user, actor);
          module.setId(moduleId);
       } else {
          ModuleService.updateModule(module);
