@@ -8,6 +8,8 @@
       <link rel="stylesheet" href="<c:url value="/css/normalize.css" />" media="screen" />
       <link rel="stylesheet" href="<c:url value="/css/main.css" />" media="screen" />
 
+        <script src="<c:url value="/js/jquery-1.11.0.min.js" />"></script>
+        <script src="<c:url value="/js/jquery-ui-1.10.4.min.js" />"></script>
    </head>
    <body>
 

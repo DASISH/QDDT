@@ -405,10 +405,7 @@ option {
    margin: 0 3px -1px 0;
    padding: 3px 5px;
 }
-.header-tabs a {
-   border: medium none;
-}
-.header-tabs .active-tab, .header-tabs li:hover {
+.header-tabs .active-tab {
    background: url("../img/bg_tablehead.jpg") repeat scroll 0 0 transparent;
 }
 .tab-box {

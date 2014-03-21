@@ -7,9 +7,9 @@
 <div class="grid">
 
    <div class="col">
-      
+
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
-      
+
       <c:import url="/WEB-INF/jspf/module_tabs.jsp">
          <c:param name="page" value="conceptscheme" />
       </c:import>
@@ -27,11 +27,11 @@
                            <ul>
                               <c:forEach items="${c.subConcepts}" var="sub">
                                  <li><a ${param.cid eq sub.id ? 'class="current"' : ''} href="?mvid=${moduleVersion.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
-                              </c:forEach>
+                                 </c:forEach>
                            </ul>
                         </c:if>
                      </li>
-                     </c:forEach>
+                  </c:forEach>
                </ul>
             </div>
             <div class="col w8 padding-l">
@@ -56,58 +56,70 @@
                   <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
 
                   <c:if test="${param.cid == null}"><div><input class="okbutton topmarg" type="submit" value="Register new concept"></div></c:if>
-                  
+
                   <c:if test="${param.cid != null}">
                      <div class="topmarg">
                         <input class="okbutton" type="submit" value="Update concept">
                         <input class="deletebutton" type="submit" value="Remove concept">
                      </div>
-                     
-                     <h3>Comments</h3>
-                     
-                     <c:forEach items="${comments}" var="comment">
-                        <div class="comment w10">
-                           <strong>(source: ${fn:escapeXml(comment.source)})</strong><br>
-                           ${fn:escapeXml(comment.text)}
-                        </div>
-                     </c:forEach>
-                     
-                     <a href="">Add comment to this concept</a>
-                     
                   </c:if>
-                  
+
                </form>
 
+               <c:if test="${param.cid != null}">
+                  <h3>Comments</h3>
+
+                  <c:forEach items="${comments}" var="comment">
+                     <div class="comment w10">
+                        <strong>(source: ${fn:escapeXml(comment.source)})</strong><br>
+                        ${fn:escapeXml(comment.text)}
+                     </div>
+                  </c:forEach>
+
+                  <button class="button" id="commlink">Add comment to this concept</button>
+                  <form id="commform" action="<c:url value="" />" method="post" style="display: none;">
+                     <div style="border: 1px solid #CCCCCC; background-color: #EEEEEE; padding: 20px;">Test</div>
+                  </form>
+
+                  <script>
+                  $( "#commlink" ).click(function() {
+                    $( "#commform" ).toggle();
+                  });
+                  </script>                     
+
+               </c:if>
+
+
                <c:if test="${concept.id != null}">
-                  
+
                   <div class="boxheader">Sub-concepts</div>
-                  
+
                   <c:set var="c" value="${conceptScheme.conceptMap[concept.id]}" />
                   <ul class="plain-list">
-                  <c:forEach items="${c.subConcepts}" var="sub">
-                     <li><a href="?mvid=${param.mvid}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a></li>
-                  </c:forEach>
+                     <c:forEach items="${c.subConcepts}" var="sub">
+                        <li><a href="?mvid=${param.mvid}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a></li>
+                        </c:forEach>
                   </ul>
-                  
+
                   <form action="<c:url value="" />" method="post">
                      <input class="button" type="submit" value="Add sub-concept">
                   </form>
 
-                     
+
                   <div class="boxheader">Questions</div>
-                     
+
                   <form action="<c:url value="" />" method="post">
                      <input class="button" type="submit" value="Add question">
                   </form>
-                     
-                     <h3>Comments</h3>
-                     
-                     <a href="">Add comment to question group</a>
-                     
+
+                  <h3>Comments</h3>
+
+                  <a href="">Add comment to question group</a>
+
                </c:if>
-               
-               
-               
+
+
+
             </div>
          </div>
       </div>
