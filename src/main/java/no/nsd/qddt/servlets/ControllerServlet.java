@@ -19,7 +19,10 @@ import no.nsd.qddt.actions.StatusAction;
 import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
 import no.nsd.qddt.actions.UserHomeAction;
+import no.nsd.qddt.actions.update.NewConceptAction;
 import no.nsd.qddt.actions.update.NewModuleVersionAction;
+import no.nsd.qddt.actions.update.SaveConceptAction;
+import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveTitleAction;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
@@ -96,6 +99,9 @@ public class ControllerServlet extends HttpServlet {
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }
       else if (uri.equals(context + "/u/r/newmoduleversion")) { new NewModuleVersionAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savetitle")) { new SaveTitleAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/saveconceptscheme")) { new SaveConceptSchemeAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/newconcept")) { new NewConceptAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/saveconcept")) { new SaveConceptAction().process(request, response); }
       
       
       else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }

@@ -10,6 +10,8 @@ public class Element implements Serializable {
    private String description;
    private Urn urn;
    private String versionDescription;
+   private Boolean versionUpdated;
+   private Integer moduleVersionId;
    
    public Integer getId() {
       return id;
@@ -57,6 +59,22 @@ public class Element implements Serializable {
 
    public void setVersionDescription(String versionDescription) {
       this.versionDescription = versionDescription;
+   }
+
+   public Integer getModuleVersionId() {
+      return moduleVersionId;
+   }
+
+   public void setModuleVersionId(Integer moduleVersionId) {
+      this.moduleVersionId = moduleVersionId;
+   }
+
+   public Boolean getVersionUpdated() {
+      return versionUpdated;
+   }
+
+   public void setVersionUpdated(Boolean versionUpdated) {
+      this.versionUpdated = versionUpdated;
    }
 
    

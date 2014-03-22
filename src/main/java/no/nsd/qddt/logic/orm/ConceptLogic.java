@@ -35,22 +35,19 @@ public class ConceptLogic {
    
 
 
-   public ConceptScheme getConceptsForScheme(Integer schemeId) throws SQLException {
-      String sql = "select c.concept_id, c.concept_name, cis.parent_concept_id "
+   public void getConceptsForScheme(ConceptScheme cs) throws SQLException {
+      String sql = "select c.concept_id, c.name, cis.parent_concept_id "
               + "from concept as c inner join concept_in_scheme as cis on c.concept_id = cis.concept_id "
               + "where cis.concept_scheme_id = ? order by cis.concept_order";
       
       List<Integer> values = new ArrayList<Integer>();
-      values.add(schemeId);
+      values.add(cs.getId());
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       
-      ConceptScheme cs = new ConceptScheme();
-      cs.setId(schemeId);
-      
       List<Concept> concepts = this.getConceptList(rows);
       if (concepts == null) {
-         return null;
+         return;
       }
       for (Concept c : concepts) {
          if (c.getParentConceptId() == null) {
@@ -60,8 +57,6 @@ public class ConceptLogic {
             parent.addSubConcept(c);
          }
       }
-      
-      return cs;
    }
    
    
@@ -82,10 +77,11 @@ public class ConceptLogic {
       Concept concept = new Concept();
       concept.setId((Integer) map.get("concept_id"));
       concept.setParentConceptId((Integer) map.get("parent_concept_id"));
-      concept.setName(SqlUtil.getString("concept_name", map));
+      concept.setName(SqlUtil.getString("name", map));
       concept.setLabel(SqlUtil.getString("label", map));
       concept.setDescription(SqlUtil.getString("description", map));
       concept.setRelationshipConcept(SqlUtil.getString("relationship_concept", map));
+      concept.setVersionDescription(SqlUtil.getString("version_description", map));
       return concept;
    }   
    

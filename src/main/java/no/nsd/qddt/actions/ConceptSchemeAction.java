@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.model.Comment;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
-import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.CommentService;
+import no.nsd.qddt.service.ConceptSchemeService;
 import no.nsd.qddt.service.ConceptService;
 import no.nsd.qddt.servlets.ServletUtil;
 
@@ -35,7 +35,7 @@ public class ConceptSchemeAction {
    }
    
    private void setConceptScheme() throws ServletException {
-      ConceptScheme conceptScheme = ConceptService.getConceptScheme(moduleVersion.getConceptSchemeId());
+      ConceptScheme conceptScheme = ConceptSchemeService.getConceptScheme(moduleVersion.getConceptSchemeId());
       request.setAttribute("conceptScheme", conceptScheme);
    }
    

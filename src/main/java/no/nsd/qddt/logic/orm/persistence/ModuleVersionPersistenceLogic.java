@@ -66,5 +66,18 @@ public class ModuleVersionPersistenceLogic {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
    
+
+   public void updateConceptScheme(ModuleVersion mv) throws SQLException {
+      String sql = "update module_version set "
+              + "concept_scheme_id = ? "
+              + "where module_version_id = ?";
+
+      List values = new ArrayList();
+      values.add(mv.getConceptSchemeId());
+      values.add(mv.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
    
 }

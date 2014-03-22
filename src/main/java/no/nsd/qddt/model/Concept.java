@@ -8,6 +8,8 @@ public class Concept extends Element implements Serializable {
    
    private String relationshipConcept;
    private Integer parentConceptId;
+   private Integer conceptSchemeId;
+   private Integer conceptOrder;
    private List<Concept> subConcepts;
    
    public Concept() {
@@ -41,6 +43,22 @@ public class Concept extends Element implements Serializable {
 
    public void addSubConcept(Concept c) {
       this.subConcepts.add(c);
+   }
+
+   public Integer getConceptSchemeId() {
+      return conceptSchemeId;
+   }
+
+   public void setConceptSchemeId(Integer conceptSchemeId) {
+      this.conceptSchemeId = conceptSchemeId;
+   }
+
+   public Integer getConceptOrder() {
+      return conceptOrder;
+   }
+
+   public void setConceptOrder(Integer conceptOrder) {
+      this.conceptOrder = conceptOrder;
    }
    
    

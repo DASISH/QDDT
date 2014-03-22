@@ -36,37 +36,80 @@
             </div>
             <div class="col w8 padding-l">
 
-               <div class="boxheader">Concept</div>
+
+               <c:if test="${param.cid == null}">
+                  <div class="boxheader">Concept scheme</div>
 
 
-               <form action="<c:url value="" />" method="post">
-                  <input type="hidden" name="mvid" value="${moduleVersion.id}">
-                  <input type="hidden" name="cid" value="${concept.id}">
+                  <form action="<c:url value="/u/r/saveconceptscheme" />" method="post">
+                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="csid" value="${conceptScheme.id}">
 
-                  <h4>Name:</h4>
-                  <input class="w10" type="text" name="name" value="${fn:escapeXml(concept.name)}">
+                     <h4>Name:</h4>
+                     <input class="w10" type="text" name="name" value="${fn:escapeXml(conceptScheme.name)}">
 
-                  <h4>Label:</h4>
-                  <input class="w10" type="text" name="label" value="${fn:escapeXml(concept.label)}">
+                     <h4>Label:</h4>
+                     <input class="w10" type="text" name="label" value="${fn:escapeXml(conceptScheme.label)}">
 
-                  <h4>Description:</h4>
-                  <textarea class="w10" name="description" rows="5">${fn:escapeXml(concept.description)}</textarea>
+                     <h4>Description:</h4>
+                     <textarea class="w10" name="description" rows="5">${fn:escapeXml(conceptScheme.description)}</textarea>
 
-                  <h4>Relationship with other concepts:</h4>
-                  <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
+                     <h4>Version description:</h4>
+                     <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(conceptScheme.versionDescription)}</textarea>
 
-                  <c:if test="${param.cid == null}"><div><input class="okbutton topmarg" type="submit" value="Register new concept"></div></c:if>
+                     <c:if test="${conceptScheme == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create concept scheme"></div></c:if>
+                     <c:if test="${conceptScheme != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
+                     </form>
 
-                  <c:if test="${param.cid != null}">
-                     <div class="topmarg">
-                        <input class="okbutton" type="submit" value="Update concept">
-                        <input class="deletebutton" type="submit" value="Remove concept">
-                     </div>
+
+                  <c:if test="${conceptScheme != null}">
+                     <div class="boxheader">Concepts</div>
+                     <p class="helptext">
+                        All concepts in this concept scheme are listed to the left. 
+                        Click on the concept you want to update, or click the button below to add a new concept.
+                     </p>
+
+                     <form action="<c:url value="/u/r/newconcept" />" method="post">
+                        <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                        <input type="hidden" name="csid" value="${conceptScheme.id}">
+                        <input class="okbutton" type="submit" value="Add new concept">
+                     </form>
                   </c:if>
 
-               </form>
+               </c:if>
+
 
                <c:if test="${param.cid != null}">
+                  <div class="boxheader">Concept</div>
+
+
+                  <form action="<c:url value="/u/r/saveconcept" />" method="post">
+                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="csid" value="${conceptScheme.id}">
+                     <input type="hidden" name="cid" value="${concept.id}">
+
+                     <h4>Name:</h4>
+                     <input class="w10" type="text" name="name" value="${fn:escapeXml(concept.name)}">
+
+                     <h4>Label:</h4>
+                     <input class="w10" type="text" name="label" value="${fn:escapeXml(concept.label)}">
+
+                     <h4>Description:</h4>
+                     <textarea class="w10" name="description" rows="5">${fn:escapeXml(concept.description)}</textarea>
+
+                     <h4>Relationship with other concepts:</h4>
+                     <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
+
+                     <h4>Version description:</h4>
+                     <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(concept.versionDescription)}</textarea>
+
+                     <div class="topmarg">
+                        <input class="okbutton" type="submit" name="action" value="Update concept">
+                        <input class="deletebutton" type="submit" name="action" value="Remove concept">
+                     </div>
+
+                  </form>
+
                   <h3>Comments</h3>
 
                   <c:forEach items="${comments}" var="comment">
@@ -82,9 +125,9 @@
                   </form>
 
                   <script>
-                  $( "#commlink" ).click(function() {
-                    $( "#commform" ).toggle();
-                  });
+                     $("#commlink").click(function() {
+                        $("#commform").toggle();
+                     });
                   </script>                     
 
                </c:if>
@@ -101,13 +144,18 @@
                         </c:forEach>
                   </ul>
 
-                  <form action="<c:url value="" />" method="post">
-                     <input class="button" type="submit" value="Add sub-concept">
+                  <form action="<c:url value="/u/r/newconcept" />" method="post">
+                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="csid" value="${conceptScheme.id}">
+                     <input type="hidden" name="pcid" value="${concept.id}">
+                     <input class="okbutton" type="submit" value="Add new sub-concept">
                   </form>
 
 
                   <div class="boxheader">Questions</div>
 
+                  <p>(Not implemented.)</p>
+                  <%--
                   <form action="<c:url value="" />" method="post">
                      <input class="button" type="submit" value="Add question">
                   </form>
@@ -115,6 +163,7 @@
                   <h3>Comments</h3>
 
                   <a href="">Add comment to question group</a>
+                  --%>
 
                </c:if>
 

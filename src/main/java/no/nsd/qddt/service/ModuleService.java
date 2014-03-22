@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.orm.ModuleLogic;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.logic.orm.persistence.ConceptPersistenceLogic;
 import no.nsd.qddt.logic.orm.persistence.ModulePersistenceLogic;
 import no.nsd.qddt.logic.orm.persistence.UserPersistenceLogic;
 import no.nsd.qddt.model.Actor;
