@@ -8,7 +8,7 @@ import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.ModuleVersionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class SaveTitleAction {
+public class SaveVersionInfoAction {
 
    private ModuleVersion newModuleVersion;
    private Integer moduleVersionId;
@@ -28,18 +28,17 @@ public class SaveTitleAction {
    private void setNewModuleVersion() throws ServletException {
       newModuleVersion = new ModuleVersion();
       newModuleVersion.setId(moduleVersionId);
-      newModuleVersion.setTitle(request.getParameter("title"));
-      newModuleVersion.setAuthors(request.getParameter("authors"));
-      newModuleVersion.setAuthorsAffiliation(request.getParameter("affiliation"));
-      newModuleVersion.setModuleAbstract(request.getParameter("abstract"));
+      newModuleVersion.setVersionNumber(request.getParameter("version_number"));
+      newModuleVersion.setVersionDescription(request.getParameter("version_description"));
+      newModuleVersion.setStatus(ServletUtil.getRequestParamAsInteger(request, "status"));
    }
    
    private void saveModuleVersionTitle() throws ServletException {
-      ModuleVersionService.updateTitle(newModuleVersion);
+      ModuleVersionService.updateVersionInfo(newModuleVersion);
    }
 
    private void redirectSuccessPage() throws IOException {
-      ServletUtil.redirect("/u/title?mvid=" + moduleVersionId + "&saved", request, response);
+      ServletUtil.redirect("/u/versioninfo?mvid=" + moduleVersionId + "&saved", request, response);
    }
 
 }

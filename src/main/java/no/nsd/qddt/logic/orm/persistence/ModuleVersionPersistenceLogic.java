@@ -16,7 +16,7 @@ public class ModuleVersionPersistenceLogic {
    }
 
    
-   public void registerNewVersionModule(ModuleVersion mv) throws SQLException {
+   public Integer registerNewModuleVersion(ModuleVersion mv) throws SQLException {
       String sql = "insert into "
               + "module_version(module_id, "
               + "actor_id, "
@@ -44,7 +44,12 @@ public class ModuleVersionPersistenceLogic {
       values.add(mv.getModuleAbstract());
       values.add(mv.getConceptSchemeId());
 
-      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+      
+      SqlCommand sqlCommand = new SqlCommand(conn);
+      sqlCommand.setSqlString(sql);
+      sqlCommand.setValues(values);
+      Integer moduleVersionId = sqlCommand.executeAndReturnGeneratedKey();
+      return moduleVersionId;
    }
    
 
@@ -61,6 +66,22 @@ public class ModuleVersionPersistenceLogic {
       values.add(mv.getAuthors());
       values.add(mv.getAuthorsAffiliation());
       values.add(mv.getModuleAbstract());
+      values.add(mv.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void updateVersionInfo(ModuleVersion mv) throws SQLException {
+      String sql = "update module_version set "
+              + "version_number = ?, "
+              + "version_description = ?, "
+              + "module_status = ? "
+              + "where module_version_id = ?";
+
+      List values = new ArrayList();
+      values.add(mv.getVersionNumber());
+      values.add(mv.getVersionDescription());
+      values.add(mv.getStatus());
       values.add(mv.getId());
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);

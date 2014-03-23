@@ -1,12 +1,19 @@
 package no.nsd.qddt.service;
 
 import java.sql.Connection;
+import java.util.Collection;
 import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.logic.orm.ConceptLogic;
+import no.nsd.qddt.logic.orm.ConceptSchemeLogic;
 import no.nsd.qddt.logic.orm.ModuleVersionLogic;
+import no.nsd.qddt.logic.orm.persistence.ConceptPersistenceLogic;
+import no.nsd.qddt.logic.orm.persistence.ConceptSchemePersistenceLogic;
 import no.nsd.qddt.logic.orm.persistence.ModuleVersionPersistenceLogic;
+import no.nsd.qddt.model.Concept;
+import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
 
 public class ModuleVersionService {
@@ -46,9 +53,38 @@ public class ModuleVersionService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
+         conn.setAutoCommit(false);
+         
          ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
-         logic.registerNewVersionModule(mv);
+         Integer newModuleVersionId = logic.registerNewModuleVersion(mv);
+         
+         if (mv.getConceptSchemeId() != null) {
+            ConceptSchemeLogic csLogic = new ConceptSchemeLogic(conn);
+            ConceptScheme cs = csLogic.getConceptScheme(mv.getConceptSchemeId());
+            ConceptLogic cLogic = new ConceptLogic(conn);
+            cLogic.getConceptsForScheme(cs);
+            Collection<Concept> concepts = cs.getConcepts();
+            
+            cs.setModuleVersionId(newModuleVersionId);
+            cs.setVersionUpdated(Boolean.FALSE);
+            ConceptSchemePersistenceLogic cspLogic = new ConceptSchemePersistenceLogic(conn);
+            cspLogic.registerNewConceptScheme(cs);
+            
+            for (Concept c : concepts) {
+               c.setModuleVersionId(newModuleVersionId);
+               c.setVersionUpdated(Boolean.FALSE);
+               ConceptPersistenceLogic cpLogic = new ConceptPersistenceLogic(conn);
+               Integer newConceptId = cpLogic.registerNewConcept(c);
+               c.setId(newConceptId);
+               c.setConceptSchemeId(cs.getId());
+               
+               cspLogic.addConceptToScheme(c);
+            }
+         }
+         
+         conn.commit();
       } catch (Exception e) {
+         SqlUtil.rollback(conn);
          throw new ServletException(e);
       } finally {
          SqlUtil.close(conn);
@@ -62,6 +98,19 @@ public class ModuleVersionService {
          conn = DatabaseConnectionFactory.getConnection();
          ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
          logic.updateTitle(mv);
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+
+   public static void updateVersionInfo(ModuleVersion mv) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         logic.updateVersionInfo(mv);
       } catch (Exception e) {
          throw new ServletException(e);
       } finally {

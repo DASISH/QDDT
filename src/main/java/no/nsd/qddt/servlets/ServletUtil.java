@@ -37,7 +37,7 @@ public class ServletUtil {
    
    public static Integer getRequestParamAsInteger(HttpServletRequest request, String param) {
       try {
-         return Integer.valueOf(request.getParameter(param));
+         return Integer.valueOf(request.getParameter(param).trim());
       } catch (Exception ignored) {
          return null;
       }      

@@ -15,6 +15,8 @@
 
       <div class="tab-box">
 
+         <p>(Not implemented.)</p>
+         
          <h3>Background document</h3>
          <p>Upload background document.
             <input class="button" type="button" value="Upload">

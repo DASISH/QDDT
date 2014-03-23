@@ -312,6 +312,18 @@ option {
    margin-bottom: 10px;
 }
 
+.comment-list {
+   list-style: none;
+   padding-left: 0;
+   padding-bottom: 2px;
+   border-bottom: 1px solid #EEEEEE;
+}
+.comment-list li {
+   margin-bottom: 0;
+   font-style: italic;
+}
+
+
 .helptext {
    font-style: italic;
    color: #777777;
@@ -325,6 +337,14 @@ option {
 .error {
    color: red;
    font-weight: bold;
+}
+
+.togglelink {
+   color: #2947a4;
+   cursor: pointer;
+}
+.togglelink:hover {
+   border-bottom: 1px dotted #2947a4;
 }
 
 

@@ -15,10 +15,10 @@
          <li>Study: ${fn:escapeXml(module.study)}</li>
          <li>Maintenance agency ID: ${fn:escapeXml(module.agency.urnId)}</li>
       </ul>
-      
-      
+
+
       <p><a href="<c:url value="/u/module?id=${module.id}" />">[Edit module details]</a></p>
-      
+
       <h2 class="boxheader">Module development history</h2>
 
       <table>
@@ -42,29 +42,22 @@
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
                   <td>${fn:escapeXml(mv.actor.name)}</td>
                   <td>${fn:escapeXml(mv.statusText)}</td>
-                  
-                  <td>
-                     <c:if test="${mv.statusAsLong eq 1}">
-                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">Update</a>
-                     </c:if>
-                     <c:if test="${mv.statusAsLong eq 2}">
-                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">View/Comment</a>
-                     </c:if>
-                     <c:if test="${mv.statusAsLong eq 3}">
-                        <a href="<c:url value="/u/title?mvid=${mv.id}" />">View</a>
-                     </c:if>
-                  </td>
+                  <td><a href="<c:url value="/u/title?mvid=${mv.id}" />">Update</a></td>
                </tr>
             </c:forEach>
          </tbody>
       </table>
-      
 
-      <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
-         <input type="hidden" name="mid" value="${module.id}">
-         <input class="okbutton topmarg" type="submit" value="Create new module revision">
-      </form>
-      
+
+
+      <c:if test="${lastModuleVersion == null || lastModuleVersion.statusAsLong >= 3}">
+         <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
+            <input type="hidden" name="mid" value="${module.id}">
+            <input class="okbutton topmarg" type="submit" value="Create new module revision">
+         </form>
+      </c:if>
+
+
 
    </div>
 </div>

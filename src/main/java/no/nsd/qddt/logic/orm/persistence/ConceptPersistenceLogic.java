@@ -23,14 +23,26 @@ public class ConceptPersistenceLogic {
               + "module_version_id, "
               + "urn_id, "
               + "urn_version, "
+              + "name, "
+              + "label, "
+              + "description, "
+              + "relationship_concept, "
+              + "version_description, "
               + "version_updated) "
-              + "values (?, ?, ?, ?, ?)";
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(concept.getUrn().getAgency().getId());
       values.add(concept.getModuleVersionId());
       values.add(concept.getUrn().getId());
       values.add(concept.getUrn().getVersion());
+
+      values.add(concept.getName());
+      values.add(concept.getLabel());
+      values.add(concept.getDescription());
+      values.add(concept.getRelationshipConcept());
+      values.add(concept.getVersionDescription());
+      
       values.add(concept.getVersionUpdated());
 
       SqlCommand sqlCommand = new SqlCommand(conn);

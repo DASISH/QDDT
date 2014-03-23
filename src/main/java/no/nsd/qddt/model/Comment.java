@@ -1,12 +1,20 @@
 package no.nsd.qddt.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Comment implements Serializable {
    
    private Integer id;
+   private Integer moduleVersionId;
+   private Urn elementUrn;
+   private Integer elementId;
+   
    private String text;
-   private String source;
+   private Date date;
+   private Integer sourceId;
+   private Actor actor;
+   private User user;
    
    
    public Integer getId() {
@@ -25,13 +33,72 @@ public class Comment implements Serializable {
       this.text = text;
    }
 
-   public String getSource() {
-      return source;
+   public Integer getModuleVersionId() {
+      return moduleVersionId;
    }
 
-   public void setSource(String source) {
-      this.source = source;
+   public void setModuleVersionId(Integer moduleVersionId) {
+      this.moduleVersionId = moduleVersionId;
    }
+
+   public Urn getElementUrn() {
+      return elementUrn;
+   }
+
+   public void setElementUrn(Urn elementUrn) {
+      this.elementUrn = elementUrn;
+   }
+
+
+   public Integer getElementId() {
+      return elementId;
+   }
+
+   public void setElementId(Integer elementId) {
+      this.elementId = elementId;
+   }
+
+   public Date getDate() {
+      return date;
+   }
+
+   public java.sql.Date getSqlDate() {
+      if (date == null) {
+         return null;
+      }
+      java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+      return sqlDate;
+   }
+   
+   
+   public void setDate(Date date) {
+      this.date = date;
+   }
+
+   public Integer getSourceId() {
+      return sourceId;
+   }
+
+   public void setSourceId(Integer sourceId) {
+      this.sourceId = sourceId;
+   }
+
+   public Actor getActor() {
+      return actor;
+   }
+
+   public void setActor(Actor actor) {
+      this.actor = actor;
+   }
+
+   public User getUser() {
+      return user;
+   }
+
+   public void setUser(User user) {
+      this.user = user;
+   }
+
 
    
    

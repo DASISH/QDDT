@@ -15,18 +15,8 @@
 
       <div class="tab-box">
 
-         <h3>The status of this module version (${fn:escapeXml(module.versionText)}) is: "${fn:escapeXml(moduleVersion.statusText)}"</h3>
+         <h3>Module status</h3>
          
-         <c:if test="${moduleVersion.statusAsLong eq 1}">
-            <form action="<c:url value="" />" method="post">
-               <input class="button" type="submit" value="Change status to comment">
-            </form>
-         </c:if>
-         <c:if test="${moduleVersion.statusAsLong eq 2}">
-            <form action="<c:url value="" />" method="post">
-               <input class="button" type="submit" value="Change status to closed">
-            </form>
-         </c:if>
 
       </div>
 

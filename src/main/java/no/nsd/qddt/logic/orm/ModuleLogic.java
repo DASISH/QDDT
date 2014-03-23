@@ -79,15 +79,5 @@ public class ModuleLogic {
       return module;
    }   
    
-   private Urn getUrn(Map map) throws SQLException {
-      Urn urn = new Urn();
-      Agency a = new Agency();
-      urn.setAgency(a);
-      a.setId((Integer) map.get("agency_id"));
-      urn.setId(SqlUtil.getString("urn_id", map));
-      urn.setVersion(SqlUtil.getString("urn_version", map));
-      return urn;
-   }   
-   
    
 }

@@ -36,6 +36,11 @@ public class HistoryAction {
    private void setModuleVersions() throws ServletException {
       List<ModuleVersion> moduleVersions = ModuleVersionService.getModuleVersions(moduleId);
       request.setAttribute("moduleVersions", moduleVersions);
+      
+      if (moduleVersions != null && !moduleVersions.isEmpty()) {
+         ModuleVersion lastModuleVersion = moduleVersions.get(moduleVersions.size() - 1);
+         request.setAttribute("lastModuleVersion", lastModuleVersion);
+      }
    }
    
    private void forwardPage() throws ServletException, IOException {

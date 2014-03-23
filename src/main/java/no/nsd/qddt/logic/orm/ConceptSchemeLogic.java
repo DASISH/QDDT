@@ -9,6 +9,7 @@ import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.ConceptScheme;
+import no.nsd.qddt.model.Urn;
 
 public class ConceptSchemeLogic {
 
@@ -50,13 +51,19 @@ public class ConceptSchemeLogic {
    
    private ConceptScheme getConceptScheme(Map map) throws SQLException {
       ConceptScheme cs = new ConceptScheme();
+      
+      Urn urn = UrnOrmUtil.getUrn(map);
+      cs.setUrn(urn);
+      
       cs.setId((Integer) map.get("concept_scheme_id"));
+      cs.setModuleVersionId((Integer) map.get("module_version_id"));
       cs.setName(SqlUtil.getString("name", map));
       cs.setLabel(SqlUtil.getString("label", map));
       cs.setDescription(SqlUtil.getString("description", map));
       cs.setVersionDescription(SqlUtil.getString("version_description", map));
+      cs.setVersionUpdated((Boolean) map.get("version_updated"));
       return cs;
-   }   
+   }
    
    
    

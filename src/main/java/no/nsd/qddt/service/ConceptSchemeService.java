@@ -44,14 +44,7 @@ public class ConceptSchemeService {
          conn.setAutoCommit(false);
 
          ConceptSchemePersistenceLogic logic = new ConceptSchemePersistenceLogic(conn);
-         Integer conceptSchemeId = logic.registerNewConceptScheme(conceptScheme);
-         conceptScheme.setId(conceptSchemeId);
-
-         ModuleVersion moduleVersion = new ModuleVersion();
-         moduleVersion.setId(conceptScheme.getModuleVersionId());
-         moduleVersion.setConceptSchemeId(conceptSchemeId);
-         ModuleVersionPersistenceLogic mvpLogic = new ModuleVersionPersistenceLogic(conn);
-         mvpLogic.updateConceptScheme(moduleVersion);
+         logic.registerNewConceptScheme(conceptScheme);
 
          conn.commit();
       } catch (Exception e) {

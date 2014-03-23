@@ -161,6 +161,12 @@ public class ModuleVersion implements Serializable {
       if (this.status == 3) {
          return "Closed";
       }
+      if (this.status == 4) {
+         return "Closed - publ. int.";
+      }
+      if (this.status == 5) {
+         return "Closed - publ. ext.";
+      }
       return "";
    }
    

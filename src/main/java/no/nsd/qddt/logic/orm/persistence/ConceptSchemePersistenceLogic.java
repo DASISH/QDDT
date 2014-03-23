@@ -7,17 +7,17 @@ import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
+import no.nsd.qddt.model.ModuleVersion;
 
 public class ConceptSchemePersistenceLogic {
 
    private final Connection conn;
-   
+
    public ConceptSchemePersistenceLogic(Connection conn) {
       this.conn = conn;
    }
-   
-   
-   public Integer registerNewConceptScheme(ConceptScheme conceptScheme) throws SQLException {
+
+   public void registerNewConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       String sql = "insert into "
               + "concept_scheme(agency_id, "
               + "module_version_id, "
@@ -45,10 +45,18 @@ public class ConceptSchemePersistenceLogic {
       sqlCommand.setSqlString(sql);
       sqlCommand.setValues(values);
       Integer conceptSchemeId = sqlCommand.executeAndReturnGeneratedKey();
-      return conceptSchemeId;
+      conceptScheme.setId(conceptSchemeId);
+      
+      this.updateConceptSchemeForModuleVersion(conceptScheme);
    }
 
-   
+   private void updateConceptSchemeForModuleVersion(ConceptScheme conceptScheme) throws SQLException {
+      ModuleVersion moduleVersion = new ModuleVersion();
+      moduleVersion.setId(conceptScheme.getModuleVersionId());
+      moduleVersion.setConceptSchemeId(conceptScheme.getId());
+      ModuleVersionPersistenceLogic mvpLogic = new ModuleVersionPersistenceLogic(conn);
+      mvpLogic.updateConceptScheme(moduleVersion);
+   }
 
    public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       String sql = "update concept_scheme set "
@@ -70,7 +78,6 @@ public class ConceptSchemePersistenceLogic {
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
-   
 
    public Integer addConceptToScheme(Concept concept) throws SQLException {
       String sql = "insert into "
@@ -92,8 +99,7 @@ public class ConceptSchemePersistenceLogic {
       Integer conceptId = sqlCommand.executeAndReturnGeneratedKey();
       return conceptId;
    }
-   
-   
+
    public void setConceptSchemeUpdated(Integer conceptSchemeId) throws SQLException {
       String sql = "update concept_scheme set "
               + "version_updated = ? "
@@ -105,7 +111,5 @@ public class ConceptSchemePersistenceLogic {
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
-   
-   
-   
+
 }
