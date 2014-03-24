@@ -63,7 +63,7 @@ public class ConceptLogic {
          }
       }
    }
-   
+
    
    
    private List<Concept> getConceptList(SortedMap[] rows) throws SQLException {

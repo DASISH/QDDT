@@ -67,7 +67,7 @@ public class SaveConceptSchemeAction {
    }
    
    private void redirectSuccessPage() throws IOException {
-      ServletUtil.redirect("/u/conceptscheme?mvid=" + moduleVersion.getId(), request, response);
+      ServletUtil.redirect("/u/conceptscheme?mvid=" + moduleVersion.getId() + "&saved", request, response);
    }
 
 }

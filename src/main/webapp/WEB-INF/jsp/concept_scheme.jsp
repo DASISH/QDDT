@@ -7,6 +7,21 @@
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
+<script type="text/javascript">
+<!--
+   function confirmation() {
+      var answer = confirm("Delete concept?")
+      if (answer) {
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+//-->
+</script>
+
+
 <div class="grid">
 
    <div class="col">
@@ -43,8 +58,9 @@
                <c:if test="${param.cid == null}">
                   <div class="boxheader">Concept scheme</div>
 
+                  <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
 
-                  <form action="<c:url value="/u/r/saveconceptscheme" />" method="post">
+                     <form action="<c:url value="/u/r/saveconceptscheme" />" method="post">
                      <input type="hidden" name="mvid" value="${moduleVersion.id}">
                      <input type="hidden" name="csid" value="${conceptScheme.id}">
 
@@ -109,9 +125,9 @@
                      </form>
 
                      <script>
-                        $("#commlink").click(function() {
-                           $("#commform").toggle();
-                        });
+   $("#commlink").click(function() {
+      $("#commform").toggle();
+   });
                      </script>
                      <%-- ================================================================== comments concept scheme   --%>                     
                   </c:if>
@@ -139,8 +155,9 @@
                <c:if test="${param.cid != null}">
                   <div class="boxheader">Concept</div>
 
+                  <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
 
-                  <form action="<c:url value="/u/r/saveconcept" />" method="post">
+                     <form id="deleteconcept" action="<c:url value="/u/r/saveconcept" />" method="post">
                      <input type="hidden" name="mvid" value="${moduleVersion.id}">
                      <input type="hidden" name="csid" value="${conceptScheme.id}">
                      <input type="hidden" name="cid" value="${concept.id}">
@@ -162,7 +179,7 @@
 
                      <div class="topmarg">
                         <input class="okbutton" type="submit" name="action" value="Update concept">
-                        <input class="deletebutton" type="submit" name="action" value="Remove concept">
+                        <input class="deletebutton" type="submit" name="action" value="Remove concept" onclick="return confirmation();">
                      </div>
 
                   </form>

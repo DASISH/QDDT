@@ -7,9 +7,7 @@ import no.nsd.qddt.logic.orm.ConceptLogic;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.orm.ConceptSchemeLogic;
 import no.nsd.qddt.logic.orm.persistence.ConceptSchemePersistenceLogic;
-import no.nsd.qddt.logic.orm.persistence.ModuleVersionPersistenceLogic;
 import no.nsd.qddt.model.ConceptScheme;
-import no.nsd.qddt.model.ModuleVersion;
 
 public class ConceptSchemeService {
 

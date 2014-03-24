@@ -5,7 +5,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.model.Concept;
+import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
+import no.nsd.qddt.service.ConceptSchemeService;
 import no.nsd.qddt.service.ConceptService;
 import no.nsd.qddt.servlets.ServletUtil;
 
@@ -15,6 +17,7 @@ public class SaveConceptAction {
    private ModuleVersion moduleVersion;
    private HttpServletRequest request;
    private HttpServletResponse response;
+   private boolean delete = false;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.request = request;
@@ -35,10 +38,10 @@ public class SaveConceptAction {
       newConcept.setRelationshipConcept(request.getParameter("relationship_concept"));
       newConcept.setVersionDescription(request.getParameter("version_description"));
    }
-   
+
    private void conceptAction() throws ServletException {
       String action = request.getParameter("action");
-      
+
       if ("Remove concept".equals(action)) {
          this.deleteConcept();
       } else {
@@ -52,11 +55,26 @@ public class SaveConceptAction {
    }
 
    private void deleteConcept() throws ServletException {
-      
+      ConceptScheme conceptScheme = ConceptSchemeService.getConceptScheme(moduleVersion.getConceptSchemeId());
+      Concept deleteConcept = conceptScheme.getConcept(newConcept.getId());
+
+      if (deleteConcept == null) { // no sub-concepts
+         newConcept.setConceptSchemeId(conceptScheme.getId());
+         ConceptService.deleteConcept(newConcept);
+      } else {
+         deleteConcept.setConceptSchemeId(conceptScheme.getId());
+         ConceptService.deleteConcept(deleteConcept);
+      }
+
+      delete = true;
    }
-   
+
    private void redirectSuccessPage() throws IOException {
-      String url = "/u/conceptscheme?mvid=" + moduleVersion.getId() + "&cid=" + newConcept.getId();
+      String url = "/u/conceptscheme?mvid=" + moduleVersion.getId() + "&cid=" + newConcept.getId() + "&saved";
+      if (delete) {
+         url = "/u/conceptscheme?mvid=" + moduleVersion.getId();
+      }
+
       ServletUtil.redirect(url, request, response);
    }
 

@@ -75,6 +75,25 @@ public class ConceptPersistenceLogic {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
    
+
+   public void deleteConcept(Concept concept) throws SQLException {
+      String sql = "delete from concept where concept_id = ?";
+
+      List values = new ArrayList();
+      values.add(concept.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void deleteConceptFromScheme(Concept concept) throws SQLException {
+      String sql = "delete from concept_in_scheme where concept_id = ? and concept_scheme_id = ?";
+
+      List values = new ArrayList();
+      values.add(concept.getId());
+      values.add(concept.getConceptSchemeId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
    
    
 }

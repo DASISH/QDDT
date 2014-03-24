@@ -1,6 +1,8 @@
 package no.nsd.qddt.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.orm.ConceptLogic;
@@ -10,7 +12,7 @@ import no.nsd.qddt.logic.orm.persistence.ConceptSchemePersistenceLogic;
 import no.nsd.qddt.model.Concept;
 
 public class ConceptService {
-   
+
    private ConceptService() {
    }
 
@@ -27,21 +29,20 @@ public class ConceptService {
       }
    }
 
-
    public static void registerNewConcept(Concept concept) throws ServletException {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
          conn.setAutoCommit(false);
-         
+
          ConceptPersistenceLogic logic = new ConceptPersistenceLogic(conn);
          Integer conceptId = logic.registerNewConcept(concept);
          concept.setId(conceptId);
-         
+
          ConceptSchemePersistenceLogic csLogic = new ConceptSchemePersistenceLogic(conn);
          csLogic.addConceptToScheme(concept);
          csLogic.setConceptSchemeUpdated(concept.getConceptSchemeId());
-         
+
          conn.commit();
       } catch (Exception e) {
          SqlUtil.rollback(conn);
@@ -50,20 +51,19 @@ public class ConceptService {
          SqlUtil.close(conn);
       }
    }
-   
 
    public static void updateConcept(Concept concept) throws ServletException {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
          conn.setAutoCommit(false);
-         
+
          ConceptPersistenceLogic logic = new ConceptPersistenceLogic(conn);
          logic.updateConcept(concept);
-         
+
          ConceptSchemePersistenceLogic csLogic = new ConceptSchemePersistenceLogic(conn);
          csLogic.setConceptSchemeUpdated(concept.getConceptSchemeId());
-         
+
          conn.commit();
       } catch (Exception e) {
          SqlUtil.rollback(conn);
@@ -73,6 +73,36 @@ public class ConceptService {
       }
    }
 
-   
-   
+   public static void deleteConcept(Concept concept) throws ServletException {
+      Connection conn = null;
+      try {
+         conn = DatabaseConnectionFactory.getConnection();
+         conn.setAutoCommit(false);
+
+         List<Concept> subConcepts = concept.getSubConcepts();
+         for (Concept sub : subConcepts) {
+            sub.setConceptSchemeId(concept.getConceptSchemeId());
+            deleteConceptAndRemoveFromScheme(sub, conn);
+         }
+
+         deleteConceptAndRemoveFromScheme(concept, conn);
+
+         ConceptSchemePersistenceLogic csLogic = new ConceptSchemePersistenceLogic(conn);
+         csLogic.setConceptSchemeUpdated(concept.getConceptSchemeId());
+
+         conn.commit();
+      } catch (Exception e) {
+         SqlUtil.rollback(conn);
+         throw new ServletException(e);
+      } finally {
+         SqlUtil.close(conn);
+      }
+   }
+
+   private static void deleteConceptAndRemoveFromScheme(Concept concept, Connection conn) throws SQLException {
+      ConceptPersistenceLogic logic = new ConceptPersistenceLogic(conn);
+      logic.deleteConceptFromScheme(concept);
+      logic.deleteConcept(concept);
+   }
+
 }
