@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.Urn;
@@ -51,14 +51,21 @@ public class ConceptLogic {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       
       List<Concept> concepts = this.getConceptList(rows);
+      
       if (concepts == null) {
          return;
       }
+      
+      SortedMap<Integer, Concept> map = new TreeMap<Integer, Concept>();
+      for (Concept c : concepts) {
+         map.put(c.getId(), c);
+      }
+      
       for (Concept c : concepts) {
          if (c.getParentConceptId() == null) {
             cs.addConcept(c);
          } else {
-            Concept parent = cs.getConcept(c.getParentConceptId());
+            Concept parent = map.get(c.getParentConceptId());
             parent.addSubConcept(c);
          }
       }

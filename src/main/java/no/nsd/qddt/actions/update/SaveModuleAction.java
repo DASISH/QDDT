@@ -29,7 +29,6 @@ public class SaveModuleAction {
       this.response = response;
 
       this.createNewModule();
-      this.setUserAndActor();
       this.registerNewOrUpdateModule();
       this.redirectSuccessPage();
    }
@@ -42,6 +41,7 @@ public class SaveModuleAction {
          module.setUrnId(UrnUtil.createNewId());
          module.setStudy(this.getStudy());
          module.setAgency(this.getAgency());
+         this.setUserAndActor();
       }
       module.setName(request.getParameter("name"));
       module.setRepeat(this.getRepeatValue());

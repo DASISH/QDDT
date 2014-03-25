@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="qddt" uri="/WEB-INF/taglibrary.tld" %>
 <fmt:setLocale value="en-GB" />
 <% pageContext.setAttribute("newLineChar", "\n");%>
 
@@ -84,16 +85,9 @@
                      <%-- ================================================================== comments concept scheme  --%>                     
                      <h3>Comments</h3>
 
-                     <c:forEach items="${comments}" var="comment">
-                        <div class="comment w10">
-                           <ul class="comment-list">
-                              <li>Author: ${fn:escapeXml(comment.actor)}</li>
-                              <li>Source: ${fn:escapeXml(commentSourceMap[comment.sourceId])}</li>
-                              <li>Comment date: <fmt:formatDate value="${comment.date}" type="date" /></li>
-                           </ul>
-                           <p>${fn:replace(fn:escapeXml(comment.text), newLineChar, "<br />")}</p>
-                        </div>
-                     </c:forEach>
+                     
+                     <qddt:comments agencyId="${conceptScheme.urn.agency.id}" urnId="${conceptScheme.urn.id}" elementId="${conceptScheme.id}" />
+                     
 
                      <span class="togglelink" id="commlink">Add comment</span>
 
@@ -187,16 +181,9 @@
                   <%-- ================================================================== comments concept   --%>                     
                   <h3>Comments</h3>
 
-                  <c:forEach items="${comments}" var="comment">
-                     <div class="comment w10">
-                        <ul class="comment-list">
-                           <li>Author: ${fn:escapeXml(comment.actor)}</li>
-                           <li>Source: ${fn:escapeXml(commentSourceMap[comment.sourceId])}</li>
-                           <li>Comment date: <fmt:formatDate value="${comment.date}" type="date" /></li>
-                        </ul>
-                        <p>${fn:replace(fn:escapeXml(comment.text), newLineChar, "<br />")}</p>
-                     </div>
-                  </c:forEach>
+
+                  <qddt:comments agencyId="${concept.urn.agency.id}" urnId="${concept.urn.id}" elementId="${concept.id}" />
+                  
 
                   <span class="togglelink" id="commlink">Add comment</span>
 

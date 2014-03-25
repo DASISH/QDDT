@@ -73,8 +73,8 @@ public class NewCommentAction {
    private Date getDate() {
       try {
          int day = ServletUtil.getRequestParamAsInteger(request, "day");
-         int month = ServletUtil.getRequestParamAsInteger(request, "day");
-         int year = ServletUtil.getRequestParamAsInteger(request, "day");
+         int month = ServletUtil.getRequestParamAsInteger(request, "month");
+         int year = ServletUtil.getRequestParamAsInteger(request, "year");
          Calendar cal = new GregorianCalendar();
          cal.setLenient(false);
          cal.clear();
