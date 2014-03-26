@@ -3,8 +3,10 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="qddt" uri="/WEB-INF/taglibrary.tld" %>
-<fmt:setLocale value="en-GB" />
 
+<fmt:setLocale value="en-GB" />
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<qddt:setCommentSource var="commentSourceMap" />
 
 <span class="togglelink" id="commlink">Add comment</span>
 
@@ -15,19 +17,20 @@
    <input type="hidden" name="urnid" value="${fn:escapeXml(param.urnId)}">
    <input type="hidden" name="fromurl" value="${param.fromUrl}">
 
-   <h4>Source:</h4>
-   <select name="sourceid">
-      <option value=""></option>
-      <c:forEach items="${commentSourceMap}" var="map">
-         <option value="${map.value.id}">${fn:escapeXml(map.value.text)}</option>
-      </c:forEach>
-   </select>
+   <c:if test="${commentSourceMap != null}">
+      <h4>Source:</h4>
+      <select name="sourceid">
+         <option value=""></option>
+         <c:forEach items="${commentSourceMap}" var="map">
+            <option value="${map.value.id}">${fn:escapeXml(map.value.text)}</option>
+         </c:forEach>
+      </select>
+   </c:if>
 
    <h4>Date:</h4>
-   <c:set var="now" value="<%=new java.util.Date()%>" />
-   Day: <input type="text" name="day" value="<fmt:formatDate value="${now}" pattern="d" />" style="width: 40px;">
-   Month: <input type="text" name="month" value="<fmt:formatDate value="${now}" pattern="M" />" style="width: 40px;">
-   Year: <input type="text" name="year" value="<fmt:formatDate value="${now}" pattern="yyyy" />" style="width: 80px;">
+   <span class="helptext">Day:</span> <input type="text" name="day" value="<fmt:formatDate value="${now}" pattern="d" />" style="width: 40px;">
+   <span class="helptext">Month:</span> <input type="text" name="month" value="<fmt:formatDate value="${now}" pattern="M" />" style="width: 40px;">
+   <span class="helptext">Year:</span> <input type="text" name="year" value="<fmt:formatDate value="${now}" pattern="yyyy" />" style="width: 80px;">
 
    <h4>Comment:</h4>
    <textarea class="w10" name="comment_text" rows="10"></textarea>

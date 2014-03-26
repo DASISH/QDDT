@@ -30,10 +30,16 @@
       </attribute>
    </tag>
   
-  
-  
-  
-  
+   <tag>
+      <description>Sets comment source map for given survey as request attribute.</description>
+      <name>setCommentSource</name>
+      <tag-class>no.nsd.qddt.tags.CommentSourceTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+         <name>var</name>
+         <required>true</required>
+      </attribute>
+   </tag>
   
   
 </taglib>

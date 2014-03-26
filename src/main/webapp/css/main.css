@@ -469,42 +469,6 @@ option {
 
 
 
-/* *********** begin: hidden ************ */
-.hidden{
-   display: none !important;
-}
-.hidearea{
-   display: none;
-}
-.showarea{
-   display: block;
-   background-color: #EEEEEE;
-   margin: 0 0 20px 0;
-   border: solid 1px #415182;
-   padding: 5px;
-}
-a.hideanchor{
-   float: right;
-   text-decoration: none;
-   border: none;
-}
-.hideanchor img{
-   border: none;
-}
-a.hidelink{
-   display: block;
-   margin-bottom: 0px;
-   text-decoration: none;
-}
-a.hidelink:hover {
-   text-decoration: none;
-   border: none;
-}
-/* *********** end: hidden ************ */
-
-
-
-
 
 
 /*

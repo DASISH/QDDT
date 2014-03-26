@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import no.nsd.qddt.actions.CommentAction;
 import no.nsd.qddt.actions.UserLoginAction;
 import no.nsd.qddt.actions.UserLogoutAction;
 import no.nsd.qddt.actions.HistoryAction;
@@ -91,10 +90,9 @@ public class ControllerServlet extends HttpServlet {
       else if (uri.equals(context + "/u/questionscheme")) { new QuestionSchemeAction().process(request, response); }
       else if (uri.equals(context + "/u/instrument")) { new InstrumentAction().process(request, response); }
       else if (uri.equals(context + "/u/report")) { new ReportAction().process(request, response); }
-      else if (uri.equals(context + "/u/comment")) { new CommentAction().process(request, response); }
       else if (uri.equals(context + "/u/status")) { new StatusAction().process(request, response); }
       else if (uri.equals(context + "/u/versioninfo")) { ServletUtil.forward("/WEB-INF/jsp/version_info.jsp", request, response); }
-
+      else if (uri.equals(context + "/u/comment")) { ServletUtil.forward("/WEB-INF/jsp/comment.jsp", request, response); }
       
       else if (uri.equals(context + "/u/history")) { new HistoryAction().process(request, response); }
 

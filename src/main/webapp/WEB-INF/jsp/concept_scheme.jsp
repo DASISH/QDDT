@@ -82,50 +82,17 @@
                      </form>
 
                   <c:if test="${conceptScheme != null}">
-                     <%-- ================================================================== comments concept scheme  --%>                     
                      <h3>Comments</h3>
-
                      
                      <qddt:comments agencyId="${conceptScheme.urn.agency.id}" urnId="${conceptScheme.urn.id}" elementId="${conceptScheme.id}" />
                      
-
-                     <span class="togglelink" id="commlink">Add comment</span>
-
-                     <form id="commform" action="<c:url value="/u/r/newcomment" />" method="post" style="display: none;">
-                        <input type="hidden" name="mvid" value="${moduleVersion.id}">
-                        <input type="hidden" name="eid" value="${conceptScheme.id}">
-                        <input type="hidden" name="aid" value="${conceptScheme.urn.agency.id}">
-                        <input type="hidden" name="urnid" value="${conceptScheme.urn.id}">
-                        <input type="hidden" name="fromurl" value="/u/conceptscheme?mvid=${param.mvid}">
-
-                        <h4>Source:</h4>
-                        <select name="sourceid">
-                           <option value=""></option>
-                           <c:forEach items="${commentSourceMap}" var="map">
-                              <option value="${map.value.id}">${fn:escapeXml(map.value.text)}</option>
-                           </c:forEach>
-                        </select>
-
-                        <h4>Date:</h4>
-                        <c:set var="now" value="<%=new java.util.Date()%>" />
-                        Day: <input type="text" name="day" value="<fmt:formatDate value="${now}" pattern="d" />" style="width: 40px;">
-                        Month: <input type="text" name="month" value="<fmt:formatDate value="${now}" pattern="M" />" style="width: 40px;">
-                        Year: <input type="text" name="year" value="<fmt:formatDate value="${now}" pattern="y" />" style="width: 80px;">
-
-                        <h4>Comment:</h4>
-                        <textarea class="w10" name="comment_text" rows="10"></textarea>
-
-                        <div><input class="okbutton topmarg" type="submit" name="action" value="Save comment"></div>
-                     </form>
-
-                     <script>
-   $("#commlink").click(function() {
-      $("#commform").toggle();
-   });
-                     </script>
-                     <%-- ================================================================== comments concept scheme   --%>                     
+                     <c:import url="/WEB-INF/jspf/add_comment.jsp">
+                        <c:param name="elementId" value="${conceptScheme.id}" />
+                        <c:param name="agencyId" value="${conceptScheme.urn.agency.id}" />
+                        <c:param name="urnId" value="${conceptScheme.urn.id}" />
+                        <c:param name="fromUrl" value="/u/conceptscheme?mvid=${param.mvid}" />
+                     </c:import>
                   </c:if>
-
 
 
 
@@ -178,49 +145,15 @@
 
                   </form>
 
-                  <%-- ================================================================== comments concept   --%>                     
                   <h3>Comments</h3>
-
-
                   <qddt:comments agencyId="${concept.urn.agency.id}" urnId="${concept.urn.id}" elementId="${concept.id}" />
-                  
 
-                  <span class="togglelink" id="commlink">Add comment</span>
-
-                  <form id="commform" action="<c:url value="/u/r/newcomment" />" method="post" style="display: none;">
-                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
-                     <input type="hidden" name="eid" value="${concept.id}">
-                     <input type="hidden" name="aid" value="${concept.urn.agency.id}">
-                     <input type="hidden" name="urnid" value="${concept.urn.id}">
-                     <input type="hidden" name="fromurl" value="/u/conceptscheme?mvid=${param.mvid}&amp;cid=${param.cid}">
-
-                     <h4>Source:</h4>
-                     <select name="sourceid">
-                        <option value=""></option>
-                        <c:forEach items="${commentSourceMap}" var="map">
-                           <option value="${map.value.id}">${fn:escapeXml(map.value.text)}</option>
-                        </c:forEach>
-                     </select>
-
-                     <h4>Date:</h4>
-                     <c:set var="now" value="<%=new java.util.Date()%>" />
-                     Day: <input type="text" name="day" value="<fmt:formatDate value="${now}" pattern="d" />" style="width: 40px;">
-                     Month: <input type="text" name="month" value="<fmt:formatDate value="${now}" pattern="M" />" style="width: 40px;">
-                     Year: <input type="text" name="year" value="<fmt:formatDate value="${now}" pattern="y" />" style="width: 80px;">
-
-                     <h4>Comment:</h4>
-                     <textarea class="w10" name="comment_text" rows="10"></textarea>
-
-                     <div><input class="okbutton topmarg" type="submit" name="action" value="Save comment"></div>
-                  </form>
-
-                  <script>
-                     $("#commlink").click(function() {
-                        $("#commform").toggle();
-                     });
-                  </script>
-                  <%-- ================================================================== comments concept   --%>                     
-
+                  <c:import url="/WEB-INF/jspf/add_comment.jsp">
+                     <c:param name="elementId" value="${concept.id}" />
+                     <c:param name="agencyId" value="${concept.urn.agency.id}" />
+                     <c:param name="urnId" value="${concept.urn.id}" />
+                     <c:param name="fromUrl" value="/u/conceptscheme?mvid=${param.mvid}&amp;cid=${param.cid}" />
+                  </c:import>
                </c:if>
 
 
