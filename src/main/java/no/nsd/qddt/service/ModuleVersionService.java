@@ -7,12 +7,12 @@ import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.ConceptLogic;
-import no.nsd.qddt.logic.orm.ConceptSchemeLogic;
-import no.nsd.qddt.logic.orm.ModuleVersionLogic;
-import no.nsd.qddt.logic.orm.persistence.ConceptPersistenceLogic;
-import no.nsd.qddt.logic.orm.persistence.ConceptSchemePersistenceLogic;
-import no.nsd.qddt.logic.orm.persistence.ModuleVersionPersistenceLogic;
+import no.nsd.qddt.logic.dao.ConceptDao;
+import no.nsd.qddt.logic.dao.ConceptSchemeDao;
+import no.nsd.qddt.logic.dao.ModuleVersionDao;
+import no.nsd.qddt.logic.dao.persist.ConceptDaoPersist;
+import no.nsd.qddt.logic.dao.persist.ConceptSchemeDaoPersist;
+import no.nsd.qddt.logic.dao.persist.ModuleVersionDaoPersist;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
@@ -26,7 +26,7 @@ public class ModuleVersionService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionLogic logic = new ModuleVersionLogic(conn);
+         ModuleVersionDao logic = new ModuleVersionDao(conn);
          return logic.getModuleVersions(moduleId);
       } catch (Exception e) {
          throw new ServletException(e);
@@ -39,7 +39,7 @@ public class ModuleVersionService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionLogic logic = new ModuleVersionLogic(conn);
+         ModuleVersionDao logic = new ModuleVersionDao(conn);
          return logic.getModuleVersion(moduleVersionId);
       } catch (Exception e) {
          throw new ServletException(e);
@@ -54,20 +54,20 @@ public class ModuleVersionService {
          conn = DatabaseConnectionFactory.getConnection();
          conn.setAutoCommit(false);
 
-         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
          Integer newModuleVersionId = logic.registerNewModuleVersion(mv);
 
          if (mv.getConceptSchemeId() != null) {
-            ConceptSchemeLogic csLogic = new ConceptSchemeLogic(conn);
+            ConceptSchemeDao csLogic = new ConceptSchemeDao(conn);
             ConceptScheme cs = csLogic.getConceptScheme(mv.getConceptSchemeId());
             
-            ConceptLogic cLogic = new ConceptLogic(conn);
+            ConceptDao cLogic = new ConceptDao(conn);
             cLogic.getConceptsForScheme(cs);
             Collection<Concept> concepts = cs.getConcepts();
 
             cs.setModuleVersionId(newModuleVersionId);
             cs.setVersionUpdated(Boolean.FALSE);
-            ConceptSchemePersistenceLogic cspLogic = new ConceptSchemePersistenceLogic(conn);
+            ConceptSchemeDaoPersist cspLogic = new ConceptSchemeDaoPersist(conn);
             cspLogic.registerNewConceptScheme(cs);
 
             for (Concept c : concepts) {
@@ -95,11 +95,11 @@ public class ModuleVersionService {
 
    private static void copyConcept(Concept c, Connection conn) throws SQLException {
       c.setVersionUpdated(Boolean.FALSE);
-      ConceptPersistenceLogic cpLogic = new ConceptPersistenceLogic(conn);
+      ConceptDaoPersist cpLogic = new ConceptDaoPersist(conn);
       Integer newConceptId = cpLogic.registerNewConcept(c);
       c.setId(newConceptId);
 
-      ConceptSchemePersistenceLogic cspLogic = new ConceptSchemePersistenceLogic(conn);
+      ConceptSchemeDaoPersist cspLogic = new ConceptSchemeDaoPersist(conn);
       cspLogic.addConceptToScheme(c);
    }
 
@@ -107,7 +107,7 @@ public class ModuleVersionService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
          logic.updateTitle(mv);
       } catch (Exception e) {
          throw new ServletException(e);
@@ -120,7 +120,7 @@ public class ModuleVersionService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionPersistenceLogic logic = new ModuleVersionPersistenceLogic(conn);
+         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
          logic.updateVersionInfo(mv);
       } catch (Exception e) {
          throw new ServletException(e);

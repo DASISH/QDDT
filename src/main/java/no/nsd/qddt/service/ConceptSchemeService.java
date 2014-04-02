@@ -1,70 +1,40 @@
 package no.nsd.qddt.service;
 
-import java.sql.Connection;
-import javax.servlet.ServletException;
-import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.orm.ConceptLogic;
-import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.ConceptSchemeLogic;
-import no.nsd.qddt.logic.orm.persistence.ConceptSchemePersistenceLogic;
+import java.sql.SQLException;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.ConceptScheme;
 
 public class ConceptSchemeService {
 
-   private ConceptSchemeService() {
+   private final DaoManager daoManager;
+
+   public ConceptSchemeService(DaoManager daoManager) {
+      this.daoManager = daoManager;
    }
 
-   public static ConceptScheme getConceptScheme(Integer conceptSchemeId) throws ServletException {
-      Connection conn = null;
+   public ConceptScheme getConceptScheme(Integer conceptSchemeId) throws SQLException {
+      ConceptScheme conceptScheme = daoManager.getConceptSchemeDao().getConceptScheme(conceptSchemeId);
+      
+      if (conceptScheme != null) {
+         daoManager.getConceptDao().getConceptsForScheme(conceptScheme);
+      }
+      
+      return conceptScheme;
+   }
+
+   public void registerNewConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       try {
-         conn = DatabaseConnectionFactory.getConnection();
-
-         ConceptSchemeLogic csLogic = new ConceptSchemeLogic(conn);
-         ConceptScheme conceptScheme = csLogic.getConceptScheme(conceptSchemeId);
-
-         if (conceptScheme != null) {
-            ConceptLogic logic = new ConceptLogic(conn);
-            logic.getConceptsForScheme(conceptScheme);
-         }
-
-         return conceptScheme;
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
+         daoManager.beginTransaction();
+         daoManager.getConceptSchemeDaoPersist().registerNewConceptScheme(conceptScheme);
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
       }
    }
 
-   public static void registerNewConceptScheme(ConceptScheme conceptScheme) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         conn.setAutoCommit(false);
-
-         ConceptSchemePersistenceLogic logic = new ConceptSchemePersistenceLogic(conn);
-         logic.registerNewConceptScheme(conceptScheme);
-
-         conn.commit();
-      } catch (Exception e) {
-         SqlUtil.rollback(conn);
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
+      daoManager.getConceptSchemeDaoPersist().updateConceptScheme(conceptScheme);
    }
 
-   public static void updateConceptScheme(ConceptScheme conceptScheme) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         ConceptSchemePersistenceLogic logic = new ConceptSchemePersistenceLogic(conn);
-         logic.updateConceptScheme(conceptScheme);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
-   }
-   
-   
 }

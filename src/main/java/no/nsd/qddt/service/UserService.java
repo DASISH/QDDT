@@ -4,7 +4,7 @@ import java.sql.Connection;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.UserLogic;
+import no.nsd.qddt.logic.dao.UserDao;
 import no.nsd.qddt.model.User;
 
 public class UserService {
@@ -25,7 +25,7 @@ public class UserService {
    }
    
    private static User getUserFromdb(Connection conn, String username, String password) throws Exception {
-      UserLogic logic = new UserLogic(conn);
+      UserDao logic = new UserDao(conn);
       return logic.getUser(username, password);
    }
 

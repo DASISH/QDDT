@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.orm.persistence;
+package no.nsd.qddt.logic.dao.persist;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,11 +7,11 @@ import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.Concept;
 
-public class ConceptPersistenceLogic {
+public class ConceptDaoPersist {
 
    private final Connection conn;
    
-   public ConceptPersistenceLogic(Connection conn) {
+   public ConceptDaoPersist(Connection conn) {
       this.conn = conn;
    }
    

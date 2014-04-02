@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.StudyLogic;
+import no.nsd.qddt.logic.dao.StudyDao;
 import no.nsd.qddt.model.Study;
 
 public class StudyService {
@@ -17,7 +17,7 @@ public class StudyService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         StudyLogic logic = new StudyLogic(conn);
+         StudyDao logic = new StudyDao(conn);
          return logic.getStudies();
       } catch (Exception e) {
          throw new ServletException(e);
@@ -30,7 +30,7 @@ public class StudyService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         StudyLogic logic = new StudyLogic(conn);
+         StudyDao logic = new StudyDao(conn);
          return logic.getStudy(studyId);
       } catch (Exception e) {
          throw new ServletException(e);

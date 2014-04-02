@@ -47,6 +47,15 @@ public final class SqlUtil {
          }
       }
    }
+
+   public static void setAutoCommitTrue(Connection conn) {
+      if (conn != null) {
+         try {
+            conn.setAutoCommit(true);
+         } catch (SQLException e) {
+         }
+      }
+   }
    
    public static String getString(String key, Map map) throws SQLException {
       Object o = map.get(key);

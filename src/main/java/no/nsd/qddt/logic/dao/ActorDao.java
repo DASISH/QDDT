@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.orm;
+package no.nsd.qddt.logic.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,15 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.orm.ActorOrm;
 import no.nsd.qddt.model.Actor;
 
-public class ActorLogic {
+public class ActorDao {
 
    private final Connection conn;
-   
-   public ActorLogic(Connection conn) {
+
+   public ActorDao(Connection conn) {
       this.conn = conn;
    }
+   
    
    public Actor getActorForUserAndModule(Integer userId, Integer moduleId) throws SQLException {
       String sql = "select a.actor_id, a.name from admin_user_module_actor as u "
@@ -27,7 +29,7 @@ public class ActorLogic {
       values.add(moduleId);
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      return this.getFirstActor(rows);
+      return ActorOrm.getFirstActor(rows);
    }
    
    public Actor getActorForUserSurveyAndAgency(Integer userId, Integer surveyId, Integer agencyId) throws SQLException {
@@ -41,15 +43,14 @@ public class ActorLogic {
       values.add(agencyId);
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      return this.getFirstActor(rows);
+      return ActorOrm.getFirstActor(rows);
    }
-
    
    
    public List<Actor> getActors() throws SQLException {
       String sql = "select * from admin_actor order by name"; 
       SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
-      return this.getActorList(rows);
+      return ActorOrm.getActorList(rows);
    }
 
    public Map<Integer, Actor> getActorMap() throws SQLException {
@@ -64,33 +65,5 @@ public class ActorLogic {
       return map;
    }
    
-   
-   
-   private List<Actor> getActorList(SortedMap[] rows) throws SQLException {
-      if (rows == null || rows.length == 0) {
-         return null;
-      }
-      List<Actor> list = new ArrayList<Actor>();
-      for (SortedMap row : rows) {
-         list.add(this.getActor(row));
-      }
-      return list;
-   }
-   
-   
-   
-   private Actor getFirstActor(SortedMap[] rows) {
-      if (rows == null || rows.length == 0) {
-         return null;
-      }
-      return this.getActor(rows[0]);
-   }
-   
-   private Actor getActor(SortedMap row) {
-      Actor actor = new Actor();
-      actor.setId((Integer) row.get("actor_id"));
-      actor.setName((String) row.get("name"));
-      return actor;
-   }   
    
 }

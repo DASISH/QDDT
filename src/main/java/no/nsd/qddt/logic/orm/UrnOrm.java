@@ -6,9 +6,9 @@ import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Urn;
 
-public final class UrnOrmUtil {
+public final class UrnOrm {
 
-   private UrnOrmUtil() {
+   private UrnOrm() {
    }
    
    public static Urn getUrn(Map map) throws SQLException {

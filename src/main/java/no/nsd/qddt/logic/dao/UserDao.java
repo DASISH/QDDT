@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.orm;
+package no.nsd.qddt.logic.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.orm.UserOrm;
 import no.nsd.qddt.model.User;
 
-public class UserLogic {
+public class UserDao {
 
    private final Connection conn;
    
-   public UserLogic(Connection conn) {
+   public UserDao(Connection conn) {
       this.conn = conn;
    }
    
@@ -23,21 +24,8 @@ public class UserLogic {
       values.add(password);
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      return this.getFirstUser(rows);
+      return UserOrm.getFirstUser(rows);
    }
    
-   private User getFirstUser(SortedMap[] rows) {
-      if (rows == null || rows.length == 0) {
-         return null;
-      }
-      return this.getUser(rows[0]);
-   }
-   
-   private User getUser(SortedMap row) {
-      User user = new User();
-      user.setId((Integer) row.get("user_id"));
-      user.setUsername((String) row.get("username"));
-      return user;
-   }   
-   
+
 }

@@ -1,23 +1,21 @@
-package no.nsd.qddt.logic.orm;
+package no.nsd.qddt.logic.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import no.nsd.qddt.logic.SqlCommand;
-import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.logic.orm.ConceptOrm;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
-import no.nsd.qddt.model.Urn;
 
-public class ConceptLogic {
+public class ConceptDao {
 
    private final Connection conn;
    
-   public ConceptLogic(Connection conn) {
+   public ConceptDao(Connection conn) {
       this.conn = conn;
    }
 
@@ -28,7 +26,7 @@ public class ConceptLogic {
       values.add(id);
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      List<Concept> list = this.getConceptList(rows);
+      List<Concept> list = ConceptOrm.getConceptList(rows);
       if (list == null || list.isEmpty()) {
          return null;
       }
@@ -50,7 +48,7 @@ public class ConceptLogic {
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       
-      List<Concept> concepts = this.getConceptList(rows);
+      List<Concept> concepts = ConceptOrm.getConceptList(rows);
       
       if (concepts == null) {
          return;
@@ -66,44 +64,16 @@ public class ConceptLogic {
             cs.addConcept(c);
          } else {
             Concept parent = map.get(c.getParentConceptId());
-            parent.addSubConcept(c);
+            if (parent != null) {
+               parent.addSubConcept(c);
+            }
          }
       }
    }
 
    
    
-   private List<Concept> getConceptList(SortedMap[] rows) throws SQLException {
-      if (rows == null || rows.length == 0) {
-         return null;
-      }
-      List<Concept> concepts = new ArrayList<Concept>();
-      for (SortedMap row : rows) {
-         concepts.add(this.getConcept(row));
-      }
-      return concepts;
-   }
 
-   
-   private Concept getConcept(Map map) throws SQLException {
-      Concept concept = new Concept();
-      
-      Urn urn = UrnOrmUtil.getUrn(map);
-      concept.setUrn(urn);
-      
-      concept.setId((Integer) map.get("concept_id"));
-      concept.setModuleVersionId((Integer) map.get("module_version_id"));
-      concept.setParentConceptId((Integer) map.get("parent_concept_id"));
-      concept.setName(SqlUtil.getString("name", map));
-      concept.setLabel(SqlUtil.getString("label", map));
-      concept.setDescription(SqlUtil.getString("description", map));
-      concept.setRelationshipConcept(SqlUtil.getString("relationship_concept", map));
-      concept.setVersionDescription(SqlUtil.getString("version_description", map));
-      concept.setVersionUpdated((Boolean) map.get("version_updated"));
-      concept.setConceptOrder((Integer) map.get("concept_order"));
-      
-      return concept;
-   }   
    
    
    

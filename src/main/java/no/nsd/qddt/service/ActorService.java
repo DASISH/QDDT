@@ -4,7 +4,7 @@ import java.sql.Connection;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.ActorLogic;
+import no.nsd.qddt.logic.dao.ActorDao;
 import no.nsd.qddt.model.Actor;
 
 public class ActorService {
@@ -16,7 +16,7 @@ public class ActorService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ActorLogic logic = new ActorLogic(conn);
+         ActorDao logic = new ActorDao(conn);
          return logic.getActorForUserAndModule(userId, moduleId);
       } catch (Exception e) {
          throw new ServletException(e);
@@ -29,7 +29,7 @@ public class ActorService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ActorLogic logic = new ActorLogic(conn);
+         ActorDao logic = new ActorDao(conn);
          return logic.getActorForUserSurveyAndAgency(userId, surveyId, agencyId);
       } catch (Exception e) {
          throw new ServletException(e);

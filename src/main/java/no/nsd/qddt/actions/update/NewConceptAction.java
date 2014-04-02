@@ -1,9 +1,11 @@
 package no.nsd.qddt.actions.update;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import no.nsd.qddt.actions.AbstractAction;
 import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ModuleVersion;
@@ -11,23 +13,21 @@ import no.nsd.qddt.model.Urn;
 import no.nsd.qddt.service.ConceptService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class NewConceptAction {
+public class NewConceptAction extends AbstractAction {
 
    private ModuleVersion moduleVersion;
    private Concept newConcept;
-   private HttpServletRequest request;
-   private HttpServletResponse response;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      this.request = request;
-      this.response = response;
+      this.setRequestAndResponse(request, response);
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
 
-      this.registerNewConcept();
+      this.createNewConcept();
+      this.executeDaoAndClose();
       this.redirectSuccessPage();
    }
 
-   private void registerNewConcept() throws ServletException {
+   private void createNewConcept() throws ServletException {
       newConcept = new Concept();
       Urn urn = UrnUtil.createNewUrn();
       urn.setAgency(moduleVersion.getModule().getAgency());
@@ -36,10 +36,12 @@ public class NewConceptAction {
       newConcept.setVersionUpdated(Boolean.TRUE);
       newConcept.setConceptSchemeId(ServletUtil.getRequestParamAsInteger(request, "csid"));
       newConcept.setParentConceptId(ServletUtil.getRequestParamAsInteger(request, "pcid"));
-      
-      ConceptService.registerNewConcept(newConcept);
    }
 
+   @Override
+   protected void executeDao() throws SQLException {
+      (new ConceptService(daoManager)).registerNewConcept(newConcept);
+   }
    
    private void redirectSuccessPage() throws IOException {
       String url = "/u/conceptscheme?mvid=" + moduleVersion.getId() + "&cid=" + newConcept.getId();

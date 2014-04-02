@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.util.List;
 import javax.servlet.ServletException;
 import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.orm.ModuleLogic;
+import no.nsd.qddt.logic.dao.ModuleDao;
 import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.orm.persistence.ConceptPersistenceLogic;
-import no.nsd.qddt.logic.orm.persistence.ModulePersistenceLogic;
-import no.nsd.qddt.logic.orm.persistence.UserPersistenceLogic;
+import no.nsd.qddt.logic.dao.persist.ConceptDaoPersist;
+import no.nsd.qddt.logic.dao.persist.ModuleDaoPersist;
+import no.nsd.qddt.logic.dao.persist.UserDaoPersist;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.User;
@@ -23,7 +23,7 @@ public class ModuleService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleLogic logic = new ModuleLogic(conn);
+         ModuleDao logic = new ModuleDao(conn);
          return logic.getModules();
       } catch (Exception e) {
          throw new ServletException(e);
@@ -37,7 +37,7 @@ public class ModuleService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModuleLogic logic = new ModuleLogic(conn);
+         ModuleDao logic = new ModuleDao(conn);
          return logic.getModule(moduleId);
       } catch (Exception e) {
          throw new ServletException(e);
@@ -54,10 +54,10 @@ public class ModuleService {
          conn = DatabaseConnectionFactory.getConnection();
          conn.setAutoCommit(false);
          
-         ModulePersistenceLogic moduleLogic = new ModulePersistenceLogic(conn);
+         ModuleDaoPersist moduleLogic = new ModuleDaoPersist(conn);
          Integer moduleId = moduleLogic.registerNewModule(module);
          
-         UserPersistenceLogic userLogic = new UserPersistenceLogic(conn);
+         UserDaoPersist userLogic = new UserDaoPersist(conn);
          userLogic.registerNewUserModuleActor(user.getId(), moduleId, actor.getId());
          
          conn.commit();
@@ -75,7 +75,7 @@ public class ModuleService {
       Connection conn = null;
       try {
          conn = DatabaseConnectionFactory.getConnection();
-         ModulePersistenceLogic logic = new ModulePersistenceLogic(conn);
+         ModuleDaoPersist logic = new ModuleDaoPersist(conn);
          logic.updateModule(module);
       } catch (Exception e) {
          throw new ServletException(e);

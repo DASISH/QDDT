@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.orm.persistence;
+package no.nsd.qddt.logic.dao.persist;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 
-public class UserPersistenceLogic {
+public class UserDaoPersist {
 
    private final Connection conn;
    
-   public UserPersistenceLogic(Connection conn) {
+   public UserDaoPersist(Connection conn) {
       this.conn = conn;
    }
    
