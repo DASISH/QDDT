@@ -1,42 +1,24 @@
 package no.nsd.qddt.service;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.ServletException;
-import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.dao.StudyDao;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Study;
 
 public class StudyService {
 
-   private StudyService() {
+   private final DaoManager daoManager;
+   
+   public StudyService(DaoManager daoManager) {
+      this.daoManager = daoManager;
    }
 
-   public static List<Study> getStudies() throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         StudyDao logic = new StudyDao(conn);
-         return logic.getStudies();
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public List<Study> getStudies() throws SQLException {
+      return daoManager.getStudyDao().getStudies();
    }
 
-   public static Study getStudy(Integer studyId) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         StudyDao logic = new StudyDao(conn);
-         return logic.getStudy(studyId);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public Study getStudy(Integer studyId) throws SQLException {
+      return daoManager.getStudyDao().getStudy(studyId);
    }
 
 }

@@ -19,14 +19,17 @@ public class ConceptSchemeAction extends AbstractAction {
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
-      this.conceptId = ServletUtil.getRequestParamAsInteger(request, "cid");
-      this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
 
+      this.getRequestParams();
       this.executeDaoAndClose();
-
       this.forwardPage();
    }
 
+   private void getRequestParams() {
+      this.conceptId = ServletUtil.getRequestParamAsInteger(request, "cid");
+      this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
+   }
+   
    @Override
    protected void executeDao() throws SQLException {
       this.setConceptScheme();

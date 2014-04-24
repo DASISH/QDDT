@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.dao.persist;
+package no.nsd.qddt.logic.dao.update;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,11 +7,11 @@ import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.ModuleVersion;
 
-public class ModuleVersionDaoPersist {
+public class ModuleVersionDaoUpdate {
 
    private final Connection conn;
    
-   public ModuleVersionDaoPersist(Connection conn) {
+   public ModuleVersionDaoUpdate(Connection conn) {
       this.conn = conn;
    }
 

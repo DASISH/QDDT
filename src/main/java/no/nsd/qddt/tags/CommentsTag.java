@@ -1,6 +1,7 @@
 package no.nsd.qddt.tags;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Comment;
@@ -53,8 +55,7 @@ public class CommentsTag extends SimpleTagSupport {
       this.setModuleVersion();
 
       try {
-         this.setComments();
-         this.setCommentSources();
+         this.setCommentsAndSources();
          this.printHtml();
       } catch (Exception e) {
          throw new JspException(e);
@@ -67,19 +68,38 @@ public class CommentsTag extends SimpleTagSupport {
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
    }
 
-   private void setComments() throws ServletException {
+   
+   private void setCommentsAndSources() throws ServletException {
+      DaoManager daoManager = null;
+      try {
+         daoManager = DaoManager.createDaoManager();
+         
+         this.setComments(daoManager);
+         this.setCommentSources(daoManager);
+         
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         if (daoManager != null) {
+            daoManager.close();
+         }
+      }
+   }
+   
+   
+   private void setComments(DaoManager daoManager) throws SQLException {
       Urn urn = new Urn();
       Agency a = new Agency();
       urn.setAgency(a);
       urn.setId(urnId);
       a.setId(agencyId);
 
-      comments = CommentService.getCommentsForElementVersionAndModuleVersion(urn, elementId, moduleVersion.getId());
+      comments = (new CommentService(daoManager)).getCommentsForElementVersionAndModuleVersion(urn, elementId, moduleVersion.getId());
    }
 
-   private void setCommentSources() throws ServletException {
+   private void setCommentSources(DaoManager daoManager) throws SQLException {
       Integer surveyId = moduleVersion.getModule().getStudy().getSurvey().getId();
-      commentSourceMap = CommentSourceService.getCommentSourceMap(surveyId);
+      commentSourceMap = (new CommentSourceService(daoManager)).getCommentSourceMap(surveyId);
    }
 
    private void printHtml() throws IOException {

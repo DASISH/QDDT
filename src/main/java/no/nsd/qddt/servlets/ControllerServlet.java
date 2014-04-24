@@ -26,6 +26,7 @@ import no.nsd.qddt.actions.update.SaveConceptAction;
 import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveTitleAction;
 import no.nsd.qddt.actions.update.SaveVersionInfoAction;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.ModuleVersion;
@@ -62,16 +63,33 @@ public class ControllerServlet extends HttpServlet {
          return;
       }
       
-      HttpSession httpSession = request.getSession();
-      User user = (User) httpSession.getAttribute("user");
-      
-      ModuleVersion moduleVersion = ModuleVersionService.getModuleVersion(moduleVersionId);
-      Module module = ModuleService.getModule(moduleVersion.getModule().getId());
-      moduleVersion.setModule(module);
-      Actor actor = ActorService.getActorForUserAndModule(user.getId(), module.getId());
-      request.setAttribute("moduleVersion", moduleVersion);
-      request.setAttribute("actor", actor);
+      this.doFilterDao(moduleVersionId, request);
    }
+   
+   private void doFilterDao(Integer moduleVersionId, HttpServletRequest request) throws ServletException {
+      DaoManager daoManager = null;
+      try {
+         daoManager = DaoManager.createDaoManager();
+         
+         HttpSession httpSession = request.getSession();
+         User user = (User) httpSession.getAttribute("user");
+
+         ModuleVersion moduleVersion = (new ModuleVersionService(daoManager)).getModuleVersion(moduleVersionId);
+         Module module = (new ModuleService(daoManager)).getModule(moduleVersion.getModule().getId());
+         moduleVersion.setModule(module);
+         Actor actor = (new ActorService(daoManager)).getActorForUserAndModule(user.getId(), module.getId());
+         request.setAttribute("moduleVersion", moduleVersion);
+         request.setAttribute("actor", actor);
+
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         if (daoManager != null) {
+            daoManager.close();
+         }
+      }
+   }
+   
    
    private void urlMapping(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       String uri = ServletUtil.getUriWithoutJsessionId(request.getRequestURI());

@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.dao.persist;
+package no.nsd.qddt.logic.dao.update;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,11 +7,11 @@ import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.Comment;
 
-public class CommentDaoPersist {
+public class CommentDaoUpdate {
 
    private final Connection conn;
    
-   public CommentDaoPersist(Connection conn) {
+   public CommentDaoUpdate(Connection conn) {
       this.conn = conn;
    }
    

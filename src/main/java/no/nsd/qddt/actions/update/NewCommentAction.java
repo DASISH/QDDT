@@ -1,6 +1,7 @@
 package no.nsd.qddt.actions.update;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -8,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import no.nsd.qddt.actions.AbstractAction;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Agency;
 import no.nsd.qddt.model.Comment;
@@ -17,20 +19,18 @@ import no.nsd.qddt.model.User;
 import no.nsd.qddt.service.CommentService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class NewCommentAction {
+public class NewCommentAction extends AbstractAction {
 
    private ModuleVersion moduleVersion;
    private Comment comment;
-   private HttpServletRequest request;
-   private HttpServletResponse response;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      this.request = request;
-      this.response = response;
+      this.setRequestAndResponse(request, response);
+      
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
 
       this.createNewComment();
-      this.registerComment();
+      this.executeDaoAndClose();
       this.redirectSuccessPage();
    }
 
@@ -52,24 +52,20 @@ public class NewCommentAction {
       urn.setId(request.getParameter("urnid"));
       return urn;
    }
-
    private Agency getAgency() {
       Agency a = new Agency();
       a.setId(ServletUtil.getRequestParamAsInteger(request, "aid"));
       return a;
    }
-
    private User getUser() {
       HttpSession httpSession = request.getSession();
       User user = (User) httpSession.getAttribute("user");
       return user;
    }
-
    private Actor getActor() {
       Actor actor = (Actor) request.getAttribute("actor");
       return actor;
    }
-
    private Date getDate() {
       try {
          int day = ServletUtil.getRequestParamAsInteger(request, "day");
@@ -85,13 +81,14 @@ public class NewCommentAction {
       }
    }
 
-   private void registerComment() throws ServletException {
-      CommentService.registerNewComment(comment);
+   @Override
+   protected void executeDao() throws SQLException {
+      (new CommentService(daoManager)).registerNewComment(comment);
    }
 
    private void redirectSuccessPage() throws IOException {
       String url = request.getParameter("fromurl");
       ServletUtil.redirect(url, request, response);
    }
-
+   
 }

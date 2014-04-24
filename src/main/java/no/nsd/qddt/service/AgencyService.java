@@ -1,29 +1,20 @@
 package no.nsd.qddt.service;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.ServletException;
-import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.dao.AgencyDao;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Agency;
 
 public class AgencyService {
 
-   private AgencyService() {
+   private final DaoManager daoManager;
+   
+   public AgencyService(DaoManager daoManager) {
+      this.daoManager = daoManager;
    }
 
-   public static List<Agency> getAgencies() throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         AgencyDao logic = new AgencyDao(conn);
-         return logic.getAgencies();
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public List<Agency> getAgencies() throws SQLException {
+      return daoManager.getAgencyDao().getAgencies();
    }
 
 }

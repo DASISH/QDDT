@@ -1,132 +1,82 @@
 package no.nsd.qddt.service;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import javax.servlet.ServletException;
-import no.nsd.qddt.factories.DatabaseConnectionFactory;
-import no.nsd.qddt.logic.SqlUtil;
-import no.nsd.qddt.logic.dao.ConceptDao;
-import no.nsd.qddt.logic.dao.ConceptSchemeDao;
-import no.nsd.qddt.logic.dao.ModuleVersionDao;
-import no.nsd.qddt.logic.dao.persist.ConceptDaoPersist;
-import no.nsd.qddt.logic.dao.persist.ConceptSchemeDaoPersist;
-import no.nsd.qddt.logic.dao.persist.ModuleVersionDaoPersist;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
 
 public class ModuleVersionService {
 
-   private ModuleVersionService() {
+   private final DaoManager daoManager;
+   
+   public ModuleVersionService(DaoManager daoManager) {
+      this.daoManager = daoManager;
    }
 
-   public static List<ModuleVersion> getModuleVersions(Integer moduleId) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionDao logic = new ModuleVersionDao(conn);
-         return logic.getModuleVersions(moduleId);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public List<ModuleVersion> getModuleVersions(Integer moduleId) throws SQLException {
+      return daoManager.getModuleVersionDao().getModuleVersions(moduleId);
    }
 
-   public static ModuleVersion getModuleVersion(Integer moduleVersionId) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionDao logic = new ModuleVersionDao(conn);
-         return logic.getModuleVersion(moduleVersionId);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public ModuleVersion getModuleVersion(Integer moduleVersionId) throws SQLException {
+      return daoManager.getModuleVersionDao().getModuleVersion(moduleVersionId);
    }
 
-   public static void registerNewModuleVersion(ModuleVersion mv) throws ServletException {
-      Connection conn = null;
+   public void registerNewModuleVersion(ModuleVersion mv) throws SQLException {
       try {
-         conn = DatabaseConnectionFactory.getConnection();
-         conn.setAutoCommit(false);
+         daoManager.beginTransaction();
 
-         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
-         Integer newModuleVersionId = logic.registerNewModuleVersion(mv);
-
+         Integer newModuleVersionId = daoManager.getModuleVersionDaoUpdate().registerNewModuleVersion(mv);
+         
          if (mv.getConceptSchemeId() != null) {
-            ConceptSchemeDao csLogic = new ConceptSchemeDao(conn);
-            ConceptScheme cs = csLogic.getConceptScheme(mv.getConceptSchemeId());
+            ConceptScheme cs = daoManager.getConceptSchemeDao().getConceptScheme(mv.getConceptSchemeId());
             
-            ConceptDao cLogic = new ConceptDao(conn);
-            cLogic.getConceptsForScheme(cs);
+            daoManager.getConceptDao().getConceptsForScheme(cs);
             Collection<Concept> concepts = cs.getConcepts();
 
             cs.setModuleVersionId(newModuleVersionId);
             cs.setVersionUpdated(Boolean.FALSE);
-            ConceptSchemeDaoPersist cspLogic = new ConceptSchemeDaoPersist(conn);
-            cspLogic.registerNewConceptScheme(cs);
-
+            
+            daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(cs);
+            
             for (Concept c : concepts) {
                c.setModuleVersionId(newModuleVersionId);
                c.setConceptSchemeId(cs.getId());
-               copyConcept(c, conn);
+               this.copyConcept(c);
                List<Concept> subConcepts = c.getSubConcepts();
                for (Concept sub : subConcepts) {
                   sub.setModuleVersionId(newModuleVersionId);
                   sub.setConceptSchemeId(cs.getId());
                   sub.setParentConceptId(c.getId());
-                  copyConcept(sub, conn);
+                  this.copyConcept(sub);
                }
             }
          }
 
-         conn.commit();
-      } catch (Exception e) {
-         SqlUtil.rollback(conn);
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
       }
    }
 
-   private static void copyConcept(Concept c, Connection conn) throws SQLException {
+   private void copyConcept(Concept c) throws SQLException {
       c.setVersionUpdated(Boolean.FALSE);
-      ConceptDaoPersist cpLogic = new ConceptDaoPersist(conn);
-      Integer newConceptId = cpLogic.registerNewConcept(c);
+      
+      Integer newConceptId = daoManager.getConceptDaoUpdate().registerNewConcept(c);
       c.setId(newConceptId);
-
-      ConceptSchemeDaoPersist cspLogic = new ConceptSchemeDaoPersist(conn);
-      cspLogic.addConceptToScheme(c);
+      
+      daoManager.getConceptSchemeDaoUpdate().addConceptToScheme(c);
    }
 
-   public static void updateTitle(ModuleVersion mv) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
-         logic.updateTitle(mv);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public void updateTitle(ModuleVersion mv) throws SQLException {
+      daoManager.getModuleVersionDaoUpdate().updateTitle(mv);
    }
 
-   public static void updateVersionInfo(ModuleVersion mv) throws ServletException {
-      Connection conn = null;
-      try {
-         conn = DatabaseConnectionFactory.getConnection();
-         ModuleVersionDaoPersist logic = new ModuleVersionDaoPersist(conn);
-         logic.updateVersionInfo(mv);
-      } catch (Exception e) {
-         throw new ServletException(e);
-      } finally {
-         SqlUtil.close(conn);
-      }
+   public void updateVersionInfo(ModuleVersion mv) throws SQLException {
+      daoManager.getModuleVersionDaoUpdate().updateVersionInfo(mv);
    }
 
 }

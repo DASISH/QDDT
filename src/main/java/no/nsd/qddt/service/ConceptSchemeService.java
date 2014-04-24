@@ -25,7 +25,7 @@ public class ConceptSchemeService {
    public void registerNewConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       try {
          daoManager.beginTransaction();
-         daoManager.getConceptSchemeDaoPersist().registerNewConceptScheme(conceptScheme);
+         daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(conceptScheme);
          daoManager.endTransaction();
       } catch (SQLException e) {
          daoManager.abortTransaction();
@@ -34,7 +34,7 @@ public class ConceptSchemeService {
    }
 
    public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
-      daoManager.getConceptSchemeDaoPersist().updateConceptScheme(conceptScheme);
+      daoManager.getConceptSchemeDaoUpdate().updateConceptScheme(conceptScheme);
    }
 
 }

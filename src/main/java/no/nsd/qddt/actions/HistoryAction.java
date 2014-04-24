@@ -1,6 +1,7 @@
 package no.nsd.qddt.actions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,30 +12,35 @@ import no.nsd.qddt.service.ModuleService;
 import no.nsd.qddt.service.ModuleVersionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class HistoryAction {
+public class HistoryAction  extends AbstractAction {
 
    private Integer moduleId;
-   private HttpServletRequest request;
-   private HttpServletResponse response;
    
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      this.request = request;
-      this.response = response;
-      this.moduleId = ServletUtil.getRequestParamAsInteger(request, "id");
+      this.setRequestAndResponse(request, response);
 
-      this.setModule();
-      this.setModuleVersions();
+      this.getRequestParams();
+      this.executeDaoAndClose();
       this.forwardPage();
    }
+
+   private void getRequestParams() {
+      this.moduleId = ServletUtil.getRequestParamAsInteger(request, "id");
+   }
    
+   @Override
+   protected void executeDao() throws SQLException {
+      this.setModule();
+      this.setModuleVersions();
+   }
    
-   private void setModule() throws ServletException {
-      Module module = ModuleService.getModule(moduleId);
+   private void setModule() throws SQLException {
+      Module module = (new ModuleService(daoManager)).getModule(moduleId);
       request.setAttribute("module", module);
    }
 
-   private void setModuleVersions() throws ServletException {
-      List<ModuleVersion> moduleVersions = ModuleVersionService.getModuleVersions(moduleId);
+   private void setModuleVersions() throws SQLException {
+      List<ModuleVersion> moduleVersions = (new ModuleVersionService(daoManager)).getModuleVersions(moduleId);
       request.setAttribute("moduleVersions", moduleVersions);
       
       if (moduleVersions != null && !moduleVersions.isEmpty()) {
@@ -46,5 +52,6 @@ public class HistoryAction {
    private void forwardPage() throws ServletException, IOException {
       ServletUtil.forward("/WEB-INF/jsp/history.jsp", request, response);
    }
+
    
 }

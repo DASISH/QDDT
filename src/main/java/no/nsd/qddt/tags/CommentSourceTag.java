@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
+import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.CommentSource;
 import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.CommentSourceService;
@@ -45,10 +46,23 @@ public class CommentSourceTag extends SimpleTagSupport {
    }
    
    private void setCommentSources() throws ServletException {
-      Integer surveyId = moduleVersion.getModule().getStudy().getSurvey().getId();
-      SortedMap<Integer, CommentSource> commentSourceMap = CommentSourceService.getCommentSourceMap(surveyId);
-      request.setAttribute(var, commentSourceMap);
+      DaoManager daoManager = null;
+      try {
+         daoManager = DaoManager.createDaoManager();
+         
+         Integer surveyId = moduleVersion.getModule().getStudy().getSurvey().getId();
+         SortedMap<Integer, CommentSource> commentSourceMap = (new CommentSourceService(daoManager)).getCommentSourceMap(surveyId);
+         request.setAttribute(var, commentSourceMap);
+
+      } catch (Exception e) {
+         throw new ServletException(e);
+      } finally {
+         if (daoManager != null) {
+            daoManager.close();
+         }
+      }
    }
+   
    
 
 }

@@ -1,6 +1,7 @@
 package no.nsd.qddt.actions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,21 +10,22 @@ import no.nsd.qddt.model.Module;
 import no.nsd.qddt.service.ModuleService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class UserHomeAction {
+public class UserHomeAction extends AbstractAction {
 
-   private HttpServletRequest request;
-   private HttpServletResponse response;
-   
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      this.request = request;
-      this.response = response;
-
-      this.setModules();
+      this.setRequestAndResponse(request, response);
+      
+      this.executeDaoAndClose();
       this.forwardPage();
    }
+
+   @Override
+   protected void executeDao() throws SQLException {
+      this.setModules();
+   }
    
-   private void setModules() throws ServletException {
-      List<Module> modules = ModuleService.getModules();
+   private void setModules() throws SQLException {
+      List<Module> modules = (new ModuleService(daoManager)).getModules();
       request.setAttribute("modules", modules);
    }
    

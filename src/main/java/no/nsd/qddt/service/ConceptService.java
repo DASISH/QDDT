@@ -21,11 +21,11 @@ public class ConceptService {
       try {
          daoManager.beginTransaction();
          
-         Integer conceptId = daoManager.getConceptDaoPersist().registerNewConcept(concept);
+         Integer conceptId = daoManager.getConceptDaoUpdate().registerNewConcept(concept);
          concept.setId(conceptId);
          
-         daoManager.getConceptSchemeDaoPersist().addConceptToScheme(concept);
-         daoManager.getConceptSchemeDaoPersist().setConceptSchemeUpdated(concept.getConceptSchemeId());
+         daoManager.getConceptSchemeDaoUpdate().addConceptToScheme(concept);
+         daoManager.getConceptSchemeDaoUpdate().setConceptSchemeUpdated(concept.getConceptSchemeId());
          
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -38,8 +38,8 @@ public class ConceptService {
       try {
          daoManager.beginTransaction();
 
-         daoManager.getConceptDaoPersist().updateConcept(concept);
-         daoManager.getConceptSchemeDaoPersist().setConceptSchemeUpdated(concept.getConceptSchemeId());
+         daoManager.getConceptDaoUpdate().updateConcept(concept);
+         daoManager.getConceptSchemeDaoUpdate().setConceptSchemeUpdated(concept.getConceptSchemeId());
          
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class ConceptService {
          }
 
          deleteConceptAndRemoveFromScheme(concept);
-         daoManager.getConceptSchemeDaoPersist().setConceptSchemeUpdated(concept.getConceptSchemeId());
+         daoManager.getConceptSchemeDaoUpdate().setConceptSchemeUpdated(concept.getConceptSchemeId());
 
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -69,8 +69,8 @@ public class ConceptService {
    }
 
    private void deleteConceptAndRemoveFromScheme(Concept concept) throws SQLException {
-      daoManager.getConceptDaoPersist().deleteConceptFromScheme(concept);
-      daoManager.getConceptDaoPersist().deleteConcept(concept);
+      daoManager.getConceptDaoUpdate().deleteConceptFromScheme(concept);
+      daoManager.getConceptDaoUpdate().deleteConcept(concept);
    }
 
 }

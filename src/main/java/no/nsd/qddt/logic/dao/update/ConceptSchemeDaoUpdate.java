@@ -1,4 +1,4 @@
-package no.nsd.qddt.logic.dao.persist;
+package no.nsd.qddt.logic.dao.update;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,11 +9,11 @@ import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
 
-public class ConceptSchemeDaoPersist {
+public class ConceptSchemeDaoUpdate {
 
    private final Connection conn;
 
-   public ConceptSchemeDaoPersist(Connection conn) {
+   public ConceptSchemeDaoUpdate(Connection conn) {
       this.conn = conn;
    }
 
@@ -54,7 +54,7 @@ public class ConceptSchemeDaoPersist {
       ModuleVersion moduleVersion = new ModuleVersion();
       moduleVersion.setId(conceptScheme.getModuleVersionId());
       moduleVersion.setConceptSchemeId(conceptScheme.getId());
-      ModuleVersionDaoPersist mvpLogic = new ModuleVersionDaoPersist(conn);
+      ModuleVersionDaoUpdate mvpLogic = new ModuleVersionDaoUpdate(conn);
       mvpLogic.updateConceptScheme(moduleVersion);
    }
 
