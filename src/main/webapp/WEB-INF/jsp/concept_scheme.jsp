@@ -39,19 +39,9 @@
             <div class="col w4 border-r padding-r">
 
                <div class="boxheader">Concept hierarchy</div>
-               <ul class="link-list">
-                  <c:forEach items="${conceptScheme.concepts}" var="c">
-                     <li><a ${param.cid eq c.id ? 'class="current"' : ''} href="?mvid=${moduleVersion.id}&cid=${c.id}"><c:out value="${c.name}" default="(name missing)" /></a>
-                        <c:if test="${!empty c.subConcepts}">
-                           <ul>
-                              <c:forEach items="${c.subConcepts}" var="sub">
-                                 <li><a ${param.cid eq sub.id ? 'class="current"' : ''} href="?mvid=${moduleVersion.id}&cid=${sub.id}"><c:out value="${sub.name}" default="(name missing)" /></a>
-                                 </c:forEach>
-                           </ul>
-                        </c:if>
-                     </li>
-                  </c:forEach>
-               </ul>
+               
+               <qddt:conceptScheme conceptScheme="${conceptScheme}" currentConceptId="${param.cid}" />
+               
             </div>
             <div class="col w8 padding-l">
 

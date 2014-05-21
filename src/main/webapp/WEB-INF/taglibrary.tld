@@ -41,5 +41,20 @@
       </attribute>
    </tag>
   
-  
+   <tag>
+      <description>Prints concept hierarchy</description>
+      <name>conceptScheme</name>
+      <tag-class>no.nsd.qddt.tags.ConceptSchemeTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+         <name>conceptScheme</name>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+         <name>currentConceptId</name>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
+
+    
 </taglib>
