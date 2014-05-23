@@ -1,7 +1,9 @@
 package no.nsd.qddt.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import no.nsd.qddt.logic.dao.DaoManager;
+import no.nsd.qddt.model.Question;
 import no.nsd.qddt.model.QuestionScheme;
 
 public class QuestionSchemeService {
@@ -16,7 +18,8 @@ public class QuestionSchemeService {
       QuestionScheme questionScheme = daoManager.getQuestionSchemeDao().getQuestionScheme(questionSchemeId);
       
       if (questionScheme != null) {
-         //daoManager.getConceptDao().getConceptsForScheme(conceptScheme);
+         List<Question> questions = daoManager.getQuestionDao().getQuestionsForScheme(questionSchemeId);
+         questionScheme.setQuestions(questions);
       }
       
       return questionScheme;

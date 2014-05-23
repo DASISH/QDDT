@@ -53,6 +53,7 @@ public final class ModuleVersionOrm {
       mv.setAuthorsAffiliation(SqlUtil.getString("module_authors_affiliation", map));
       mv.setModuleAbstract(SqlUtil.getString("module_abstract", map));
       mv.setConceptSchemeId((Integer) map.get("concept_scheme_id"));
+      mv.setQuestionSchemeId((Integer) map.get("question_scheme_id"));
       return mv;
    }   
    

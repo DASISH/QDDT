@@ -17,6 +17,7 @@ public class ModuleVersion implements Serializable {
    private String moduleAbstract;
 
    private Integer conceptSchemeId;
+   private Integer questionSchemeId;
 
    
    public Module getModule() {
@@ -123,6 +124,16 @@ public class ModuleVersion implements Serializable {
       this.conceptSchemeId = conceptSchemeId;
    }
 
+   public Integer getQuestionSchemeId() {
+      return questionSchemeId;
+   }
+
+   public void setQuestionSchemeId(Integer questionSchemeId) {
+      this.questionSchemeId = questionSchemeId;
+   }
+
+   
+   
    public String getVersionText() {
       if (this.isDraft()) {
          return "Draft " + this.getSubMinorVersion();

@@ -36,6 +36,7 @@ public class DaoManager {
    private CommentDao commentDao;
    private CommentDaoUpdate commentDaoUpdate;
    private QuestionSchemeDao questionSchemeDao;
+   private QuestionDao questionDao;
 
    
    public DaoManager(DataSource dataSource) {
@@ -166,6 +167,13 @@ public class DaoManager {
          questionSchemeDao = new QuestionSchemeDao(this.getConnection());
       }
       return questionSchemeDao;
+   }
+
+   public QuestionDao getQuestionDao() throws SQLException {
+      if (questionDao == null) {
+         questionDao = new QuestionDao(this.getConnection());
+      }
+      return questionDao;
    }
    
    
