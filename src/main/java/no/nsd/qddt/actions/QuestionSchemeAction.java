@@ -17,6 +17,8 @@ public class QuestionSchemeAction extends AbstractAction {
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
+      
+      this.executeDaoAndClose();
 
       this.forwardPage();
    }

@@ -26,6 +26,7 @@ public class ConceptSchemeService {
       try {
          daoManager.beginTransaction();
          daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(conceptScheme);
+         daoManager.getModuleVersionDaoUpdate().updateConceptScheme(conceptScheme);
          daoManager.endTransaction();
       } catch (SQLException e) {
          daoManager.abortTransaction();

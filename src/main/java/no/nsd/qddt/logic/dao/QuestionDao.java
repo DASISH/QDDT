@@ -19,7 +19,7 @@ public class QuestionDao {
 
    public List<Question> getQuestionsForScheme(Integer questionSchemeId) throws SQLException {
       String sql = "select q.* from "
-              + "question as q inner join questions_in_scheme as qis "
+              + "question as q inner join question_in_scheme as qis "
               + "on q.question_id = qis.question_id "
               + "where question_scheme_id = ?";
       

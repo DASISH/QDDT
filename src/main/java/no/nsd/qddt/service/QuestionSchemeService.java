@@ -25,5 +25,21 @@ public class QuestionSchemeService {
       return questionScheme;
    }
 
+   
+   public void registerNewQuestionScheme(QuestionScheme questionScheme) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         daoManager.getQuestionSchemeDaoUpdate().registerNewQuestionScheme(questionScheme);
+         daoManager.getModuleVersionDaoUpdate().updateQuestionScheme(questionScheme);
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+
+   public void updateQuestionScheme(QuestionScheme questionScheme) throws SQLException {
+      daoManager.getQuestionSchemeDaoUpdate().updateQuestionScheme(questionScheme);
+   }   
 
 }

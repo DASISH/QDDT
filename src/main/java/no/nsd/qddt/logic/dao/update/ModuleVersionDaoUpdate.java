@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
+import no.nsd.qddt.model.QuestionScheme;
 
 public class ModuleVersionDaoUpdate {
 
@@ -88,14 +90,27 @@ public class ModuleVersionDaoUpdate {
    }
    
 
-   public void updateConceptScheme(ModuleVersion mv) throws SQLException {
+   public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       String sql = "update module_version set "
               + "concept_scheme_id = ? "
               + "where module_version_id = ?";
 
       List values = new ArrayList();
-      values.add(mv.getConceptSchemeId());
-      values.add(mv.getId());
+      values.add(conceptScheme.getId());
+      values.add(conceptScheme.getModuleVersionId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   
+   public void updateQuestionScheme(QuestionScheme questionScheme) throws SQLException {
+      String sql = "update module_version set "
+              + "question_scheme_id = ? "
+              + "where module_version_id = ?";
+
+      List values = new ArrayList();
+      values.add(questionScheme.getId());
+      values.add(questionScheme.getModuleVersionId());
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }

@@ -46,16 +46,6 @@ public class ConceptSchemeDaoUpdate {
       sqlCommand.setValues(values);
       Integer conceptSchemeId = sqlCommand.executeAndReturnGeneratedKey();
       conceptScheme.setId(conceptSchemeId);
-      
-      this.updateConceptSchemeForModuleVersion(conceptScheme);
-   }
-
-   private void updateConceptSchemeForModuleVersion(ConceptScheme conceptScheme) throws SQLException {
-      ModuleVersion moduleVersion = new ModuleVersion();
-      moduleVersion.setId(conceptScheme.getModuleVersionId());
-      moduleVersion.setConceptSchemeId(conceptScheme.getId());
-      ModuleVersionDaoUpdate mvpLogic = new ModuleVersionDaoUpdate(conn);
-      mvpLogic.updateConceptScheme(moduleVersion);
    }
 
    public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
