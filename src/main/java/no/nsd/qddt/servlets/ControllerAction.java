@@ -22,6 +22,7 @@ import no.nsd.qddt.actions.update.NewModuleVersionAction;
 import no.nsd.qddt.actions.update.SaveConceptAction;
 import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
+import no.nsd.qddt.actions.update.SaveQuestionSchemeAction;
 import no.nsd.qddt.actions.update.SaveTitleAction;
 import no.nsd.qddt.actions.update.SaveVersionInfoAction;
 
@@ -64,6 +65,7 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/newmoduleversion")) { new NewModuleVersionAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savetitle")) { new SaveTitleAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveconceptscheme")) { new SaveConceptSchemeAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/savequestionscheme")) { new SaveQuestionSchemeAction().process(request, response); }
       else if (uri.equals(context + "/u/r/newconcept")) { new NewConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveconcept")) { new SaveConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveversioninfo")) { new SaveVersionInfoAction().process(request, response); }

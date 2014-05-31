@@ -22,7 +22,7 @@
 
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
 
-         <form action="<c:url value="/u/r/savequestionscheme" />" method="post">
+            <form action="<c:url value="/u/r/savequestionscheme" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
             <input type="hidden" name="qsid" value="${questionScheme.id}">
 
@@ -40,7 +40,7 @@
 
             <c:if test="${questionScheme == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create concept scheme"></div></c:if>
             <c:if test="${questionScheme != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
-         </form>
+            </form>
 
          <c:if test="${questionScheme != null}">
             <h3>Comments</h3>
@@ -56,23 +56,25 @@
          </c:if>
 
 
+         <c:if test="${questionScheme != null}">
 
-         <div class="boxheader">Questions</div>
+            <div class="boxheader">Questions</div>
 
-         <c:forEach items="${questionScheme.questions}" var="q">
-            <p>
-               ${fn:escapeXml(q.questionText)}
-            </p>
-         </c:forEach>
-
-
-         <form action="<c:url value="/u/r/newquestion" />" method="post">
-            <input type="hidden" name="mvid" value="${moduleVersion.id}">
-            <input type="hidden" name="csid" value="${questionScheme.id}">
-            <input class="okbutton" type="submit" value="Add new question">
-         </form>
+            <c:forEach items="${questionScheme.questions}" var="q">
+               <p>
+                  ${fn:escapeXml(q.questionText)}
+               </p>
+            </c:forEach>
 
 
+            <form action="<c:url value="/u/r/newquestion" />" method="post">
+               <input type="hidden" name="mvid" value="${moduleVersion.id}">
+               <input type="hidden" name="csid" value="${questionScheme.id}">
+               <input class="okbutton" type="submit" value="Add new question">
+            </form>
+
+
+         </c:if>
 
 
       </div>
