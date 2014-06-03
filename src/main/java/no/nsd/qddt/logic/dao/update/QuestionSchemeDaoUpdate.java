@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
-import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.model.Question;
 import no.nsd.qddt.model.QuestionScheme;
 
@@ -89,6 +88,18 @@ public class QuestionSchemeDaoUpdate {
       return questionId;
    }
 
+   
+   public void deleteQuestionFromScheme(Question question) throws SQLException {
+      String sql = "delete from question_in_scheme where question_id = ? and question_scheme_id = ?";
+
+      List values = new ArrayList();
+      values.add(question.getId());
+      values.add(question.getQuestionSchemeId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   
    public void setQuestionSchemeUpdated(Integer questionSchemeId) throws SQLException {
       String sql = "update question_scheme set "
               + "version_updated = ? "

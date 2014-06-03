@@ -11,6 +11,7 @@ import no.nsd.qddt.logic.dao.update.ConceptDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptSchemeDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ModuleDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ModuleVersionDaoUpdate;
+import no.nsd.qddt.logic.dao.update.QuestionDaoUpdate;
 import no.nsd.qddt.logic.dao.update.QuestionSchemeDaoUpdate;
 import no.nsd.qddt.logic.dao.update.UserDaoUpdate;
 import no.nsd.qddt.model.QuestionScheme;
@@ -39,6 +40,7 @@ public class DaoManager {
    private QuestionSchemeDao questionSchemeDao;
    private QuestionDao questionDao;
    private QuestionSchemeDaoUpdate questionSchemeDaoUpdate;
+   private QuestionDaoUpdate questionDaoUpdate;
 
    
    public DaoManager(DataSource dataSource) {
@@ -184,6 +186,14 @@ public class DaoManager {
       }
       return questionSchemeDaoUpdate;
    }
+
+   public QuestionDaoUpdate getQuestionDaoUpdate() throws SQLException {
+      if (questionDaoUpdate == null) {
+         questionDaoUpdate = new QuestionDaoUpdate(this.getConnection());
+      }
+      return questionDaoUpdate;
+   }
+   
    
    
    
