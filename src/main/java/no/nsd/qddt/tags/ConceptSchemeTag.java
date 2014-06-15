@@ -46,6 +46,10 @@ public class ConceptSchemeTag extends SimpleTagSupport {
    }
 
    private void printHtml() throws IOException {
+      if (this.conceptScheme == null) {
+         return;
+      }
+      
       out = getJspContext().getOut();
 
       out.println("<ul class=\"link-list\">");

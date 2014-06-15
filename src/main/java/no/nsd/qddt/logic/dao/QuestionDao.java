@@ -17,6 +17,18 @@ public class QuestionDao {
       this.conn = conn;
    }
 
+   
+   public Question getQuestion(Integer questionId) throws SQLException {
+      String sql = "select * from question where question_id = ?";
+      
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(questionId);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      return QuestionOrm.getQuestionFromFirstRow(rows);
+   }
+   
+   
    public List<Question> getQuestionsForScheme(Integer questionSchemeId) throws SQLException {
       String sql = "select q.* from "
               + "question as q inner join question_in_scheme as qis "

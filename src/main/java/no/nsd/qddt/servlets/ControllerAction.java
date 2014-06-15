@@ -9,6 +9,7 @@ import no.nsd.qddt.actions.DocumentAction;
 import no.nsd.qddt.actions.HistoryAction;
 import no.nsd.qddt.actions.InstrumentAction;
 import no.nsd.qddt.actions.ModuleAction;
+import no.nsd.qddt.actions.QuestionAction;
 import no.nsd.qddt.actions.QuestionSchemeAction;
 import no.nsd.qddt.actions.ReportAction;
 import no.nsd.qddt.actions.StatusAction;
@@ -22,6 +23,7 @@ import no.nsd.qddt.actions.update.NewModuleVersionAction;
 import no.nsd.qddt.actions.update.SaveConceptAction;
 import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
+import no.nsd.qddt.actions.update.SaveQuestionAction;
 import no.nsd.qddt.actions.update.SaveQuestionSchemeAction;
 import no.nsd.qddt.actions.update.SaveTitleAction;
 import no.nsd.qddt.actions.update.SaveVersionInfoAction;
@@ -61,6 +63,8 @@ public class ControllerAction {
 
       else if (uri.equals(context + "/u/module")) { new ModuleAction().process(request, response); }
 
+      else if (uri.equals(context + "/u/question")) { new QuestionAction().process(request, response); }
+      
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }
       else if (uri.equals(context + "/u/r/newmoduleversion")) { new NewModuleVersionAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savetitle")) { new SaveTitleAction().process(request, response); }
@@ -69,6 +73,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/newconcept")) { new NewConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveconcept")) { new SaveConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveversioninfo")) { new SaveVersionInfoAction().process(request, response); }
+
+      else if (uri.equals(context + "/u/r/savequestion")) { new SaveQuestionAction().process(request, response); }
       
       else if (uri.equals(context + "/u/r/newcomment")) { new NewCommentAction().process(request, response); }
       

@@ -1,9 +1,7 @@
 package no.nsd.qddt.service;
 
 import java.sql.SQLException;
-import java.util.List;
 import no.nsd.qddt.logic.dao.DaoManager;
-import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.Question;
 
 public class QuestionService {
@@ -14,6 +12,10 @@ public class QuestionService {
       this.daoManager = daoManager;
    }
 
+   
+   public Question getQuestion(Integer questionId) throws SQLException {
+      return daoManager.getQuestionDao().getQuestion(questionId);
+   }
 
    public void registerNewQuestion(Question question) throws SQLException {
       try {

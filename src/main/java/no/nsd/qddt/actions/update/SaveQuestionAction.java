@@ -29,7 +29,7 @@ public class SaveQuestionAction extends AbstractAction {
 
    private void createNewQuestion() throws ServletException {
       newQuestion = new Question();
-      newQuestion.setId(ServletUtil.getRequestParamAsInteger(request, "qsid"));
+      newQuestion.setId(ServletUtil.getRequestParamAsInteger(request, "qid"));
       newQuestion.setName(request.getParameter("name"));
       newQuestion.setLabel(request.getParameter("label"));
       newQuestion.setQuestionIntent(request.getParameter("question_intent"));

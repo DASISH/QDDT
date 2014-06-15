@@ -38,7 +38,7 @@ public final class QuestionOrm {
       Urn urn = UrnOrm.getUrn(map);
       q.setUrn(urn);
       
-      q.setId((Integer) map.get("question_scheme_id"));
+      q.setId((Integer) map.get("question_id"));
       q.setModuleVersionId((Integer) map.get("module_version_id"));
       q.setName(SqlUtil.getString("name", map));
       q.setLabel(SqlUtil.getString("label", map));
