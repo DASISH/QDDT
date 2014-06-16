@@ -24,9 +24,9 @@ public class QuestionDaoUpdate {
               + "urn_id, "
               + "urn_version, "
               + "name, "
-              + "label, "
               + "question_intent, "
               + "question_text, "
+              + "question_text_2, "
               + "version_description, "
               + "version_updated) "
               + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -38,9 +38,9 @@ public class QuestionDaoUpdate {
       values.add(question.getUrn().getVersion());
 
       values.add(question.getName());
-      values.add(question.getLabel());
       values.add(question.getQuestionIntent());
       values.add(question.getQuestionText());
+      values.add(question.getQuestionText2());
       values.add(question.getVersionDescription());
       
       values.add(question.getVersionUpdated());
@@ -55,18 +55,18 @@ public class QuestionDaoUpdate {
    public void updateQuestion(Question question) throws SQLException {
       String sql = "update question set "
               + "name = ?, "
-              + "label = ?, "
               + "question_intent = ?, "
               + "question_text = ?, "
+              + "question_text_2 = ?, "
               + "version_description = ?, "
               + "version_updated = ? "
               + "where question_id = ?";
 
       List values = new ArrayList();
       values.add(question.getName());
-      values.add(question.getLabel());
       values.add(question.getQuestionIntent());
       values.add(question.getQuestionText());
+      values.add(question.getQuestionText2());
       values.add(question.getVersionDescription());
       values.add(question.getVersionUpdated());
 

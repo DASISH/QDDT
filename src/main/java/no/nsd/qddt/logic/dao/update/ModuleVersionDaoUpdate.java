@@ -30,8 +30,9 @@ public class ModuleVersionDaoUpdate {
               + "module_authors, "
               + "module_authors_affiliation, "
               + "module_abstract, "
-              + "concept_scheme_id) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+              + "concept_scheme_id, "
+              + "question_scheme_id) "
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(mv.getModule().getId());
@@ -45,6 +46,7 @@ public class ModuleVersionDaoUpdate {
       values.add(mv.getAuthorsAffiliation());
       values.add(mv.getModuleAbstract());
       values.add(mv.getConceptSchemeId());
+      values.add(mv.getQuestionSchemeId());
 
       
       SqlCommand sqlCommand = new SqlCommand(conn);

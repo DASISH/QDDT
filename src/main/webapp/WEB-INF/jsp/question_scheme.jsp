@@ -61,17 +61,18 @@
             <div class="boxheader">Questions</div>
 
             <c:forEach items="${questionScheme.questions}" var="q">
+               <div class="box topmarg">
                <p>Name: ${fn:escapeXml(q.name)}</p>
-               <p>Label: ${fn:escapeXml(q.label)}</p>
                <p>Question intent: ${fn:escapeXml(q.questionIntent)}</p>
-               <p>Question text: ${fn:escapeXml(q.questionText)}</p>
+               <p>Question text: ${fn:escapeXml(q.questionText)} ${fn:escapeXml(q.questionText2)}</p>
                <p><a href="<c:url value="/u/question?mvid=${moduleVersion.id}&qid=${q.id}" />">[edit question]</a></p>
+               </div>
             </c:forEach>
 
 
-            <form action="<c:url value="/u/r/savequestion" />" method="post">
+            <form action="<c:url value="/u/r/savequestion" />" class="topmarg" method="post">
                <input type="hidden" name="mvid" value="${moduleVersion.id}">
-               <input type="hidden" name="csid" value="${questionScheme.id}">
+               <input type="hidden" name="qsid" value="${questionScheme.id}">
                <input class="okbutton" type="submit" value="Add new question">
             </form>
 

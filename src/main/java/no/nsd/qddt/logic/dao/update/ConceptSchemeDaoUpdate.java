@@ -7,7 +7,6 @@ import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
-import no.nsd.qddt.model.ModuleVersion;
 
 public class ConceptSchemeDaoUpdate {
 
@@ -69,7 +68,7 @@ public class ConceptSchemeDaoUpdate {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
-   public Integer addConceptToScheme(Concept concept) throws SQLException {
+   public void addConceptToScheme(Concept concept) throws SQLException {
       String sql = "insert into "
               + "concept_in_scheme(concept_scheme_id, "
               + "concept_id, "
@@ -83,11 +82,7 @@ public class ConceptSchemeDaoUpdate {
       values.add(concept.getParentConceptId());
       values.add(concept.getConceptOrder());
 
-      SqlCommand sqlCommand = new SqlCommand(conn);
-      sqlCommand.setSqlString(sql);
-      sqlCommand.setValues(values);
-      Integer conceptId = sqlCommand.executeAndReturnGeneratedKey();
-      return conceptId;
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
    public void setConceptSchemeUpdated(Integer conceptSchemeId) throws SQLException {

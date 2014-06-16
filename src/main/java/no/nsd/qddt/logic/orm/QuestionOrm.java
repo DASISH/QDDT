@@ -41,9 +41,9 @@ public final class QuestionOrm {
       q.setId((Integer) map.get("question_id"));
       q.setModuleVersionId((Integer) map.get("module_version_id"));
       q.setName(SqlUtil.getString("name", map));
-      q.setLabel(SqlUtil.getString("label", map));
       q.setDescription(SqlUtil.getString("description", map));
       q.setQuestionText(SqlUtil.getString("question_text", map));
+      q.setQuestionText2(SqlUtil.getString("question_text_2", map));
       q.setQuestionIntent(SqlUtil.getString("question_intent", map));
       q.setVersionDescription(SqlUtil.getString("version_description", map));
       q.setVersionUpdated((Boolean) map.get("version_updated"));

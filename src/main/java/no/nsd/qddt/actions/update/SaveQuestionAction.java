@@ -17,10 +17,12 @@ public class SaveQuestionAction extends AbstractAction {
 
    private Question newQuestion;
    private ModuleVersion moduleVersion;
+   private String action;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
+      this.action = request.getParameter("action");
 
       this.createNewQuestion();
       this.executeDaoAndClose();
@@ -31,16 +33,19 @@ public class SaveQuestionAction extends AbstractAction {
       newQuestion = new Question();
       newQuestion.setId(ServletUtil.getRequestParamAsInteger(request, "qid"));
       newQuestion.setName(request.getParameter("name"));
-      newQuestion.setLabel(request.getParameter("label"));
       newQuestion.setQuestionIntent(request.getParameter("question_intent"));
       newQuestion.setQuestionText(request.getParameter("question_text"));
-      newQuestion.setDescription(request.getParameter("description"));
+      newQuestion.setQuestionText2(request.getParameter("question_text_2"));
       newQuestion.setVersionDescription(request.getParameter("version_description"));
+      newQuestion.setQuestionSchemeId(moduleVersion.getQuestionSchemeId());
+      newQuestion.setVersionUpdated(Boolean.TRUE);
    }
    
    @Override
    protected void executeDao() throws SQLException {
-      if (newQuestion.getId() == null) {
+      if ("Delete question".equals(action)) {
+         this.deleteQuestion();
+      } else if (newQuestion.getId() == null) {
          this.registerNewQuestion();
       } else {
          this.updateQuestion();
@@ -52,19 +57,24 @@ public class SaveQuestionAction extends AbstractAction {
       urn.setAgency(moduleVersion.getModule().getAgency());
       newQuestion.setUrn(urn);
       newQuestion.setModuleVersionId(moduleVersion.getId());
-      newQuestion.setVersionUpdated(Boolean.TRUE);
       
       (new QuestionService(daoManager)).registerNewQuestion(newQuestion);
    }
 
    private void updateQuestion() throws SQLException {
-      newQuestion.setVersionUpdated(Boolean.TRUE);
       (new QuestionService(daoManager)).updateQuestion(newQuestion);
    }
 
+   private void deleteQuestion() throws SQLException {
+      (new QuestionService(daoManager)).deleteQuestion(newQuestion);
+   }
    
    private void redirectSuccessPage() throws IOException {
-      ServletUtil.redirect("/u/questionscheme?mvid=" + moduleVersion.getId() + "&saved", request, response);
+      if ("Delete question".equals(action)) {
+         ServletUtil.redirect("/u/questionscheme?mvid=" + moduleVersion.getId() + "&saved", request, response);
+      } else {
+         ServletUtil.redirect("/u/question?mvid=" + moduleVersion.getId() + "&qid=" + newQuestion.getId() + "&saved", request, response);
+      }
    }
 
 

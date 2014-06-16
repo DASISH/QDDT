@@ -69,7 +69,7 @@ public class QuestionSchemeDaoUpdate {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
-   public Integer addQuestionToScheme(Question question) throws SQLException {
+   public void addQuestionToScheme(Question question) throws SQLException {
       String sql = "insert into "
               + "question_in_scheme(question_scheme_id, "
               + "question_id, "
@@ -81,11 +81,7 @@ public class QuestionSchemeDaoUpdate {
       values.add(question.getId());
       values.add(question.getQuestionOrder());
 
-      SqlCommand sqlCommand = new SqlCommand(conn);
-      sqlCommand.setSqlString(sql);
-      sqlCommand.setValues(values);
-      Integer questionId = sqlCommand.executeAndReturnGeneratedKey();
-      return questionId;
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
    

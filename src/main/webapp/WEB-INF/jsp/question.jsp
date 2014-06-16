@@ -29,6 +29,8 @@
       <c:import url="/WEB-INF/jspf/module_tabs.jsp" />
       <div class="tab-box">
 
+         <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
+         
          <h3>Edit question</h3>
 
          <form action="<c:url value="/u/r/savequestion" />" method="post">
@@ -39,14 +41,14 @@
             <h4>Name:</h4>
             <input class="w10" type="text" name="name" value="${fn:escapeXml(question.name)}">
 
-            <h4>Label:</h4>
-            <input class="w10" type="text" name="label" value="${fn:escapeXml(question.label)}">
-
             <h4>Question intent:</h4>
             <textarea class="w10" name="question_intent" rows="5">${fn:escapeXml(question.questionIntent)}</textarea>
 
-            <h4>Question text:</h4>
+            <h4>Question text (introduction):</h4>
             <textarea class="w10" name="question_text" rows="5">${fn:escapeXml(question.questionText)}</textarea>
+
+            <h4>Question text (request for answer):</h4>
+            <textarea class="w10" name="question_text_2" rows="5">${fn:escapeXml(question.questionText2)}</textarea>
 
             <h4>Version description:</h4>
             <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(question.versionDescription)}</textarea>
