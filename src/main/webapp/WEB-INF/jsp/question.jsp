@@ -38,7 +38,7 @@
             <input type="hidden" name="cid" value="${param.cid}">
             <input type="hidden" name="qid" value="${param.qid}">
 
-            <h4>Name:</h4>
+            <h4>Name/Number:</h4>
             <input class="w10" type="text" name="name" value="${fn:escapeXml(question.name)}">
 
             <h4>Question intent:</h4>

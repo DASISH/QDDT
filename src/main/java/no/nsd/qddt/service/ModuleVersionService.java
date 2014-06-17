@@ -33,35 +33,9 @@ public class ModuleVersionService {
          Integer newModuleVersionId = daoManager.getModuleVersionDaoUpdate().registerNewModuleVersion(mv);
          mv.setId(newModuleVersionId);
 
-         if (mv.getConceptSchemeId() != null) {
-            ConceptScheme cs = daoManager.getConceptSchemeDao().getConceptScheme(mv.getConceptSchemeId());
-
-            daoManager.getConceptDao().getConceptsForScheme(cs);
-            Collection<Concept> concepts = cs.getConcepts();
-
-            cs.setModuleVersionId(newModuleVersionId);
-            cs.setVersionUpdated(Boolean.FALSE);
-
-            daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(cs);
-            
-            daoManager.getModuleVersionDaoUpdate().updateConceptScheme(cs);
-
-            for (Concept c : concepts) {
-               c.setModuleVersionId(newModuleVersionId);
-               c.setConceptSchemeId(cs.getId());
-               this.copyConcept(c);
-               List<Concept> subConcepts = c.getSubConcepts();
-               for (Concept sub : subConcepts) {
-                  sub.setModuleVersionId(newModuleVersionId);
-                  sub.setConceptSchemeId(cs.getId());
-                  sub.setParentConceptId(c.getId());
-                  this.copyConcept(sub);
-               }
-            }
-         }
+         this.copyConceptScheme(mv);
 
          this.copyQuestionScheme(mv);
-
          
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -70,6 +44,47 @@ public class ModuleVersionService {
       }
    }
 
+   private void copyConceptScheme(ModuleVersion mv) throws SQLException {
+      if (mv.getConceptSchemeId() == null) {
+         return;
+      }
+      
+      ConceptScheme cs = daoManager.getConceptSchemeDao().getConceptScheme(mv.getConceptSchemeId());
+
+      daoManager.getConceptDao().getConceptsForScheme(cs);
+      Collection<Concept> concepts = cs.getConcepts();
+
+      cs.setModuleVersionId(mv.getId());
+      cs.setVersionUpdated(Boolean.FALSE);
+
+      daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(cs);
+
+      daoManager.getModuleVersionDaoUpdate().updateConceptScheme(cs);
+
+      this.copyConceptList(concepts, mv, cs, null);
+   }
+
+   private void copyConceptList(Collection<Concept> concepts, ModuleVersion mv, ConceptScheme cs, Integer parentConceptId) throws SQLException {
+      for (Concept c : concepts) {
+         c.setModuleVersionId(mv.getId());
+         c.setConceptSchemeId(cs.getId());
+         c.setParentConceptId(parentConceptId);
+         this.copyConcept(c);
+         this.copyConceptList(c.getSubConcepts(), mv, cs, c.getId());
+      }
+   }
+   
+   
+   private void copyConcept(Concept c) throws SQLException {
+      c.setVersionUpdated(Boolean.FALSE);
+
+      Integer newConceptId = daoManager.getConceptDaoUpdate().registerNewConcept(c);
+      c.setId(newConceptId);
+
+      daoManager.getConceptSchemeDaoUpdate().addConceptToScheme(c);
+   }
+   
+   
    private void copyQuestionScheme(ModuleVersion mv) throws SQLException {
       if (mv.getQuestionSchemeId() == null) {
          return;
@@ -106,14 +121,6 @@ public class ModuleVersionService {
    
    
    
-   private void copyConcept(Concept c) throws SQLException {
-      c.setVersionUpdated(Boolean.FALSE);
-
-      Integer newConceptId = daoManager.getConceptDaoUpdate().registerNewConcept(c);
-      c.setId(newConceptId);
-
-      daoManager.getConceptSchemeDaoUpdate().addConceptToScheme(c);
-   }
 
    public void updateTitle(ModuleVersion mv) throws SQLException {
       daoManager.getModuleVersionDaoUpdate().updateTitle(mv);

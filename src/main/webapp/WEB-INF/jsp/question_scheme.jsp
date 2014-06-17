@@ -38,7 +38,7 @@
             <h4>Version description:</h4>
             <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(questionScheme.versionDescription)}</textarea>
 
-            <c:if test="${questionScheme == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create concept scheme"></div></c:if>
+            <c:if test="${questionScheme == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create question scheme"></div></c:if>
             <c:if test="${questionScheme != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
             </form>
 
@@ -62,7 +62,7 @@
 
             <c:forEach items="${questionScheme.questions}" var="q">
                <div class="box topmarg">
-               <p>Name: ${fn:escapeXml(q.name)}</p>
+               <p>Name/Number: ${fn:escapeXml(q.name)}</p>
                <p>Question intent: ${fn:escapeXml(q.questionIntent)}</p>
                <p>Question text: ${fn:escapeXml(q.questionText)} ${fn:escapeXml(q.questionText2)}</p>
                <p><a href="<c:url value="/u/question?mvid=${moduleVersion.id}&qid=${q.id}" />">[edit question]</a></p>
