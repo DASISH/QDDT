@@ -14,7 +14,6 @@ import no.nsd.qddt.logic.dao.update.ModuleVersionDaoUpdate;
 import no.nsd.qddt.logic.dao.update.QuestionDaoUpdate;
 import no.nsd.qddt.logic.dao.update.QuestionSchemeDaoUpdate;
 import no.nsd.qddt.logic.dao.update.UserDaoUpdate;
-import no.nsd.qddt.model.QuestionScheme;
 
 public class DaoManager {
 
@@ -41,6 +40,7 @@ public class DaoManager {
    private QuestionDao questionDao;
    private QuestionSchemeDaoUpdate questionSchemeDaoUpdate;
    private QuestionDaoUpdate questionDaoUpdate;
+   private SurveyDao surveyDao;
 
    
    public DaoManager(DataSource dataSource) {
@@ -192,6 +192,13 @@ public class DaoManager {
          questionDaoUpdate = new QuestionDaoUpdate(this.getConnection());
       }
       return questionDaoUpdate;
+   }
+
+   public SurveyDao getSurveyDao() throws SQLException {
+      if (surveyDao == null) {
+         surveyDao = new SurveyDao(this.getConnection());
+      }
+      return surveyDao;
    }
    
    

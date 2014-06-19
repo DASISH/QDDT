@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
@@ -19,9 +20,9 @@
          <tbody>
             <c:forEach items="${modules}" var="m">
                <tr>
-                  <td>${m.study.survey}</td>
-                  <td>${m.study}</td>
-                  <td><a href="<c:url value="/u/history?id=${m.id}" />">${m.name}</a></td>
+                  <td>${fn:escapeXml(m.study.survey)}</td>
+                  <td>${fn:escapeXml(m.study)}</td>
+                  <td><a href="<c:url value="/u/history?id=${m.id}" />">${fn:escapeXml(m.name)}</a></td>
                </tr>
             </c:forEach>
 
@@ -31,6 +32,15 @@
       <form action="<c:url value="/u/module" />" method="get">
          <input class="button topmarg" type="submit" value="New module">
       </form>
+
+      <div class="boxheader">Surveys - Categories and Codes</div>
+      <ul class="plain-list">
+         <c:forEach items="${surveys}" var="s">
+            <li><a href="<c:url value="/u/survey?id=${s.id}" />">${fn:escapeXml(s.name)}</a></li>
+         </c:forEach>
+      </ul>
+
+
 
    </div>
 </div>

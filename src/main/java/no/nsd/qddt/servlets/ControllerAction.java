@@ -13,6 +13,7 @@ import no.nsd.qddt.actions.QuestionAction;
 import no.nsd.qddt.actions.QuestionSchemeAction;
 import no.nsd.qddt.actions.ReportAction;
 import no.nsd.qddt.actions.StatusAction;
+import no.nsd.qddt.actions.SurveyAction;
 import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 import no.nsd.qddt.actions.UserLoginAction;
@@ -64,6 +65,9 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/module")) { new ModuleAction().process(request, response); }
 
       else if (uri.equals(context + "/u/question")) { new QuestionAction().process(request, response); }
+      
+      else if (uri.equals(context + "/u/survey")) { new SurveyAction().process(request, response); }
+      
       
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }
       else if (uri.equals(context + "/u/r/newmoduleversion")) { new NewModuleVersionAction().process(request, response); }
