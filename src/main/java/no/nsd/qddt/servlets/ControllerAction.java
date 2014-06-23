@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import no.nsd.qddt.actions.CategoryAction;
 import no.nsd.qddt.actions.ConceptSchemeAction;
 import no.nsd.qddt.actions.DocumentAction;
 import no.nsd.qddt.actions.HistoryAction;
@@ -67,6 +68,7 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/question")) { new QuestionAction().process(request, response); }
       
       else if (uri.equals(context + "/u/survey")) { new SurveyAction().process(request, response); }
+      else if (uri.equals(context + "/u/category")) { new CategoryAction().process(request, response); }
       
       
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }

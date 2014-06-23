@@ -7,13 +7,13 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Survey - ${fn:escapeXml(survey.name)}</h1>
+      <h1>Categories for ${fn:escapeXml(survey.name)}</h1>
 
-      <ul class="plain-list">
-         <li><a href="<c:url value="/u/category?sid=${param.id}" />">Categories</a></li>
-         
-      </ul>
-      
+      <c:forEach items="${categories}" var="c">
+         <ul class="plain-list">
+            <li>${fn:escapeXml(c.label)}</li>
+         </ul>
+      </c:forEach>
 
    </div>
 </div>

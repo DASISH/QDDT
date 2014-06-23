@@ -41,6 +41,7 @@ public class DaoManager {
    private QuestionSchemeDaoUpdate questionSchemeDaoUpdate;
    private QuestionDaoUpdate questionDaoUpdate;
    private SurveyDao surveyDao;
+   private CategoryDao categoryDao;
 
    
    public DaoManager(DataSource dataSource) {
@@ -199,6 +200,13 @@ public class DaoManager {
          surveyDao = new SurveyDao(this.getConnection());
       }
       return surveyDao;
+   }
+
+   public CategoryDao getCategoryDao() throws SQLException {
+      if (categoryDao == null) {
+         categoryDao = new CategoryDao(this.getConnection());
+      }
+      return categoryDao;
    }
    
    
