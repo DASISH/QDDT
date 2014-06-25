@@ -40,8 +40,8 @@ public final class CategoryOrm {
       
       c.setId((Integer) map.get("category_id"));
       c.setModuleVersionId((Integer) map.get("module_version_id"));
-      c.setName(SqlUtil.getString("name", map));
       c.setLabel(SqlUtil.getString("label", map));
+      c.setLabelShort(SqlUtil.getString("label_short", map));
       c.setDescription(SqlUtil.getString("description", map));
       c.setVersionDescription(SqlUtil.getString("version_description", map));
       c.setVersionUpdated((Boolean) map.get("version_updated"));

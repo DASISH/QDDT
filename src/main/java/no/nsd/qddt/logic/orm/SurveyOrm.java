@@ -37,6 +37,7 @@ public final class SurveyOrm {
       survey.setId((Integer) map.get("survey_id"));
       survey.setName(SqlUtil.getString("name", map));
       survey.setShortName(SqlUtil.getString("short_name", map));
+      survey.setAgencyId((Integer) map.get("agency_id"));
       
       return survey;
    }   

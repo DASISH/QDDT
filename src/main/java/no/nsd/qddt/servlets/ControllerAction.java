@@ -22,6 +22,7 @@ import no.nsd.qddt.actions.UserLogoutAction;
 import no.nsd.qddt.actions.update.NewCommentAction;
 import no.nsd.qddt.actions.update.NewConceptAction;
 import no.nsd.qddt.actions.update.NewModuleVersionAction;
+import no.nsd.qddt.actions.update.SaveCategoryAction;
 import no.nsd.qddt.actions.update.SaveConceptAction;
 import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
@@ -81,6 +82,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/saveversioninfo")) { new SaveVersionInfoAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savequestion")) { new SaveQuestionAction().process(request, response); }
+
+      else if (uri.equals(context + "/u/r/savecategory")) { new SaveCategoryAction().process(request, response); }
       
       else if (uri.equals(context + "/u/r/newcomment")) { new NewCommentAction().process(request, response); }
       

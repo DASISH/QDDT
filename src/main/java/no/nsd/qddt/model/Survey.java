@@ -8,6 +8,8 @@ public class Survey implements Serializable {
    private String name;
    private String shortName;
 
+   private Integer agencyId;
+   
 
    public Integer getId() {
       return id;
@@ -31,6 +33,14 @@ public class Survey implements Serializable {
 
    public void setShortName(String shortName) {
       this.shortName = shortName;
+   }
+
+   public Integer getAgencyId() {
+      return agencyId;
+   }
+
+   public void setAgencyId(Integer agencyId) {
+      this.agencyId = agencyId;
    }
 
 
