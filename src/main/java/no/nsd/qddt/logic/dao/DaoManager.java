@@ -6,6 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.logic.dao.update.CategoryDaoUpdate;
+import no.nsd.qddt.logic.dao.update.CategorySchemeDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CommentDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptSchemeDaoUpdate;
@@ -42,6 +44,9 @@ public class DaoManager {
    private QuestionDaoUpdate questionDaoUpdate;
    private SurveyDao surveyDao;
    private CategoryDao categoryDao;
+   private CategoryDaoUpdate categoryDaoUpdate;
+   private CategorySchemeDao categorySchemeDao;
+   private CategorySchemeDaoUpdate categorySchemeDaoUpdate;
 
    
    public DaoManager(DataSource dataSource) {
@@ -207,6 +212,27 @@ public class DaoManager {
          categoryDao = new CategoryDao(this.getConnection());
       }
       return categoryDao;
+   }
+
+   public CategoryDaoUpdate getCategoryDaoUpdate() throws SQLException {
+      if (categoryDaoUpdate == null) {
+         categoryDaoUpdate = new CategoryDaoUpdate(this.getConnection());
+      }
+      return categoryDaoUpdate;
+   }
+
+   public CategorySchemeDao getCategorySchemeDao() throws SQLException {
+      if (categorySchemeDao == null) {
+         categorySchemeDao = new CategorySchemeDao(this.getConnection());
+      }
+      return categorySchemeDao;
+   }
+
+   public CategorySchemeDaoUpdate getCategorySchemeDaoUpdate() throws SQLException {
+      if (categorySchemeDaoUpdate == null) {
+         categorySchemeDaoUpdate = new CategorySchemeDaoUpdate(this.getConnection());
+      }
+      return categorySchemeDaoUpdate;
    }
    
    

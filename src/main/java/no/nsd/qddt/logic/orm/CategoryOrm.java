@@ -44,7 +44,6 @@ public final class CategoryOrm {
       c.setLabelShort(SqlUtil.getString("label_short", map));
       c.setDescription(SqlUtil.getString("description", map));
       c.setVersionDescription(SqlUtil.getString("version_description", map));
-      c.setVersionUpdated((Boolean) map.get("version_updated"));
       return c;
    }
    

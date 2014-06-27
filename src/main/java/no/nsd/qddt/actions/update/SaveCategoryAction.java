@@ -35,6 +35,7 @@ public class SaveCategoryAction extends AbstractAction {
       newCategory.setId(ServletUtil.getRequestParamAsInteger(request, "cid"));
       newCategory.setLabel(request.getParameter("label"));
       newCategory.setLabelShort(request.getParameter("label_short"));
+      newCategory.setDescription(request.getParameter("description"));
       newCategory.setVersionDescription(request.getParameter("version_description"));
       newCategory.setVersionUpdated(Boolean.TRUE);
    }
@@ -63,7 +64,7 @@ public class SaveCategoryAction extends AbstractAction {
       urn.setAgency(agency);
       newCategory.setUrn(urn);
       
-      (new CategoryService(daoManager)).registerNewCategory(newCategory);
+      (new CategoryService(daoManager)).registerNewCategoryForSurvey(newCategory, survey.getId());
    }
 
    private void updateCategory() throws SQLException {

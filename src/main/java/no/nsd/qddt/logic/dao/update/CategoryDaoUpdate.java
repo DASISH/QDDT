@@ -24,9 +24,8 @@ public class CategoryDaoUpdate {
               + "label, "
               + "label_short, "
               + "description, "
-              + "version_description, "
-              + "version_updated) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?)";
+              + "version_description) "
+              + "values (?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(category.getUrn().getAgency().getId());
@@ -37,7 +36,6 @@ public class CategoryDaoUpdate {
       values.add(category.getLabelShort());
       values.add(category.getDescription());
       values.add(category.getVersionDescription());
-      values.add(category.getVersionUpdated());
 
       SqlCommand sqlCommand = new SqlCommand(conn);
       sqlCommand.setSqlString(sql);
@@ -51,8 +49,7 @@ public class CategoryDaoUpdate {
               + "label = ?, "
               + "label_short = ?, "
               + "description = ?, "
-              + "version_description = ?, "
-              + "version_updated = ? "
+              + "version_description = ? "
               + "where category_id = ?";
 
       List values = new ArrayList();
@@ -60,7 +57,6 @@ public class CategoryDaoUpdate {
       values.add(category.getLabelShort());
       values.add(category.getDescription());
       values.add(category.getVersionDescription());
-      values.add(category.getVersionUpdated());
 
       values.add(category.getId());
 

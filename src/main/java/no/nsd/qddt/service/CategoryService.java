@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Category;
+import no.nsd.qddt.model.CategoryScheme;
 
 public class CategoryService {
 
@@ -22,15 +23,15 @@ public class CategoryService {
       return daoManager.getCategoryDao().getCategoriesForDefaultSchemeForSurvey(surveyId);
    }
 
-   public void registerNewCategory(Category category) throws SQLException {
+   public void registerNewCategoryForSurvey(Category category, Integer surveyId) throws SQLException {
       try {
          daoManager.beginTransaction();
          
-         //Integer categoryId = daoManager.getQuestionDaoUpdate().registerNewQuestion(question);
-         //question.setId(questionId);
+         Integer categoryId = daoManager.getCategoryDaoUpdate().registerNewCategory(category);
+         category.setId(categoryId);
          
-         //daoManager.getQuestionSchemeDaoUpdate().addQuestionToScheme(question);
-         //daoManager.getQuestionSchemeDaoUpdate().setQuestionSchemeUpdated(question.getQuestionSchemeId());
+         CategoryScheme cs = daoManager.getCategorySchemeDao().getDefaultCategorySchemeForSurvey(surveyId);
+         daoManager.getCategorySchemeDaoUpdate().addCategoryToScheme(category, cs.getId());
          
          daoManager.endTransaction();
       } catch (SQLException e) {
