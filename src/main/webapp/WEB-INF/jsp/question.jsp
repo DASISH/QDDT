@@ -59,6 +59,10 @@
             </div>
          </form>
 
+            <h3>Response domain</h3>
+            
+            <p><a href="<c:url value="/u/responsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Add response domain</a></p>
+            
 
       </div>
 
