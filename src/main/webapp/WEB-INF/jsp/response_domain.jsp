@@ -13,16 +13,18 @@
 
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
 
-      <c:import url="/WEB-INF/jspf/module_tabs.jsp" />
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
+         <c:param name="page" value="responsedomain" />
+      </c:import>
+      
       <div class="tab-box">
 
-            <h4>Add response domain for question:</h4>
-            <h3><em>${fn:escapeXml(question.questionText)} ${fn:escapeXml(question.questionText2)}</em></h3>
-
-         <h4>Response domain:</h4>
+         <h3>Response domains:</h3>
 
          <ul>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}&qid=${param.qid}" />">Code List</a></li>
+            <li><a href="<c:url value="/u/category?mvid=${param.mvid}" />">Categories</a></li>
+            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code List (only valid codes, or missing codes)</a></li>
+            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code List (compilation of both valid and missing code lists)</a></li>
          </ul>
 
       </div>

@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.dao.update.CategoryDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CategorySchemeDaoUpdate;
+import no.nsd.qddt.logic.dao.update.CodeListDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CommentDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptSchemeDaoUpdate;
@@ -235,6 +236,13 @@ public class DaoManager {
       return categorySchemeDaoUpdate;
    }
    
+   public CodeListDao getCodeListDao() throws SQLException {
+      return new CodeListDao(this.getConnection());
+   }
+
+   public CodeListDaoUpdate getCodeListDaoUpdate() throws SQLException {
+      return new CodeListDaoUpdate(this.getConnection());
+   }
    
    
    

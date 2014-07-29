@@ -18,7 +18,7 @@
 
       <div class="tab-box">
 
-         <h3>General comments for this revision</h3>
+         <h3>General comments for this version</h3>
 
          <qddt:comments 
             agencyId="${moduleVersion.module.agency.id}" 

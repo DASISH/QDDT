@@ -7,10 +7,15 @@
 <div class="grid">
    <div class="col">
 
-      <h1>Categories for ${fn:escapeXml(survey.name)}</h1>
-
+      <c:import url="/WEB-INF/jspf/module_header.jsp" />
+      
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
+         <c:param name="page" value="responsedomain" />
+      </c:import>
+      
+      <div class="tab-box">
+      
       <div class="boxheader">New category</div>
-
 
       <form action="<c:url value="/u/r/savecategory" />" method="post">
          <input type="hidden" name="sid" value="${survey.id}">
@@ -41,6 +46,8 @@
             <li>${fn:escapeXml(c.label)}</li>
          </ul>
       </c:forEach>
+         
+         </div>
 
    </div>
 </div>

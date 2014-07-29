@@ -11,4 +11,4 @@
    <li>Maintenance agency ID: ${fn:escapeXml(moduleVersion.module.agency.urnId)}</li>
 </ul>
 
-<h2 class="boxheader">Update revision #${moduleVersion.id} as ${fn:escapeXml(actor.name)}</h2>
+<h2 class="boxheader">Update module version as ${fn:escapeXml(actor.name)}</h2>

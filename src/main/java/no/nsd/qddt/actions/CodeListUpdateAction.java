@@ -2,20 +2,18 @@ package no.nsd.qddt.actions;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.model.CodeList;
 import no.nsd.qddt.model.ModuleVersion;
-import no.nsd.qddt.model.Question;
 import no.nsd.qddt.service.CodeListService;
-import no.nsd.qddt.service.QuestionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class CodeListAction extends AbstractAction {
+public class CodeListUpdateAction extends AbstractAction {
 
-   private Integer questionId;
+
+   private Integer codeListId;
    private ModuleVersion moduleVersion;
    
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,28 +25,22 @@ public class CodeListAction extends AbstractAction {
    }
 
    private void getRequestParams() {
-      this.questionId = ServletUtil.getRequestParamAsInteger(request, "qid");
+      this.codeListId = ServletUtil.getRequestParamAsInteger(request, "clid");
       this.moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
    }
    
    @Override
    protected void executeDao() throws SQLException {
-      this.setQuestion();
-      this.setCodeLists();
-   }
-   
-   private void setQuestion() throws SQLException {
-      Question question = (new QuestionService(daoManager)).getQuestion(questionId);
-      request.setAttribute("question", question);
+      this.setCodeList();
    }
 
-   private void setCodeLists() throws SQLException {
-      List<CodeList> codeLists = (new CodeListService(daoManager)).getCodeListsForModuleVersion(moduleVersion.getId());
-      request.setAttribute("codeLists", codeLists);
+   private void setCodeList() throws SQLException {
+      CodeList codeList = (new CodeListService(daoManager)).getCodeList(codeListId);
+      request.setAttribute("codeList", codeList);
    }
    
    private void forwardPage() throws ServletException, IOException {
-      ServletUtil.forward("/WEB-INF/jsp/code_list.jsp", request, response);
+      ServletUtil.forward("/WEB-INF/jsp/code_list_update.jsp", request, response);
    }
 
    

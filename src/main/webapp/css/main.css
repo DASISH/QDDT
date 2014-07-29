@@ -349,9 +349,16 @@ option {
 
 
 .button {
-   background-color: lightblue;
-   padding: 3px 15px;
+   background-color: lightsteelblue;
+   padding: 5px 17px;
    width: auto;
+   
+   border: 0;
+   color: #000000;
+}
+.button:hover {
+   background-color: lightblue;
+   border: 0;
 }
 .deletebutton {
    background-color: pink;

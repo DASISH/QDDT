@@ -13,22 +13,23 @@
 
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
 
-      <c:import url="/WEB-INF/jspf/module_tabs.jsp" />
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
+         <c:param name="page" value="responsedomain" />
+      </c:import>
+
       <div class="tab-box">
 
-            <h4>Add code list for question:</h4>
-            <h3><em>${fn:escapeXml(question.questionText)} ${fn:escapeXml(question.questionText2)}</em></h3>
-
-            <p>Create a new code list for this question or use an existing code list.</p>
+         <p class="helptext">Create a new code list or update an existing code list.</p>
             
-         <h4>Create new code list</h4>
+         <p><a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}" />">Create new code list</a></p>
 
+            <div class="boxheader">Update existing code lists</div>
 
-         <h4>Existing code lists</h4>
-
-         <ul>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}&qid=${param.qid}" />">Code List</a></li>
-         </ul>
+            <ul>
+               <c:forEach items="${codeLists}" var="cl">
+                  <li><a href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">${fn:escapeXml(cl.label)}</a></li>
+                  </c:forEach>
+            </ul>
 
       </div>
 
