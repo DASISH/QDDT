@@ -19,25 +19,25 @@ public class CategorySchemeDaoUpdate {
    public void registerNewCategoryScheme(CategoryScheme categoryScheme) throws SQLException {
       String sql = "insert into "
               + "category_scheme(agency_id, "
-              + "survey_id, "
+              + "module_version_id, "
               + "urn_id, "
               + "urn_version, "
               + "name, "
               + "description, "
               + "version_description, "
-              + "survey_default_scheme, "
+              + "module_default_scheme, "
               + "version_published) "
               + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(categoryScheme.getUrn().getAgency().getId());
-      values.add(categoryScheme.getSurveyId());
+      values.add(categoryScheme.getModuleVersionId());
       values.add(categoryScheme.getUrn().getId());
       values.add(categoryScheme.getUrn().getVersion());
       values.add(categoryScheme.getName());
       values.add(categoryScheme.getDescription());
       values.add(categoryScheme.getVersionDescription());
-      values.add(categoryScheme.isSurveyDefault());
+      values.add(categoryScheme.isModuleDefaultScheme());
       values.add(categoryScheme.isVersionPublished());
 
       SqlCommand sqlCommand = new SqlCommand(conn);
@@ -61,7 +61,7 @@ public class CategorySchemeDaoUpdate {
       values.add(categoryScheme.getName());
       values.add(categoryScheme.getDescription());
       values.add(categoryScheme.getVersionDescription());
-      values.add(categoryScheme.isSurveyDefault());
+      values.add(categoryScheme.isModuleDefaultScheme());
       values.add(categoryScheme.isVersionPublished());
 
       values.add(categoryScheme.getId());

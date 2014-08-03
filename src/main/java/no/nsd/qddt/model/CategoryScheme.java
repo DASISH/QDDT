@@ -4,29 +4,21 @@ import java.io.Serializable;
 
 public class CategoryScheme extends Element implements Serializable {
 
-   private Integer surveyId;
-   private Boolean surveyDefault;
+   private Boolean moduleDefaultScheme;
    private Boolean versionPublished;
    
    
    public CategoryScheme() {
    }
 
-   public Integer getSurveyId() {
-      return surveyId;
+   public Boolean isModuleDefaultScheme() {
+      return moduleDefaultScheme;
    }
 
-   public void setSurveyId(Integer surveyId) {
-      this.surveyId = surveyId;
+   public void setModuleDefaultScheme(Boolean moduleDefaultScheme) {
+      this.moduleDefaultScheme = moduleDefaultScheme;
    }
 
-   public Boolean isSurveyDefault() {
-      return surveyDefault;
-   }
-
-   public void setSurveyDefault(Boolean surveyDefault) {
-      this.surveyDefault = surveyDefault;
-   }
 
    public Boolean isVersionPublished() {
       return versionPublished;

@@ -54,7 +54,8 @@ public final class ModuleVersionOrm {
       mv.setModuleAbstract(SqlUtil.getString("module_abstract", map));
       mv.setConceptSchemeId((Integer) map.get("concept_scheme_id"));
       mv.setQuestionSchemeId((Integer) map.get("question_scheme_id"));
+      mv.setCategorySchemeId((Integer) map.get("category_scheme_id"));
       return mv;
-   }   
+   }
    
 }

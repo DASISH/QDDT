@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.logic.dao.update.CategoryDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CategorySchemeDaoUpdate;
+import no.nsd.qddt.logic.dao.update.CodeDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CodeListDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CommentDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptDaoUpdate;
@@ -22,33 +23,6 @@ public class DaoManager {
 
    private final DataSource dataSource;
    private Connection connection;
-
-   private ActorDao actorDao;
-   private ConceptDao conceptDao;
-   private ConceptDaoUpdate conceptDaoUpdate;
-   private ConceptSchemeDao conceptSchemeDao;
-   private ConceptSchemeDaoUpdate conceptSchemeDaoUpdate;
-   private ModuleVersionDao moduleVersionDao;
-   private ModuleVersionDaoUpdate moduleVersionDaoUpdate;
-   private ModuleDao moduleDao;
-   private ModuleDaoUpdate moduleDaoUpdate;
-   private UserDao userDao;
-   private UserDaoUpdate userDaoUpdate;
-   private AgencyDao agencyDao;
-   private StudyDao studyDao;
-   private CommentSourceDao commentSourceDao;
-   private CommentDao commentDao;
-   private CommentDaoUpdate commentDaoUpdate;
-   private QuestionSchemeDao questionSchemeDao;
-   private QuestionDao questionDao;
-   private QuestionSchemeDaoUpdate questionSchemeDaoUpdate;
-   private QuestionDaoUpdate questionDaoUpdate;
-   private SurveyDao surveyDao;
-   private CategoryDao categoryDao;
-   private CategoryDaoUpdate categoryDaoUpdate;
-   private CategorySchemeDao categorySchemeDao;
-   private CategorySchemeDaoUpdate categorySchemeDaoUpdate;
-
    
    public DaoManager(DataSource dataSource) {
       this.dataSource = dataSource;
@@ -62,178 +36,103 @@ public class DaoManager {
    
    
    public ActorDao getActorDao() throws SQLException {
-      if (actorDao == null) {
-         actorDao = new ActorDao(this.getConnection());
-      }
-      return actorDao;
+      return new ActorDao(this.getConnection());
    }
 
    public ConceptDao getConceptDao() throws SQLException {
-      if (conceptDao == null) {
-         conceptDao = new ConceptDao(this.getConnection());
-      }
-      return conceptDao;
+      return new ConceptDao(this.getConnection());
    }
-
+   
    public ConceptDaoUpdate getConceptDaoUpdate() throws SQLException {
-      if (conceptDaoUpdate == null) {
-         conceptDaoUpdate = new ConceptDaoUpdate(this.getConnection());
-      }
-      return conceptDaoUpdate;
+      return new ConceptDaoUpdate(this.getConnection());
    }
-
+   
    public ConceptSchemeDao getConceptSchemeDao() throws SQLException {
-      if (conceptSchemeDao == null) {
-         conceptSchemeDao = new ConceptSchemeDao(this.getConnection());
-      }
-      return conceptSchemeDao;
+      return new ConceptSchemeDao(this.getConnection());
    }
 
    public ConceptSchemeDaoUpdate getConceptSchemeDaoUpdate() throws SQLException {
-      if (conceptSchemeDaoUpdate == null) {
-         conceptSchemeDaoUpdate = new ConceptSchemeDaoUpdate(this.getConnection());
-      }
-      return conceptSchemeDaoUpdate;
+      return new ConceptSchemeDaoUpdate(this.getConnection());
    }
 
    public ModuleVersionDao getModuleVersionDao() throws SQLException {
-      if (moduleVersionDao == null) {
-         moduleVersionDao = new ModuleVersionDao(this.getConnection());
-      }
-      return moduleVersionDao;
+      return new ModuleVersionDao(this.getConnection());
    }
 
    public ModuleVersionDaoUpdate getModuleVersionDaoUpdate() throws SQLException {
-      if (moduleVersionDaoUpdate == null) {
-         moduleVersionDaoUpdate = new ModuleVersionDaoUpdate(this.getConnection());
-      }
-      return moduleVersionDaoUpdate;
+      return new ModuleVersionDaoUpdate(this.getConnection());
    }
 
    public ModuleDao getModuleDao() throws SQLException {
-      if (moduleDao == null) {
-         moduleDao = new ModuleDao(this.getConnection());
-      }
-      return moduleDao;
+      return new ModuleDao(this.getConnection());
    }
 
    public ModuleDaoUpdate getModuleDaoUpdate() throws SQLException {
-      if (moduleDaoUpdate == null) {
-         moduleDaoUpdate = new ModuleDaoUpdate(this.getConnection());
-      }
-      return moduleDaoUpdate;
+      return new ModuleDaoUpdate(this.getConnection());
    }
 
    public UserDao getUserDao() throws SQLException {
-      if (userDao == null) {
-         userDao = new UserDao(this.getConnection());
-      }
-      return userDao;
+      return new UserDao(this.getConnection());
    }
 
    public UserDaoUpdate getUserDaoUpdate() throws SQLException {
-      if (userDaoUpdate == null) {
-         userDaoUpdate = new UserDaoUpdate(this.getConnection());
-      }
-      return userDaoUpdate;
+      return new UserDaoUpdate(this.getConnection());
    }
 
    public AgencyDao getAgencyDao() throws SQLException {
-      if (agencyDao == null) {
-         agencyDao = new AgencyDao(this.getConnection());
-      }
-      return agencyDao;
+      return new AgencyDao(this.getConnection());
    }
 
    public StudyDao getStudyDao() throws SQLException {
-      if (studyDao == null) {
-         studyDao = new StudyDao(this.getConnection());
-      }
-      return studyDao;
+      return new StudyDao(this.getConnection());
    }
 
    public CommentSourceDao getCommentSourceDao() throws SQLException {
-      if (commentSourceDao == null) {
-         commentSourceDao = new CommentSourceDao(this.getConnection());
-      }
-      return commentSourceDao;
+      return new CommentSourceDao(this.getConnection());
    }
 
    public CommentDao getCommentDao() throws SQLException {
-      if (commentDao == null) {
-         commentDao = new CommentDao(this.getConnection());
-      }
-      return commentDao;
+      return new CommentDao(this.getConnection());
    }
 
    public CommentDaoUpdate getCommentDaoUpdate() throws SQLException {
-      if (commentDaoUpdate == null) {
-         commentDaoUpdate = new CommentDaoUpdate(this.getConnection());
-      }
-      return commentDaoUpdate;
+      return new CommentDaoUpdate(this.getConnection());
    }
 
    public QuestionSchemeDao getQuestionSchemeDao() throws SQLException {
-      if (questionSchemeDao == null) {
-         questionSchemeDao = new QuestionSchemeDao(this.getConnection());
-      }
-      return questionSchemeDao;
+      return new QuestionSchemeDao(this.getConnection());
    }
 
    public QuestionDao getQuestionDao() throws SQLException {
-      if (questionDao == null) {
-         questionDao = new QuestionDao(this.getConnection());
-      }
-      return questionDao;
+      return new QuestionDao(this.getConnection());
    }
 
    public QuestionSchemeDaoUpdate getQuestionSchemeDaoUpdate() throws SQLException {
-      if (questionSchemeDaoUpdate == null) {
-         questionSchemeDaoUpdate = new QuestionSchemeDaoUpdate(this.getConnection());
-      }
-      return questionSchemeDaoUpdate;
+      return new QuestionSchemeDaoUpdate(this.getConnection());
    }
 
    public QuestionDaoUpdate getQuestionDaoUpdate() throws SQLException {
-      if (questionDaoUpdate == null) {
-         questionDaoUpdate = new QuestionDaoUpdate(this.getConnection());
-      }
-      return questionDaoUpdate;
+      return new QuestionDaoUpdate(this.getConnection());
    }
 
    public SurveyDao getSurveyDao() throws SQLException {
-      if (surveyDao == null) {
-         surveyDao = new SurveyDao(this.getConnection());
-      }
-      return surveyDao;
+      return new SurveyDao(this.getConnection());
    }
 
    public CategoryDao getCategoryDao() throws SQLException {
-      if (categoryDao == null) {
-         categoryDao = new CategoryDao(this.getConnection());
-      }
-      return categoryDao;
+      return new CategoryDao(this.getConnection());
    }
 
    public CategoryDaoUpdate getCategoryDaoUpdate() throws SQLException {
-      if (categoryDaoUpdate == null) {
-         categoryDaoUpdate = new CategoryDaoUpdate(this.getConnection());
-      }
-      return categoryDaoUpdate;
+      return new CategoryDaoUpdate(this.getConnection());
    }
 
    public CategorySchemeDao getCategorySchemeDao() throws SQLException {
-      if (categorySchemeDao == null) {
-         categorySchemeDao = new CategorySchemeDao(this.getConnection());
-      }
-      return categorySchemeDao;
+      return new CategorySchemeDao(this.getConnection());
    }
 
    public CategorySchemeDaoUpdate getCategorySchemeDaoUpdate() throws SQLException {
-      if (categorySchemeDaoUpdate == null) {
-         categorySchemeDaoUpdate = new CategorySchemeDaoUpdate(this.getConnection());
-      }
-      return categorySchemeDaoUpdate;
+      return new CategorySchemeDaoUpdate(this.getConnection());
    }
    
    public CodeListDao getCodeListDao() throws SQLException {
@@ -243,6 +142,15 @@ public class DaoManager {
    public CodeListDaoUpdate getCodeListDaoUpdate() throws SQLException {
       return new CodeListDaoUpdate(this.getConnection());
    }
+
+   public CodeDao getCodeDao() throws SQLException {
+      return new CodeDao(this.getConnection());
+   }
+
+   public CodeDaoUpdate getCodeDaoUpdate() throws SQLException {
+      return new CodeDaoUpdate(this.getConnection());
+   }
+   
    
    
    

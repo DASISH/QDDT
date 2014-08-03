@@ -17,30 +17,24 @@
       
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
          
-      <div class="boxheader">New category</div>
+      <div class="boxheader">New code</div>
 
       <form action="<c:url value="/u/r/savecategory" />" method="post">
          <input type="hidden" name="mvid" value="${param.mvid}">
          <input type="hidden" name="cid" value="${category.id}">
 
-         <h4>Label:</h4>
-         <input class="w10" type="text" name="label" value="${fn:escapeXml(category.label)}">
-
-         <h4>Short label:</h4>
-         <input class="w10" type="text" name="label_short" value="${fn:escapeXml(category.labelShort)}">
-
-         <h4>Description:</h4>
-         <textarea class="w10" name="description" rows="5">${fn:escapeXml(category.description)}</textarea>
+         <h4>Value:</h4>
+         <input class="w10" type="text" name="value" value="${fn:escapeXml(code.value)}">
 
          <h4>Version description:</h4>
          <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(category.versionDescription)}</textarea>
 
-         <c:if test="${category == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create new category"></div></c:if>
-         <c:if test="${category != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
+         <c:if test="${code == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create new code"></div></c:if>
+         <c:if test="${code != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
          </form>
 
 
-         <div class="boxheader">Update existing categories for this module</div>
+         <div class="boxheader">Choose category</div>
       
       
       <c:forEach items="${categories}" var="c">

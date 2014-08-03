@@ -41,20 +41,5 @@ public class CategoryDao {
       return CategoryOrm.getCategoryList(rows);
    }
    
-   public List<Category> getCategoriesForDefaultSchemeForSurvey(Integer surveyId) throws SQLException {
-      String sql = "select c.* from "
-              + "category as c inner join category_in_scheme as cis "
-              + "on c.category_id = cis.category_id "
-              + "inner join category_scheme as cs on cis.category_scheme_id = cs.category_scheme_id "
-              + "where cs.survey_id = ? and cs.survey_default_scheme = ?";
-      
-      List values = new ArrayList();
-      values.add(surveyId);
-      values.add(Boolean.TRUE);
-      
-      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      return CategoryOrm.getCategoryList(rows);
-   }
-   
    
 }

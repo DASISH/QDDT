@@ -18,6 +18,7 @@ public class ModuleVersion implements Serializable {
 
    private Integer conceptSchemeId;
    private Integer questionSchemeId;
+   private Integer categorySchemeId;
 
    
    public Module getModule() {
@@ -130,6 +131,14 @@ public class ModuleVersion implements Serializable {
 
    public void setQuestionSchemeId(Integer questionSchemeId) {
       this.questionSchemeId = questionSchemeId;
+   }
+
+   public Integer getCategorySchemeId() {
+      return categorySchemeId;
+   }
+
+   public void setCategorySchemeId(Integer categorySchemeId) {
+      this.categorySchemeId = categorySchemeId;
    }
 
    

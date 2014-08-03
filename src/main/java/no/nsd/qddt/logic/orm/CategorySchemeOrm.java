@@ -43,7 +43,7 @@ public final class CategorySchemeOrm {
       qs.setDescription(SqlUtil.getString("description", map));
       qs.setVersionDescription(SqlUtil.getString("version_description", map));
       qs.setVersionPublished((Boolean) map.get("version_published"));
-      qs.setSurveyDefault((Boolean) map.get("survey_default_scheme"));
+      qs.setModuleDefaultScheme((Boolean) map.get("module_default_scheme"));
       return qs;
    }
    

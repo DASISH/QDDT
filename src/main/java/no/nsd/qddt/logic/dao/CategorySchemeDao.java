@@ -28,17 +28,5 @@ public class CategorySchemeDao {
    }
 
    
-   public CategoryScheme getDefaultCategorySchemeForSurvey(Integer surveyId) throws SQLException {
-      String sql = "select * from category_scheme where survey_id = ? and survey_default_scheme = ?";
-      
-      List values = new ArrayList();
-      values.add(surveyId);
-      values.add(Boolean.TRUE);
-      
-      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
-      return CategorySchemeOrm.getCategorySchemeFromFirstRow(rows);
-   }
-   
-   
    
 }
