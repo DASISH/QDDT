@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Code;
 
 public class CodeDaoUpdate {
@@ -22,20 +23,22 @@ public class CodeDaoUpdate {
               + "code(agency_id, "
               + "urn_id, "
               + "urn_version, "
+              + "category_id, "
               + "value, "
               + "module_version_id, "
               + "version_date, "
               + "version_description) "
-              + "values (?, ?, ?, ?, ?, ?, ?)";
+              + "values (?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(code.getUrn().getAgency().getId());
       values.add(code.getUrn().getId());
       values.add(code.getUrn().getVersion());
 
+      values.add(code.getCategoryId());
       values.add(code.getValue());
       values.add(code.getModuleVersionId());
-      values.add(new Date());
+      values.add(SqlUtil.getDateNow());
       values.add(code.getVersionDescription());
 
       SqlCommand sqlCommand = new SqlCommand(conn);
@@ -54,7 +57,7 @@ public class CodeDaoUpdate {
 
       List values = new ArrayList();
       values.add(code.getValue());
-      values.add(new Date());
+      values.add(SqlUtil.getDateNow());
       values.add(code.getVersionDescription());
 
       values.add(code.getId());

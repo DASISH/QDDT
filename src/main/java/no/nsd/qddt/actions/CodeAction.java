@@ -3,6 +3,7 @@ package no.nsd.qddt.actions;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,7 @@ public class CodeAction extends AbstractAction {
    protected void executeDao() throws SQLException {
       this.setCategories();
       this.setCode();
+      this.setCodes();
    }
 
    private void setCategories() throws SQLException {
@@ -43,7 +45,20 @@ public class CodeAction extends AbstractAction {
       request.setAttribute("categories", categories);
    }
 
+   private void setCodes() throws SQLException {
+      if (codeId != null) {
+         return;
+      }
+
+      Map<Integer, List<Code>> codes = (new CodeService(daoManager)).getAllCodesCategoryMap();
+      request.setAttribute("codes", codes);
+   }
+   
    private void setCode() throws SQLException {
+      if (codeId == null) {
+         return;
+      }
+      
       Code code = (new CodeService(daoManager)).getCode(codeId);
       request.setAttribute("code", code);
    }

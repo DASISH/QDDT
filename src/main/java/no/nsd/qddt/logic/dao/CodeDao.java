@@ -28,6 +28,15 @@ public class CodeDao {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return CodeOrm.getCodeFromFirstRow(rows);
    }
+
+   
+   public List<Code> getAllCodes() throws SQLException {
+      String sql = "select * from code";
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      return CodeOrm.getCodeList(rows);
+   }
+   
    
    public List<Code> getCodesForCodeList(Integer codeListId) throws SQLException {
       String sql = "select c.* from "

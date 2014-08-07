@@ -77,5 +77,10 @@ public final class SqlUtil {
       return null;
    }
 
+   public static java.sql.Date getDateNow() {
+      java.util.Date now = new java.util.Date();
+      return new java.sql.Date(now.getTime());
+   }
+   
    
 }

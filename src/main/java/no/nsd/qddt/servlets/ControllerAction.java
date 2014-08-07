@@ -23,6 +23,7 @@ import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 import no.nsd.qddt.actions.UserLoginAction;
 import no.nsd.qddt.actions.UserLogoutAction;
+import no.nsd.qddt.actions.update.NewCodeAction;
 import no.nsd.qddt.actions.update.NewCommentAction;
 import no.nsd.qddt.actions.update.NewConceptAction;
 import no.nsd.qddt.actions.update.NewModuleVersionAction;
@@ -98,6 +99,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/savecodelist")) { new SaveCodeListAction().process(request, response); }
       
       else if (uri.equals(context + "/u/r/newcomment")) { new NewCommentAction().process(request, response); }
+
+      else if (uri.equals(context + "/u/r/newcode")) { new NewCodeAction().process(request, response); }
       
       else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }
       

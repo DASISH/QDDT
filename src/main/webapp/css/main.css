@@ -236,6 +236,12 @@ option {
 .w4 {
    width: 33.33%;
 }
+.w3 {
+   width: 25%;
+}
+.w2 {
+   width: 16.66%;
+}
 .w1 {
    width: 8.33%;
 }
@@ -260,6 +266,10 @@ option {
  ***** MODULE
  *****************************************************************************************************
  */
+
+.inline {
+   display: inline;
+}
 
 .topmarg {
    margin-top: 10px;
@@ -350,6 +360,7 @@ option {
 
 .button {
    background-color: lightsteelblue;
+   display: inline-block;
    padding: 5px 17px;
    width: auto;
    

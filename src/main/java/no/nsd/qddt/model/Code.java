@@ -6,6 +6,7 @@ public class Code extends Element implements Serializable {
    
    private Integer categoryId;
    private String value;
+   private Category category; 
    
    public Code() {
    }
@@ -24,6 +25,14 @@ public class Code extends Element implements Serializable {
 
    public void setValue(String value) {
       this.value = value;
+   }
+
+   public Category getCategory() {
+      return category;
+   }
+
+   public void setCategory(Category category) {
+      this.category = category;
    }
 
    
