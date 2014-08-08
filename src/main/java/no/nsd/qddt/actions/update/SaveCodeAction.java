@@ -6,14 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.AbstractAction;
-import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.model.Code;
 import no.nsd.qddt.model.ModuleVersion;
-import no.nsd.qddt.model.Urn;
 import no.nsd.qddt.service.CodeService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class NewCodeAction extends AbstractAction {
+public class SaveCodeAction extends AbstractAction {
 
    private ModuleVersion moduleVersion;
    private Code newCode;
@@ -26,24 +24,22 @@ public class NewCodeAction extends AbstractAction {
       this.executeDaoAndClose();
       this.redirectSuccessPage();
    }
-
+   
    private void createNewCode() throws ServletException {
       newCode = new Code();
-      Urn urn = UrnUtil.createNewUrn();
-      urn.setAgency(moduleVersion.getModule().getAgency());
-      newCode.setUrn(urn);
-      newCode.setModuleVersionId(moduleVersion.getId());
-      newCode.setCategoryId(ServletUtil.getRequestParamAsInteger(request, "cid"));
+      newCode.setId(ServletUtil.getRequestParamAsInteger(request, "cid"));
+      newCode.setValue(request.getParameter("value"));
+      newCode.setVersionDescription(request.getParameter("version_description"));
       newCode.setVersionUpdated(Boolean.TRUE);
    }
 
    @Override
    protected void executeDao() throws SQLException {
-      (new CodeService(daoManager)).registerNewCode(newCode);
+      (new CodeService(daoManager)).updateCode(newCode);
    }
    
    private void redirectSuccessPage() throws IOException {
-      String url = "/u/updatecode?mvid=" + moduleVersion.getId() + "&cid=" + newCode.getId();
+      String url = "/u/updatecode?mvid=" + moduleVersion.getId() + "&cid=" + newCode.getId() + "&saved";
       ServletUtil.redirect(url, request, response);
    }
 

@@ -14,40 +14,43 @@ import no.nsd.qddt.service.CategoryService;
 import no.nsd.qddt.service.CodeService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class CodeAction extends AbstractAction {
+public class CodeUpdateAction extends AbstractAction {
 
    private ModuleVersion moduleVersion;
+   private Integer codeId;
    
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
-      this.setModuleVersion();
+      this.setMembers();
       
       this.executeDaoAndClose();
+      
       this.forwardPage();
    }
 
-   private void setModuleVersion() {
+   private void setMembers() {
       moduleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
+      codeId = ServletUtil.getRequestParamAsInteger(request, "cid");
    }
    
    @Override
    protected void executeDao() throws SQLException {
       this.setCategories();
-      this.setCodes();
+      this.setCode();
    }
 
    private void setCategories() throws SQLException {
       List<Category> categories = (new CategoryService(daoManager)).getCategoriesForCategoryScheme(moduleVersion.getCategorySchemeId());
       request.setAttribute("categories", categories);
    }
-
-   private void setCodes() throws SQLException {
-      Map<Integer, List<Code>> codes = (new CodeService(daoManager)).getAllCodesCategoryMap();
-      request.setAttribute("codes", codes);
+   
+   private void setCode() throws SQLException {
+      Code code = (new CodeService(daoManager)).getCode(codeId);
+      request.setAttribute("code", code);
    }
    
    private void forwardPage() throws ServletException, IOException {
-      ServletUtil.forward("/WEB-INF/jsp/code.jsp", request, response);
+      ServletUtil.forward("/WEB-INF/jsp/code_update.jsp", request, response);
    }
    
 }

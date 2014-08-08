@@ -17,31 +17,7 @@
 
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
 
-         <c:if test="${code != null}">
-
-            <div class="boxheader">New code</div>
-
-
-            <form action="<c:url value="/u/r/savecode" />" method="post">
-               <input type="hidden" name="mvid" value="${param.mvid}">
-               <input type="hidden" name="cid" value="${code.id}">
-
-               <h4>Category:</h4>
-               <p>${fn:escapeXml(code.category.label)}</p>
-
-               <h4>Value:</h4>
-               <input class="w8" type="text" name="value" value="${fn:escapeXml(code.value)}">
-
-               <h4>Version description:</h4>
-               <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(code.versionDescription)}</textarea>
-
-               <c:if test="${code == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create new code"></div></c:if>
-               <c:if test="${code != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
-               </form>
-
-         </c:if>
-
-         <div class="boxheader">Choose category</div>
+         <p class="helptext">Create new code or update/create new version of existing code.</p>
          
          <table class="w12">
             <tbody>
@@ -61,8 +37,8 @@
                   <c:forEach items="${codes[cat.id]}" var="cod">
                      <tr>
                         <td class="w1"></td>
-                        <td class="w8">${fn:escapeXml(cod.label)}</td>
-                        <td class="w3"><a class="button" href="?mvid=${param.mvid}&cid=${cod.id}">Update/New version</a></td>
+                        <td class="w8">${fn:escapeXml(cod.value)}</td>
+                        <td class="w3"><a class="button" href="<c:url value="/u/updatecode?mvid=${param.mvid}&cid=${cod.id}" />">Update/New version</a></td>
                      </tr>
                   </c:forEach>
                   

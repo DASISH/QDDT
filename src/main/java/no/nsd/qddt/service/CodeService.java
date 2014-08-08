@@ -75,6 +75,18 @@ public class CodeService {
       }
    }
 
+   public void updateCode(Code code) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         
+         daoManager.getCodeDaoUpdate().updateCode(code);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
 
 
 }
