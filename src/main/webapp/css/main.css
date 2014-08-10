@@ -465,6 +465,10 @@ option {
    white-space: nowrap;
 }
 
+.align-right {
+   text-align: right;
+}
+
 
 .button a {
    background: #cc7700;

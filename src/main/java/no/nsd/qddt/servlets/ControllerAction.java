@@ -30,6 +30,7 @@ import no.nsd.qddt.actions.update.NewConceptAction;
 import no.nsd.qddt.actions.update.NewModuleVersionAction;
 import no.nsd.qddt.actions.update.SaveCategoryAction;
 import no.nsd.qddt.actions.update.SaveCodeAction;
+import no.nsd.qddt.actions.update.SaveCodeCategoryAction;
 import no.nsd.qddt.actions.update.SaveCodeListAction;
 import no.nsd.qddt.actions.update.SaveConceptAction;
 import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
@@ -105,6 +106,7 @@ public class ControllerAction {
 
       else if (uri.equals(context + "/u/r/newcode")) { new NewCodeAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savecode")) { new SaveCodeAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/savecodecategory")) { new SaveCodeCategoryAction().process(request, response); }
       
       else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }
       

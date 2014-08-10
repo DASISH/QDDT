@@ -37,7 +37,7 @@
                   <c:forEach items="${codes[cat.id]}" var="cod">
                      <tr>
                         <td class="w1"></td>
-                        <td class="w8">${fn:escapeXml(cod.value)}</td>
+                        <td class="w8 align-right">${fn:escapeXml(cod.value)}</td>
                         <td class="w3"><a class="button" href="<c:url value="/u/updatecode?mvid=${param.mvid}&cid=${cod.id}" />">Update/New version</a></td>
                      </tr>
                   </c:forEach>

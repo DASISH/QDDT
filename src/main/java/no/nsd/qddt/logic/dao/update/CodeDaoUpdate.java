@@ -3,7 +3,6 @@ package no.nsd.qddt.logic.dao.update;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.SqlUtil;
@@ -66,6 +65,26 @@ public class CodeDaoUpdate {
    }
    
 
+   public void updateCategoryForCode(Code code) throws SQLException {
+      String sql = "update code set "
+              + "category_id = ?, "
+              + "version_date = ? "
+              + "where code_id = ?";
+
+      List values = new ArrayList();
+
+      values.add(code.getCategoryId());
+      values.add(SqlUtil.getDateNow());
+
+      values.add(code.getId());
+
+      SqlCommand sqlCommand = new SqlCommand(conn);
+      sqlCommand.setSqlString(sql);
+      sqlCommand.setValues(values);
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   
    public void deleteCode(Code code) throws SQLException {
       String sql = "delete from code where code_id = ?";
 

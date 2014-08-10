@@ -48,9 +48,10 @@
                            <span class="helptext">Selected</span>
                         </c:if>
                         <c:if test="${code.category.id != cat.id}">
-                           <form action="<c:url value="/u/r/newcode" />" method="post">
+                           <form action="<c:url value="/u/r/savecodecategory" />" method="post">
                               <input type="hidden" name="mvid" value="${param.mvid}">
-                              <input type="hidden" name="cid" value="${cat.id}">
+                              <input type="hidden" name="codeid" value="${code.id}">
+                              <input type="hidden" name="catid" value="${cat.id}">
                               <input class="okbutton" type="submit" name="action" value="Use this">
                            </form>
                         </c:if>
