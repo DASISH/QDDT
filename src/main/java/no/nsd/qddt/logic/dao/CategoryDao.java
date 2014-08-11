@@ -41,5 +41,12 @@ public class CategoryDao {
       return CategoryOrm.getCategoryList(rows);
    }
    
+   public List<Category> getAllCategories() throws SQLException {
+      String sql = "select * from category";
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      return CategoryOrm.getCategoryList(rows);
+   }
+
    
 }

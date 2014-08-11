@@ -2,16 +2,18 @@ package no.nsd.qddt.actions;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import no.nsd.qddt.model.Code;
 import no.nsd.qddt.model.CodeList;
 import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.CodeListService;
+import no.nsd.qddt.service.CodeService;
 import no.nsd.qddt.servlets.ServletUtil;
 
 public class CodeListUpdateAction extends AbstractAction {
-
 
    private Integer codeListId;
    private ModuleVersion moduleVersion;
@@ -32,11 +34,17 @@ public class CodeListUpdateAction extends AbstractAction {
    @Override
    protected void executeDao() throws SQLException {
       this.setCodeList();
+      this.setCodes();
    }
 
    private void setCodeList() throws SQLException {
       CodeList codeList = (new CodeListService(daoManager)).getCodeList(codeListId);
       request.setAttribute("codeList", codeList);
+   }
+
+   private void setCodes() throws SQLException {
+      List<Code> codes = (new CodeService(daoManager)).getCodesForModule(moduleVersion.getModule());
+      request.setAttribute("codes", codes);
    }
    
    private void forwardPage() throws ServletException, IOException {

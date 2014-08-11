@@ -25,7 +25,7 @@
          
          <form action="<c:url value="/u/r/savecodelist" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
-            <input type="hidden" name="qid" value="${param.qid}">
+            <input type="hidden" name="clid" value="${param.clid}">
 
             <h4>Name:</h4>
             <input class="w10" type="text" name="name" value="${fn:escapeXml(codeList.name)}">
@@ -47,11 +47,30 @@
 
             
 
-            <div class="boxheader">Existing codes</div>
+            <div class="boxheader">Add codes to this code list</div>
 
-         <ul>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}&qid=${param.qid}" />">...</a></li>
-         </ul>
+            <table>
+               <tbody>
+               <c:forEach items="${codes}" var="c">
+                  <tr>
+                     <td>
+                        <c:if test="${code.id == 999}">
+                           <span class="helptext">Selected</span>
+                        </c:if>
+                        <c:if test="${code.id != 999}">
+                           <form action="<c:url value="/u/r/addcodetocodelist" />" method="post">
+                              <input type="hidden" name="mvid" value="${param.mvid}">
+                              <input type="hidden" name="codeid" value="${c.id}">
+                              <input type="hidden" name="clid" value="${param.clid}">
+                              <input class="okbutton" type="submit" name="action" value="Add">
+                           </form>
+                        </c:if>
+                     </td>
+                     <td>${fn:escapeXml(c.value)}</td>
+                  </tr>
+               </c:forEach>
+            </tbody>
+         </table>
 
       </div>
 
