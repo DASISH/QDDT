@@ -24,8 +24,7 @@
          <ul>
             <li><a href="<c:url value="/u/category?mvid=${param.mvid}" />">Categories</a></li>
             <li><a href="<c:url value="/u/code?mvid=${param.mvid}" />">Codes</a></li>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code List (only valid codes, or missing codes)</a></li>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code List (compilation of both valid and missing code lists)</a></li>
+            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code Lists</a></li>
          </ul>
 
       </div>

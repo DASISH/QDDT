@@ -13,6 +13,7 @@
 
             <div class="l-copyright">
                <p>QDDT - Questionnaire Design and Development Tool</p>
+               <p>DASISH - Data Service Infrastructure for the Social Sciences and Humanities</p>
             </div>
 
          </div>

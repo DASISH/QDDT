@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlUtil;
+import no.nsd.qddt.model.Category;
 import no.nsd.qddt.model.Code;
 import no.nsd.qddt.model.Urn;
 
@@ -37,6 +38,10 @@ public final class CodeOrm {
       
       Urn urn = UrnOrm.getUrn(map);
       c.setUrn(urn);
+      
+      Category cat = new Category();
+      cat.setLabel(SqlUtil.getString("cat_label", map));
+      c.setCategory(cat);
       
       c.setId((Integer) map.get("code_id"));
       c.setCategoryId((Integer) map.get("category_id"));

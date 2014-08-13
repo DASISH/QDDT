@@ -21,7 +21,11 @@
 
          <p class="helptext">Create a new code list or update an existing code list.</p>
             
-         <p><a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}" />">Create new code list</a></p>
+         <p>
+            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=v" />">New valid code list</a>
+            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=m" />">New missing code list</a>
+            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=c" />">New code list (valid + missing)</a>
+         </p>
 
             <div class="boxheader">Update existing code lists</div>
 

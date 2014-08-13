@@ -21,11 +21,11 @@
 
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
          
-         <div class="boxheader">Create new code list</div>
+         <h3>Create new code list</h3>
          
          <form action="<c:url value="/u/r/savecodelist" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
-            <input type="hidden" name="clid" value="${param.clid}">
+            <input type="hidden" name="type" value="${param.type}">
 
             <h4>Name:</h4>
             <input class="w10" type="text" name="name" value="${fn:escapeXml(codeList.name)}">
@@ -41,37 +41,10 @@
 
             <div class="topmarg">
                <input class="okbutton" type="submit" name="action" value="Create new code list">
+               <a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">cancel</a>
             </div>
          </form>
 
-
-            
-
-            <div class="boxheader">Add codes to this code list</div>
-
-            <table>
-               <tbody>
-               <c:forEach items="${codes}" var="c">
-                  <tr>
-                     <td>
-                        <c:if test="${code.id == 999}">
-                           <span class="helptext">Selected</span>
-                        </c:if>
-                        <c:if test="${code.id != 999}">
-                           <form action="<c:url value="/u/r/addcodetocodelist" />" method="post">
-                              <input type="hidden" name="mvid" value="${param.mvid}">
-                              <input type="hidden" name="codeid" value="${c.id}">
-                              <input type="hidden" name="clid" value="${param.clid}">
-                              <input class="okbutton" type="submit" name="action" value="Add">
-                           </form>
-                        </c:if>
-                     </td>
-                     <td>${fn:escapeXml(c.value)}</td>
-                     <td>${fn:escapeXml(c.category.label)}</td>
-                  </tr>
-               </c:forEach>
-            </tbody>
-         </table>
 
       </div>
 

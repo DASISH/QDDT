@@ -4,11 +4,11 @@
 
 <h1>Module: ${fn:escapeXml(moduleVersion.module.name)}</h1>
 
-<h2 class="boxheader">Module details</h2>
+<div class="boxheader">Module details</div>
 <ul class="plain-list">
    <li>Name: ${fn:escapeXml(moduleVersion.module.name)}</li>
    <li>Study: ${fn:escapeXml(moduleVersion.module.study)}</li>
    <li>Maintenance agency ID: ${fn:escapeXml(moduleVersion.module.agency.urnId)}</li>
 </ul>
 
-<h2 class="boxheader">Update module version as ${fn:escapeXml(actor.name)}</h2>
+<div class="boxheader">Update module version as ${fn:escapeXml(actor.name)}</div>

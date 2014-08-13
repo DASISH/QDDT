@@ -52,9 +52,10 @@ public class CodeDao {
    }
    
    public List<Code> getCodesForModule(Module module) throws SQLException {
-      String sql = "select c.* from "
+      String sql = "select c.*, cat.label as cat_label from "
               + "code as c inner join module_version as mv on c.module_version_id = mv.module_version_id "
               + "inner join module as m on mv.module_id = m.module_id "
+              + "inner join category as cat on c.category_id = cat.category_id "
               + "where m.module_id = ?";
       
       List<Integer> values = new ArrayList<Integer>();

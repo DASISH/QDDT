@@ -4,7 +4,7 @@
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>QDDT</title>
+      <title>DASISH QDDT</title>
       <link rel="stylesheet" href="<c:url value="/css/normalize.css" />" media="screen" />
       <link rel="stylesheet" href="<c:url value="/css/main.css" />" media="screen" />
 
@@ -18,7 +18,7 @@
          <div class="wrap">
             <div class="grid">
                <div class="col">
-                  <div class="titleheader">QDDT - Questionnaire Design and Development Tool</div>
+                  <div class="titleheader"><span class="dasishheader">DASISH</span> QDDT<div class="titleheadersub">Questionnaire Design and Development Tool</div></div>
 
                   <c:if test="${sessionScope.user != null}">
                      <div class="headernav">
