@@ -21,7 +21,7 @@
 
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
          
-         <div class="boxheader">Create new code list</div>
+         <div class="boxheader">Update code list</div>
          
          <form action="<c:url value="/u/r/savecodelist" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
@@ -40,7 +40,7 @@
             <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(codeList.versionDescription)}</textarea>
 
             <div class="topmarg">
-               <input class="okbutton" type="submit" name="action" value="Create new code list">
+               <input class="okbutton" type="submit" name="action" value="Save">
             </div>
          </form>
 

@@ -36,7 +36,7 @@ h1 {
    font-family: Georgia, "Times New Roman", Times, serif;
    font-size: 24px;
    font-weight: normal;
-   margin: 0 0 8px;
+   margin: 0 0 5px;
    margin-top: 0 !important;
    padding: 0;
 }
@@ -189,7 +189,7 @@ option {
    background: #415182;
    clear: both;
    display: block;
-   padding: 14px 0 2px;
+   padding: 17px 0 2px;
    width: 100%;
    margin-bottom: 12px;
    margin-top: 0;
@@ -303,7 +303,6 @@ option {
    font-size: 28px;
    font-weight: bold;
    color: #EFEFEF;
-   padding: 7px 0 1px;
 }
 .titleheadersub {
    font-size: 14px;
