@@ -20,12 +20,12 @@
                <div class="col">
                   <div class="titleheader"><span class="dasishheader">DASISH</span> QDDT<div class="titleheadersub">Questionnaire Design and Development Tool</div></div>
 
-                  <c:if test="${sessionScope.user != null}">
-                     <div class="headernav">
+                  <div class="headernav">
+                     <c:if test="${sessionScope.user != null}">
                         Logged in as ${sessionScope.user}:
                         <a href="<c:url value="/u/" />">Home</a> / <a href="<c:url value="/logout" />">Log out</a>
-                     </div>
-                  </c:if>
+                     </c:if>
+                  </div>
 
                </div>
             </div>

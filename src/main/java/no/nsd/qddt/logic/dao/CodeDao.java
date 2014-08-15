@@ -39,10 +39,11 @@ public class CodeDao {
    
    
    public List<Code> getCodesForCodeList(Integer codeListId) throws SQLException {
-      String sql = "select c.* from "
-              + "code as c inner join code_in_list as cil "
-              + "on c.code_id = cil.code_id "
-              + "where code_list_id = ?";
+      String sql = "select c.*, cat.label as cat_label, cicl.sort_order from code as c "
+              + "inner join code_in_code_list as cicl on c.code_id = cicl.code_id "
+              + "inner join category as cat on c.category_id = cat.category_id "
+              + "where cicl.code_list_id = ? "
+              + "order by cicl.sort_order, cicl.code_id";
       
       List<Integer> values = new ArrayList<Integer>();
       values.add(codeListId);

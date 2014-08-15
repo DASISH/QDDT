@@ -25,6 +25,8 @@ import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 import no.nsd.qddt.actions.UserLoginAction;
 import no.nsd.qddt.actions.UserLogoutAction;
+import no.nsd.qddt.actions.update.AddCodeToCodeListAction;
+import no.nsd.qddt.actions.update.ChangeCodeListAction;
 import no.nsd.qddt.actions.update.NewCodeAction;
 import no.nsd.qddt.actions.update.NewCommentAction;
 import no.nsd.qddt.actions.update.NewConceptAction;
@@ -103,6 +105,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/savecategory")) { new SaveCategoryAction().process(request, response); }
       
       else if (uri.equals(context + "/u/r/savecodelist")) { new SaveCodeListAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/addcodetocodelist")) { new AddCodeToCodeListAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/changecodelist")) { new ChangeCodeListAction().process(request, response); }
       
       else if (uri.equals(context + "/u/r/newcomment")) { new NewCommentAction().process(request, response); }
 

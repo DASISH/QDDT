@@ -46,6 +46,7 @@ public final class CodeOrm {
       c.setId((Integer) map.get("code_id"));
       c.setCategoryId((Integer) map.get("category_id"));
       c.setValue(SqlUtil.getString("value", map));
+      c.setSortOrder((Integer) map.get("sort_order"));
       c.setModuleVersionId((Integer) map.get("module_version_id"));
       c.setVersionDescription(SqlUtil.getString("version_description", map));
       return c;

@@ -315,6 +315,7 @@ option {
 
 .headernav {
    color: #BBBBBB;
+   min-height: 17px;
    text-align: right;
 }
 .headernav a {
@@ -370,7 +371,7 @@ option {
 .button {
    background-color: #B0C4DE;
    display: inline-block;
-   padding: 5px 17px;
+   padding: 4px 10px 5px;
    width: auto;
    
    border: 0;
@@ -382,7 +383,7 @@ option {
 }
 .deletebutton {
    background-color: #EFB0BB;
-   padding: 5px 17px;
+   padding: 4px 10px 5px;
    width: auto;
    border: 0;
    color: #000000;
@@ -393,7 +394,7 @@ option {
 }
 .okbutton {
    background-color: #90EE90;
-   padding: 5px 17px;
+   padding: 4px 10px 5px;
    width: auto;
    border: 0;
    color: #000000;

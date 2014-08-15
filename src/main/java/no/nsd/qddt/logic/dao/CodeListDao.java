@@ -29,7 +29,7 @@ public class CodeListDao {
    }
    
    
-   public List<CodeList> getCodeListsForModuleVersion(Integer moduleVersionId) throws SQLException {
+   public List<CodeList> getCodeListsForModule(Integer moduleVersionId) throws SQLException {
       String sql = "select * from code_list where module_version_id = ?";
       
       List<Integer> values = new ArrayList<Integer>();
@@ -38,6 +38,26 @@ public class CodeListDao {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return CodeListOrm.getCodeLists(rows);
    }
+   
+   public Integer getMaxSortOrderForCodeList(Integer codeListId) throws SQLException {
+      String sql = "select max(sort_order) as max_sort_order from code_in_code_list where code_list_id = ?";
+      
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(codeListId);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      if (rows == null || rows.length == 0) {
+         return 0;
+      }
+      SortedMap firstRow = rows[0];
+      Integer max = (Integer) firstRow.get("max_sort_order");
+      
+      if (max == null) {
+         return 0;
+      }
+      return max;
+   }
+   
    
    
 }

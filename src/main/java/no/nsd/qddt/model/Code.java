@@ -7,6 +7,7 @@ public class Code extends Element implements Serializable {
    private Integer categoryId;
    private String value;
    private Category category; 
+   private Integer sortOrder;
    
    public Code() {
    }
@@ -33,6 +34,14 @@ public class Code extends Element implements Serializable {
 
    public void setCategory(Category category) {
       this.category = category;
+   }
+
+   public Integer getSortOrder() {
+      return sortOrder;
+   }
+
+   public void setSortOrder(Integer sortOrder) {
+      this.sortOrder = sortOrder;
    }
 
    

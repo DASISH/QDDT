@@ -73,4 +73,60 @@ public class CodeListDaoUpdate {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
    
+   
+   public void addCodeToCodeList(Integer codeId, Integer codeListId, Integer sortOrder) throws SQLException {
+      String sql = "insert into code_in_code_list (code_id, code_list_id, sort_order) values (?, ?, ?)";
+
+      List values = new ArrayList();
+      values.add(codeId);
+      values.add(codeListId);
+      values.add(sortOrder);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   public void removeCodeFromCodeList(Integer codeId, Integer codeListId) throws SQLException {
+      String sql = "delete from code_in_code_list where code_id = ? and code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(codeId);
+      values.add(codeListId);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void changeSortOrderForCode(Integer oldSortOrder, Integer newSortOrder, Integer codeListId) throws SQLException {
+      String sql = "update code_in_code_list set sort_order = ? where sort_order = ? and code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(newSortOrder);
+      values.add(oldSortOrder);
+      values.add(codeListId);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void setSortOrderForCodeInCodeList(Integer newSortOrder, Integer codeId, Integer codeListId) throws SQLException {
+      String sql = "update code_in_code_list set sort_order = ? where code_id = ? and code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(newSortOrder);
+      values.add(codeId);
+      values.add(codeListId);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   
+   public void moveUpCodesBelowSortOrderInCodeList(Integer sortOrder, Integer codeListId) throws SQLException {
+      String sql = "update code_in_code_list set sort_order = sort_order - 1 where sort_order > ? and code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(sortOrder);
+      values.add(codeListId);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   
 }
