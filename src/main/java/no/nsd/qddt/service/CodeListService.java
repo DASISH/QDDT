@@ -2,6 +2,8 @@ package no.nsd.qddt.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Code;
 import no.nsd.qddt.model.CodeList;
@@ -21,14 +23,35 @@ public class CodeListService {
    public CodeList getCodeListWithCodes(Integer codeListId) throws SQLException {
       CodeList codeList = daoManager.getCodeListDao().getCodeList(codeListId);
 
+      if (codeList == null) {
+         return null;
+      }
+      
       List<Code> codes = daoManager.getCodeDao().getCodesForCodeList(codeListId);
       codeList.setCodes(codes);
       
       return codeList;
    }
 
-   public List<CodeList> getCodeListsForModuleVersion(Integer moduleVersionId) throws SQLException {
-      return daoManager.getCodeListDao().getCodeListsForModuleVersion(moduleVersionId);
+   public List<CodeList> getCodeListsForModule(Integer moduleId) throws SQLException {
+      List<CodeList> codeLists = daoManager.getCodeListDao().getCodeListsForModule(moduleId);
+      
+      Map<Integer, Code> codes = daoManager.getCodeDao().getAllCodesWithCategory();
+      Map<Integer, List<Code>> codesForCodeLists = daoManager.getCodeDao().getCodesForAllCodeLists();
+      
+      if (codeLists == null) {
+         return null;
+      }
+      for (CodeList cl : codeLists) {
+         List<Code> list = codesForCodeLists.get(cl.getId());
+         if (list == null) {
+            continue;
+         }
+         for (Code c : list) {
+            cl.addCode(codes.get(c.getId()));
+         }
+      }
+      return codeLists;
    }
    
    
@@ -46,6 +69,37 @@ public class CodeListService {
       }
    }
 
+   public void updateCodeList(CodeList codeList) throws SQLException {
+      daoManager.getCodeListDaoUpdate().updateCodeList(codeList);
+   }
+
+   public void updateValidCodeListId(CodeList codeList) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         
+         daoManager.getCodeListDaoUpdate().updateValidCodeListId(codeList);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+
+   public void updateMissingCodeListId(CodeList codeList) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         
+         daoManager.getCodeListDaoUpdate().updateMissingCodeListId(codeList);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+   
+   
    public void addCodeToCodeList(Integer codeId, Integer codeListId) throws SQLException {
       Integer maxSortOrder = daoManager.getCodeListDao().getMaxSortOrderForCodeList(codeListId);
       daoManager.getCodeListDaoUpdate().addCodeToCodeList(codeId, codeListId, maxSortOrder + 1);
@@ -84,37 +138,5 @@ public class CodeListService {
    }
       
    
-   
-   /*
-   public void updateQuestion(Question question) throws SQLException {
-      try {
-         daoManager.beginTransaction();
-
-         daoManager.getQuestionDaoUpdate().updateQuestion(question);
-         daoManager.getQuestionSchemeDaoUpdate().setQuestionSchemeUpdated(question.getQuestionSchemeId());
-         
-         daoManager.endTransaction();
-      } catch (SQLException e) {
-         daoManager.abortTransaction();
-         throw e;
-      }
-   }
-
-   public void deleteQuestion(Question question) throws SQLException {
-      try {
-         daoManager.beginTransaction();
-         
-         daoManager.getQuestionSchemeDaoUpdate().deleteQuestionFromScheme(question);
-         daoManager.getQuestionDaoUpdate().deleteQuestion(question);
-         daoManager.getQuestionSchemeDaoUpdate().setQuestionSchemeUpdated(question.getQuestionSchemeId());
-
-         daoManager.endTransaction();
-      } catch (SQLException e) {
-         daoManager.abortTransaction();
-         throw e;
-      }
-   }
-
-   */
 
 }

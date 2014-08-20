@@ -29,11 +29,13 @@ public class CodeListDao {
    }
    
    
-   public List<CodeList> getCodeListsForModule(Integer moduleVersionId) throws SQLException {
-      String sql = "select * from code_list where module_version_id = ?";
+   public List<CodeList> getCodeListsForModule(Integer moduleId) throws SQLException {
+      String sql = "select cl.* from code_list as cl "
+              + "inner join module_version as mv on cl.module_version_id = mv.module_version_id "
+              + "where mv.module_id = ?";
       
       List<Integer> values = new ArrayList<Integer>();
-      values.add(moduleVersionId);
+      values.add(moduleId);
       
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return CodeListOrm.getCodeLists(rows);

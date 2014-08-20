@@ -43,7 +43,7 @@ public class CodeListAction extends AbstractAction {
    }
 
    private void setCodeLists() throws SQLException {
-      List<CodeList> codeLists = (new CodeListService(daoManager)).getCodeListsForModuleVersion(moduleVersion.getId());
+      List<CodeList> codeLists = (new CodeListService(daoManager)).getCodeListsForModule(moduleVersion.getModule().getId());
       request.setAttribute("codeLists", codeLists);
    }
    

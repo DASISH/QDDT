@@ -186,7 +186,7 @@ option {
  */
 
 .l-headerwrapper {
-   background: #415182;
+   background: #315182;
    clear: both;
    display: block;
    padding: 17px 0 2px;
@@ -197,7 +197,7 @@ option {
 
 .l-footerwrapper {
    background-color: #EEEEEE;
-   border-top: 2px solid #415182;
+   border-top: 2px solid #315182;
    clear: both;
    color: #454545;
    display: block;
@@ -302,7 +302,7 @@ option {
    font-family: Helvetica, Arial, sans-serif;
    font-size: 28px;
    font-weight: bold;
-   color: #EFEFEF;
+   color: #F6F6F6;
 }
 .titleheadersub {
    font-size: 14px;
@@ -310,7 +310,7 @@ option {
 }
 
 .dasishheader {
-   color: #CCCCCC;
+   color: #BBBBBB;
 }
 
 .headernav {

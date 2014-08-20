@@ -23,6 +23,12 @@
          
          <h3>Create new code list</h3>
          
+         <p><em>Type:
+         <c:if test="${param.type eq 'v'}">Valid</c:if>
+         <c:if test="${param.type eq 'm'}">Missing</c:if>
+         <c:if test="${param.type eq 'c'}">Valid + Missing</c:if>
+         </em></p>
+            
          <form action="<c:url value="/u/r/savecodelist" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
             <input type="hidden" name="type" value="${param.type}">

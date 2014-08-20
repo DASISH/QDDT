@@ -19,6 +19,7 @@ public class CodeListUpdateAction extends AbstractAction {
 
    private Integer codeListId;
    private ModuleVersion moduleVersion;
+   private CodeList codeList;
    
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
@@ -36,12 +37,19 @@ public class CodeListUpdateAction extends AbstractAction {
    @Override
    protected void executeDao() throws SQLException {
       this.setCodeList();
-      this.setAllCodes();
-      this.setCodesInList();
+      
+      if (codeList.isCombined()) {
+         this.setAllCodeLists();
+         this.setValidCodeList();
+         this.setMissingCodeList();
+      } else {
+         this.setAllCodes();
+         this.setCodesInList();
+      }
    }
 
    private void setCodeList() throws SQLException {
-      CodeList codeList = (new CodeListService(daoManager)).getCodeList(codeListId);
+      codeList = (new CodeListService(daoManager)).getCodeList(codeListId);
       request.setAttribute("codeList", codeList);
    }
 
@@ -67,6 +75,21 @@ public class CodeListUpdateAction extends AbstractAction {
          codeMap.put(c.getId(), c);
       }
       request.setAttribute("codeMap", codeMap);
+   }
+   
+   private void setAllCodeLists() throws SQLException {
+      List<CodeList> codeLists = (new CodeListService(daoManager)).getCodeListsForModule(moduleVersion.getModule().getId());
+      request.setAttribute("codeLists", codeLists);
+   }
+
+   private void setValidCodeList() throws SQLException {
+      CodeList validCodeList = (new CodeListService(daoManager)).getCodeListWithCodes(codeList.getValidCodeListId());
+      request.setAttribute("validCodeList", validCodeList);
+   }
+
+   private void setMissingCodeList() throws SQLException {
+      CodeList missingCodeList = (new CodeListService(daoManager)).getCodeListWithCodes(codeList.getMissingCodeListId());
+      request.setAttribute("missingCodeList", missingCodeList);
    }
    
    

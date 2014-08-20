@@ -3,7 +3,11 @@ package no.nsd.qddt.logic.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import no.nsd.qddt.logic.SqlCommand;
 import no.nsd.qddt.logic.orm.CodeOrm;
@@ -37,6 +41,22 @@ public class CodeDao {
       return CodeOrm.getCodeList(rows);
    }
    
+
+   // mapping: codeid --> code.
+   public Map<Integer, Code> getAllCodesWithCategory() throws SQLException {
+      String sql = "select c.*, cat.label as cat_label from code as c inner join category as cat on c.category_id = cat.category_id";
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      List<Code> codes = CodeOrm.getCodeList(rows);
+      if (codes == null) {
+         return null;
+      }
+      Map<Integer, Code> map = new HashMap<Integer, Code>();
+      for (Code c : codes) {
+         map.put(c.getId(), c);
+      }
+      return map;
+   }
    
    public List<Code> getCodesForCodeList(Integer codeListId) throws SQLException {
       String sql = "select c.*, cat.label as cat_label, cicl.sort_order from code as c "
@@ -51,6 +71,31 @@ public class CodeDao {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return CodeOrm.getCodeList(rows);
    }
+   
+
+   // mapping: code-list-id --> list of codes.
+   public Map<Integer, List<Code>> getCodesForAllCodeLists() throws SQLException {
+      String sql = "select * from code_in_code_list";
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      List<Code> codes = CodeOrm.getCodeList(rows);
+      
+      if (codes == null) {
+         return null;
+      }
+      
+      Map<Integer, List<Code>> map = new HashMap<Integer, List<Code>>();
+      for (Code c : codes) {
+         List<Code> list = map.get(c.getCodeListId());
+         if (list == null) {
+            list = new ArrayList<Code>();
+            map.put(c.getCodeListId(), list);
+         }
+         list.add(c);
+      }
+      return map;
+   }
+   
    
    public List<Code> getCodesForModule(Module module) throws SQLException {
       String sql = "select c.*, cat.label as cat_label from "

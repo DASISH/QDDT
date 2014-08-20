@@ -29,11 +29,23 @@
 
             <div class="boxheader">Update existing code lists</div>
 
-            <ul>
                <c:forEach items="${codeLists}" var="cl">
-                  <li><a href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">${fn:escapeXml(cl.label)}</a></li>
-                  </c:forEach>
-            </ul>
+                  <table class="topmarg">
+                     <tbody>
+                     <tr>
+                        <td rowspan="${1 + fn:length(cl.codes)}"><a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">update</a></td>
+                        <td colspan="2">${fn:escapeXml(cl.label)}</td>
+                     </tr>
+                        <c:forEach items="${cl.codes}" var="c">
+                           <tr>
+                              <td>${fn:escapeXml(c.value)}</td>
+                              <td>${fn:escapeXml(c.category.label)}</td>
+                           </tr>
+                        </c:forEach>
+                     </tbody>
+                  </table>
+
+               </c:forEach>
 
       </div>
 

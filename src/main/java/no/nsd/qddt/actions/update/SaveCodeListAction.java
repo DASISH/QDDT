@@ -35,7 +35,23 @@ public class SaveCodeListAction extends AbstractAction {
       newCodeList.setName(request.getParameter("name"));
       newCodeList.setLabel(request.getParameter("label"));
       newCodeList.setDescription(request.getParameter("description"));
+      newCodeList.setCodeListType(this.getCodeListType());
+      newCodeList.setVersionDescription(request.getParameter("version_description"));
       newCodeList.setVersionUpdated(Boolean.TRUE);
+   }
+   
+   private Integer getCodeListType() {
+      String type = request.getParameter("type");
+      if ("v".equals(type)) {
+         return CodeList.CODE_LIST_TYPE_VALID;
+      }
+      if ("m".equals(type)) {
+         return CodeList.CODE_LIST_TYPE_MISSING;
+      }
+      if ("c".equals(type)) {
+         return CodeList.CODE_LIST_TYPE_COMBINED;
+      }
+      return null;
    }
    
    @Override
@@ -59,7 +75,7 @@ public class SaveCodeListAction extends AbstractAction {
    }
 
    private void updateQuestion() throws SQLException {
-      //(new QuestionService(daoManager)).updateQuestion(newQuestion);
+      (new CodeListService(daoManager)).updateCodeList(newCodeList);
    }
 
    private void deleteQuestion() throws SQLException {

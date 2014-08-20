@@ -43,6 +43,9 @@ public final class CodeListOrm {
       cl.setName(SqlUtil.getString("name", map));
       cl.setLabel(SqlUtil.getString("label", map));
       cl.setDescription(SqlUtil.getString("description", map));
+      cl.setCodeListType((Integer) map.get("code_list_type"));
+      cl.setValidCodeListId((Integer) map.get("valid_code_list_id"));
+      cl.setMissingCodeListId((Integer) map.get("missing_code_list_id"));
       cl.setVersionDescription(SqlUtil.getString("version_description", map));
       return cl;
    }

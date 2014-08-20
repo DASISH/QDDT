@@ -23,9 +23,10 @@ public class CodeListDaoUpdate {
               + "urn_version, "
               + "name, "
               + "label, "
+              + "code_list_type, "
               + "description, "
               + "version_description) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?)";
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(codeList.getUrn().getAgency().getId());
@@ -35,6 +36,7 @@ public class CodeListDaoUpdate {
 
       values.add(codeList.getName());
       values.add(codeList.getLabel());
+      values.add(codeList.getCodeListType());
       values.add(codeList.getDescription());
       values.add(codeList.getVersionDescription());
 
@@ -59,6 +61,30 @@ public class CodeListDaoUpdate {
       values.add(codeList.getDescription());
       values.add(codeList.getVersionDescription());
 
+      values.add(codeList.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void updateValidCodeListId(CodeList codeList) throws SQLException {
+      String sql = "update code_list set "
+              + "valid_code_list_id = ? "
+              + "where code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(codeList.getValidCodeListId());
+      values.add(codeList.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void updateMissingCodeListId(CodeList codeList) throws SQLException {
+      String sql = "update code_list set "
+              + "missing_code_list_id = ? "
+              + "where code_list_id = ?";
+
+      List values = new ArrayList();
+      values.add(codeList.getMissingCodeListId());
       values.add(codeList.getId());
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);

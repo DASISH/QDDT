@@ -6,7 +6,7 @@
 <div class="grid">
    <div class="col">
 
-      <h1>QDDT</h1>
+      <h1>Log in</h1>
 
       <c:if test="${error}"><p>Wrong username/password.</p></c:if>
       <form action="<c:url value="/login" />" method="post">
