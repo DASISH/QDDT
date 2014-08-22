@@ -61,7 +61,7 @@
 
             <h3>Response domain</h3>
             
-            <p><a href="<c:url value="/u/responsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Add response domain</a></p>
+            <p><a class="button" href="<c:url value="/u/questionresponsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Add response domain</a></p>
             
 
       </div>

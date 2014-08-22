@@ -21,12 +21,13 @@
 
       <h2 class="boxheader">Module development history</h2>
 
+      <c:set var="i" value="0" />
       <table>
          <thead>
             <tr>
-               <th>Rev.ID</th>
+               <th>#</th>
                <th>DDI version</th>
-               <th>Version number</th>
+               <th>Release number</th>
                <th>Version description</th>
                <th>Actor</th>
                <th>Status</th>
@@ -35,8 +36,9 @@
          </thead>
          <tbody>
             <c:forEach items="${moduleVersions}" var="mv">
+               <c:set var="i" value="${i + 1}" />
                <tr>
-                  <td>#${mv.id}</td>
+                  <td>${i}</td>
                   <td>${fn:escapeXml(mv.urnVersion)}</td>
                   <td>${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
@@ -49,14 +51,14 @@
       </table>
 
 
-
+<%--
       <c:if test="${lastModuleVersion == null || lastModuleVersion.statusAsLong >= 3}">
          <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
             <input type="hidden" name="mid" value="${module.id}">
-            <input class="okbutton topmarg" type="submit" value="Create new module revision">
+            <input class="okbutton topmarg" type="submit" value="New module version">
          </form>
       </c:if>
-
+--%>
 
 
    </div>

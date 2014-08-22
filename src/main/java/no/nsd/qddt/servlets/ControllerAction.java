@@ -16,6 +16,7 @@ import no.nsd.qddt.actions.HistoryAction;
 import no.nsd.qddt.actions.InstrumentAction;
 import no.nsd.qddt.actions.ModuleAction;
 import no.nsd.qddt.actions.QuestionAction;
+import no.nsd.qddt.actions.QuestionResponseDomainAction;
 import no.nsd.qddt.actions.QuestionSchemeAction;
 import no.nsd.qddt.actions.ReportAction;
 import no.nsd.qddt.actions.ResponseDomainAction;
@@ -80,6 +81,7 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/module")) { new ModuleAction().process(request, response); }
 
       else if (uri.equals(context + "/u/question")) { new QuestionAction().process(request, response); }
+      else if (uri.equals(context + "/u/questionresponsedomain")) { new QuestionResponseDomainAction().process(request, response); }
 
       else if (uri.equals(context + "/u/responsedomain")) { new ResponseDomainAction().process(request, response); }
       else if (uri.equals(context + "/u/codelist")) { new CodeListAction().process(request, response); }
