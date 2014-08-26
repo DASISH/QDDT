@@ -13,21 +13,14 @@
 
       <c:import url="/WEB-INF/jspf/module_header.jsp" />
 
-      <c:import url="/WEB-INF/jspf/module_tabs.jsp">
-         <c:param name="page" value="responsedomain" />
-      </c:import>
+      <c:import url="/WEB-INF/jspf/module_tabs.jsp" />
 
       <div class="tab-box">
 
-         <p class="helptext">Create a new code list or update an existing code list.</p>
+         <h4>Add code list to question:</h4>
+         <h3>${fn:escapeXml(question)}</h3>
 
-         <p>
-            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=v" />">New valid code list</a>
-            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=m" />">New missing code list</a>
-            <a class="button" href="<c:url value="/u/newcodelist?mvid=${param.mvid}&type=c" />">New code list (valid + missing)</a>
-         </p>
-
-         <div class="boxheader">Update existing code lists</div>
+         <div class="boxheader">Choose a code list</div>
 
          <h3>Valid code lists</h3>
          <c:forEach items="${codeLists}" var="cl">
@@ -35,7 +28,14 @@
                <table class="topmarg">
                   <tbody>
                      <tr>
-                        <td rowspan="${1 + fn:length(cl.codes)}"><a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">update</a></td>
+                        <td rowspan="${1 + fn:length(cl.codes)}">
+                           <form action="<c:url value="/u/r/addcodelisttoquestion" />" method="post">
+                              <input type="hidden" name="mvid" value="${param.mvid}">
+                              <input type="hidden" name="qid" value="${question.id}">
+                              <input type="hidden" name="clid" value="${cl.id}">
+                              <input class="okbutton" type="submit" name="action" value="Use this">
+                           </form>
+                        </td>
                         <td colspan="2">${fn:escapeXml(cl.label)}</td>
                      </tr>
                      <c:forEach items="${cl.codes}" var="c">
@@ -55,7 +55,14 @@
                <table class="topmarg">
                   <tbody>
                      <tr>
-                        <td rowspan="${1 + fn:length(cl.codes)}"><a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">update</a></td>
+                        <td rowspan="${1 + fn:length(cl.codes)}">
+                           <form action="<c:url value="/u/r/addcodelisttoquestion" />" method="post">
+                              <input type="hidden" name="mvid" value="${param.mvid}">
+                              <input type="hidden" name="qid" value="${question.id}">
+                              <input type="hidden" name="clid" value="${cl.id}">
+                              <input class="okbutton" type="submit" name="action" value="Use this">
+                           </form>
+                        </td>
                         <td colspan="2">${fn:escapeXml(cl.label)}</td>
                      </tr>
                      <c:forEach items="${cl.codes}" var="c">
@@ -76,7 +83,12 @@
                   <tbody>
                      <tr>
                         <td rowspan="${1 + fn:length(cl.validCodeList.codes) + fn:length(cl.missingCodeList.codes)}">
-                           <a class="button" href="<c:url value="/u/updatecodelist?mvid=${param.mvid}&clid=${cl.id}" />">update</a>
+                           <form action="<c:url value="/u/r/addcodelisttoquestion" />" method="post">
+                              <input type="hidden" name="mvid" value="${param.mvid}">
+                              <input type="hidden" name="qid" value="${question.id}">
+                              <input type="hidden" name="clid" value="${cl.id}">
+                              <input class="okbutton" type="submit" name="action" value="Use this">
+                           </form>
                         </td>
                         <td colspan="2">${fn:escapeXml(cl.label)}</td>
                      </tr>

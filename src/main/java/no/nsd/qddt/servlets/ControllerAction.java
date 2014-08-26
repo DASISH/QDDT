@@ -16,6 +16,7 @@ import no.nsd.qddt.actions.HistoryAction;
 import no.nsd.qddt.actions.InstrumentAction;
 import no.nsd.qddt.actions.ModuleAction;
 import no.nsd.qddt.actions.QuestionAction;
+import no.nsd.qddt.actions.QuestionCodeListAction;
 import no.nsd.qddt.actions.QuestionResponseDomainAction;
 import no.nsd.qddt.actions.QuestionSchemeAction;
 import no.nsd.qddt.actions.ReportAction;
@@ -26,6 +27,7 @@ import no.nsd.qddt.actions.TitleAction;
 import no.nsd.qddt.actions.UserHomeAction;
 import no.nsd.qddt.actions.UserLoginAction;
 import no.nsd.qddt.actions.UserLogoutAction;
+import no.nsd.qddt.actions.update.AddCodeListToQuestionAction;
 import no.nsd.qddt.actions.update.AddCodeToCodeListAction;
 import no.nsd.qddt.actions.update.ChangeCodeListAction;
 import no.nsd.qddt.actions.update.ChangeCodeListCombinedAction;
@@ -82,6 +84,7 @@ public class ControllerAction {
 
       else if (uri.equals(context + "/u/question")) { new QuestionAction().process(request, response); }
       else if (uri.equals(context + "/u/questionresponsedomain")) { new QuestionResponseDomainAction().process(request, response); }
+      else if (uri.equals(context + "/u/questioncodelist")) { new QuestionCodeListAction().process(request, response); }
 
       else if (uri.equals(context + "/u/responsedomain")) { new ResponseDomainAction().process(request, response); }
       else if (uri.equals(context + "/u/codelist")) { new CodeListAction().process(request, response); }
@@ -104,6 +107,7 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/saveversioninfo")) { new SaveVersionInfoAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savequestion")) { new SaveQuestionAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/addcodelisttoquestion")) { new AddCodeListToQuestionAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savecategory")) { new SaveCategoryAction().process(request, response); }
       

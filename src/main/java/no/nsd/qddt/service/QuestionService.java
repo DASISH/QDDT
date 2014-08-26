@@ -64,4 +64,18 @@ public class QuestionService {
    }
 
 
+   public void updateCodeListForQuestion(Question question) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+
+         daoManager.getQuestionDaoUpdate().updateCodeListForQuestion(question);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+   
+   
 }

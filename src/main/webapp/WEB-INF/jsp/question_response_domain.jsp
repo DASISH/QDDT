@@ -17,10 +17,11 @@
       
       <div class="tab-box">
 
-         <h3>Add response domain for question:</h3>
+         <h4>Add response domain for question:</h4>
+         <h3>${fn:escapeXml(question)}</h3>
 
          <ul>
-            <li><a href="<c:url value="/u/codelist?mvid=${param.mvid}" />">Code Lists</a></li>
+            <li><a href="<c:url value="/u/questioncodelist?mvid=${param.mvid}&qid=${param.qid}" />">Code List</a></li>
          </ul>
 
       </div>

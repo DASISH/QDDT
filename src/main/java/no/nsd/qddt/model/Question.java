@@ -9,6 +9,11 @@ public class Question extends Element implements Serializable {
    private String questionIntent;
    private Integer questionSchemeId;
    private Integer questionOrder;
+   private Integer minimumResponses;
+   private Integer maximumResponses;
+   
+   private Integer codeListId;
+   
    
    public Question() {
    }
@@ -52,7 +57,42 @@ public class Question extends Element implements Serializable {
    public void setQuestionOrder(Integer questionOrder) {
       this.questionOrder = questionOrder;
    }
+
+   public Integer getMinimumResponses() {
+      return minimumResponses;
+   }
+
+   public void setMinimumResponses(Integer minimumResponses) {
+      this.minimumResponses = minimumResponses;
+   }
+
+   public Integer getMaximumResponses() {
+      return maximumResponses;
+   }
+
+   public void setMaximumResponses(Integer maximumResponses) {
+      this.maximumResponses = maximumResponses;
+   }
+
+   public Integer getCodeListId() {
+      return codeListId;
+   }
+
+   public void setCodeListId(Integer codeListId) {
+      this.codeListId = codeListId;
+   }
    
    
+   @Override
+   public String toString() {
+      String s = "";
+      if (questionText != null) {
+         s += questionText;
+      }
+      if (questionText2 != null) {
+         s += questionText2;
+      }
+      return s;
+   }
    
 }

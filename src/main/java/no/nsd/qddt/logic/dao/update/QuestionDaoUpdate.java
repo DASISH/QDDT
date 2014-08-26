@@ -85,6 +85,19 @@ public class QuestionDaoUpdate {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
+
+   public void updateCodeListForQuestion(Question question) throws SQLException {
+      String sql = "update question set "
+              + "code_list_id = ? "
+              + "where question_id = ?";
+
+      List values = new ArrayList();
+      values.add(question.getCodeListId());
+      values.add(question.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
    
    
 }

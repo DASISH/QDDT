@@ -47,6 +47,8 @@ public final class QuestionOrm {
       q.setQuestionIntent(SqlUtil.getString("question_intent", map));
       q.setVersionDescription(SqlUtil.getString("version_description", map));
       q.setVersionUpdated((Boolean) map.get("version_updated"));
+      q.setMinimumResponses((Integer) map.get("minimum_responses"));
+      q.setMaximumResponses((Integer) map.get("maximum_responses"));
       return q;
    }
    

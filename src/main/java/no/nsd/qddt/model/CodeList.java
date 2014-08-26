@@ -14,6 +14,9 @@ public class CodeList extends Element implements Serializable {
    private Integer codeListType;
    private Integer validCodeListId;
    private Integer missingCodeListId;
+   
+   private CodeList validCodeList;
+   private CodeList missingCodeList;
 
    public CodeList() {
       codes = new ArrayList<Code>();
@@ -78,6 +81,22 @@ public class CodeList extends Element implements Serializable {
 
    public void setMissingCodeListId(Integer missingCodeListId) {
       this.missingCodeListId = missingCodeListId;
+   }
+
+   public CodeList getValidCodeList() {
+      return validCodeList;
+   }
+
+   public void setValidCodeList(CodeList validCodeList) {
+      this.validCodeList = validCodeList;
+   }
+
+   public CodeList getMissingCodeList() {
+      return missingCodeList;
+   }
+
+   public void setMissingCodeList(CodeList missingCodeList) {
+      this.missingCodeList = missingCodeList;
    }
    
 }

@@ -32,7 +32,8 @@ public class CodeListDao {
    public List<CodeList> getCodeListsForModule(Integer moduleId) throws SQLException {
       String sql = "select cl.* from code_list as cl "
               + "inner join module_version as mv on cl.module_version_id = mv.module_version_id "
-              + "where mv.module_id = ?";
+              + "where mv.module_id = ? "
+              + "order by cl.code_list_type, cl.label";
       
       List<Integer> values = new ArrayList<Integer>();
       values.add(moduleId);
