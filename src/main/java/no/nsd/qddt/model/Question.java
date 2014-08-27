@@ -13,7 +13,7 @@ public class Question extends Element implements Serializable {
    private Integer maximumResponses;
    
    private Integer codeListId;
-   
+   private CodeList codeList;
    
    public Question() {
    }
@@ -80,6 +80,14 @@ public class Question extends Element implements Serializable {
 
    public void setCodeListId(Integer codeListId) {
       this.codeListId = codeListId;
+   }
+
+   public CodeList getCodeList() {
+      return codeList;
+   }
+
+   public void setCodeList(CodeList codeList) {
+      this.codeList = codeList;
    }
    
    

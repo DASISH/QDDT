@@ -56,5 +56,17 @@
       </attribute>
    </tag>
 
+   <tag>
+      <description>Prints response domain for a given question.</description>
+      <name>questionResponseDomain</name>
+      <tag-class>no.nsd.qddt.tags.QuestionResponseDomainTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+         <name>question</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
+
     
 </taglib>

@@ -2,6 +2,7 @@ package no.nsd.qddt.service;
 
 import java.sql.SQLException;
 import no.nsd.qddt.logic.dao.DaoManager;
+import no.nsd.qddt.model.CodeList;
 import no.nsd.qddt.model.Question;
 
 public class QuestionService {
@@ -14,9 +15,36 @@ public class QuestionService {
 
    
    public Question getQuestion(Integer questionId) throws SQLException {
-      return daoManager.getQuestionDao().getQuestion(questionId);
+      Question question = daoManager.getQuestionDao().getQuestion(questionId);
+      if (question == null) {
+         return question;
+      }
+      
+      if (question.getCodeListId() != null) {
+         question.setCodeList(this.getCodeList(question.getCodeListId()));
+      }
+      
+      return question;
    }
 
+   private CodeList getCodeList(Integer codeListId) throws SQLException {
+      CodeList cl = daoManager.getCodeListDao().getCodeList(codeListId);
+      if (cl == null) {
+         return null;
+      }
+      
+      if (cl.isCombined()) {
+         cl.setValidCodeList(this.getCodeList(cl.getValidCodeListId()));
+         cl.setMissingCodeList(this.getCodeList(cl.getMissingCodeListId()));
+      } else {
+         cl.setCodes(daoManager.getCodeDao().getCodesForCodeList(cl.getId()));
+      }
+      
+      return cl;
+   }
+   
+   
+   
    public void registerNewQuestion(Question question) throws SQLException {
       try {
          daoManager.beginTransaction();

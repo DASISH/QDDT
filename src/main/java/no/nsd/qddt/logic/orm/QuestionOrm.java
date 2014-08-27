@@ -49,6 +49,7 @@ public final class QuestionOrm {
       q.setVersionUpdated((Boolean) map.get("version_updated"));
       q.setMinimumResponses((Integer) map.get("minimum_responses"));
       q.setMaximumResponses((Integer) map.get("maximum_responses"));
+      q.setCodeListId((Integer) map.get("code_list_id"));
       return q;
    }
    

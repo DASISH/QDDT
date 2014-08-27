@@ -65,6 +65,9 @@
                <p>Name/Number: ${fn:escapeXml(q.name)}</p>
                <p>Question intent: ${fn:escapeXml(q.questionIntent)}</p>
                <p>Question text: ${fn:escapeXml(q.questionText)} ${fn:escapeXml(q.questionText2)}</p>
+               
+               <qddt:questionResponseDomain question="${q}" />
+               
                <p><a href="<c:url value="/u/question?mvid=${moduleVersion.id}&qid=${q.id}" />">[edit question]</a></p>
                </div>
             </c:forEach>

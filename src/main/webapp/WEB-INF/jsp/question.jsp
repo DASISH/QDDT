@@ -31,7 +31,7 @@
 
          <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
          
-         <h3>Edit question</h3>
+         <div class="boxheader">Edit question</div>
 
          <form action="<c:url value="/u/r/savequestion" />" method="post">
             <input type="hidden" name="mvid" value="${moduleVersion.id}">
@@ -59,9 +59,26 @@
             </div>
          </form>
 
-            <h3>Response domain</h3>
+            <div class="boxheader">Response domain</div>
+
+            <c:if test="${question.codeList == null}">
+               <p><a class="button" href="<c:url value="/u/questionresponsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Add response domain</a></p>
+            </c:if>
+
+               
             
-            <p><a class="button" href="<c:url value="/u/questionresponsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Add response domain</a></p>
+            <c:if test="${question.codeList != null}">
+               <h3>Code list</h3>
+               
+               <qddt:questionResponseDomain question="${question}" />
+               
+               <p class="topmarg"><a class="button" href="<c:url value="/u/questionresponsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Change response domain</a></p>
+            </c:if>
+            
+               
+               
+            
+            
             
 
       </div>
