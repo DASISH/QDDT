@@ -27,6 +27,13 @@ public class CodeListDao {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return CodeListOrm.getCodeListFromFirstRow(rows);
    }
+
+   public List<CodeList> getAllCodeLists() throws SQLException {
+      String sql = "select * from code_list";
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryOnConnection(sql, conn);
+      return CodeListOrm.getCodeLists(rows);
+   }
    
    
    public List<CodeList> getCodeListsForModule(Integer moduleId) throws SQLException {

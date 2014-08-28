@@ -20,6 +20,7 @@ public class QuestionSchemeService {
       if (questionScheme != null) {
          List<Question> questions = daoManager.getQuestionDao().getQuestionsForScheme(questionSchemeId);
          questionScheme.setQuestions(questions);
+         (new CodeListService(daoManager)).addResponseDomainToQuestions(questions);
       }
       
       return questionScheme;

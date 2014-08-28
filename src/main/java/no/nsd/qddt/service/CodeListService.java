@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Code;
 import no.nsd.qddt.model.CodeList;
+import no.nsd.qddt.model.Question;
 
 public class CodeListService {
 
@@ -71,6 +72,53 @@ public class CodeListService {
       }
       
       return codeLists;
+   }
+   
+   
+   public void addResponseDomainToQuestions(List<Question> questions) throws SQLException {
+      if (questions == null) {
+         return;
+      }
+      
+      List<CodeList> codeLists = daoManager.getCodeListDao().getAllCodeLists();
+      
+      Map<Integer, Code> mapCodeIdToCode = daoManager.getCodeDao().getAllCodesWithCategory();
+      Map<Integer, List<Code>> mapCodeListIdToCodes = daoManager.getCodeDao().getCodesForAllCodeLists();
+      
+      if (codeLists == null) {
+         return;
+      }
+
+      SortedMap<Integer, CodeList> mapCodeListIdToCodeList = new TreeMap<Integer, CodeList>();
+      
+      for (CodeList cl : codeLists) {
+         mapCodeListIdToCodeList.put(cl.getId(), cl);
+      }
+      
+      // type valid or missing.
+      for (CodeList cl : codeLists) {
+         List<Code> list = mapCodeListIdToCodes.get(cl.getId());
+         if (list == null) {
+            continue;
+         }
+         for (Code c : list) {
+            cl.addCode(mapCodeIdToCode.get(c.getId()));
+         }
+      }
+      
+      // type combined.
+      for (CodeList cl : codeLists) {
+         if (!cl.isCombined()) {
+            continue;
+         }
+         cl.setValidCodeList(mapCodeListIdToCodeList.get(cl.getValidCodeListId()));
+         cl.setMissingCodeList(mapCodeListIdToCodeList.get(cl.getMissingCodeListId()));
+      }
+      
+      
+      for (Question q : questions) {
+         q.setCodeList(mapCodeListIdToCodeList.get(q.getCodeListId()));
+      }
    }
    
    

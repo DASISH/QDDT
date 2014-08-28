@@ -62,13 +62,18 @@
 
             <c:forEach items="${questionScheme.questions}" var="q">
                <div class="box topmarg">
-               <p>Name/Number: ${fn:escapeXml(q.name)}</p>
-               <p>Question intent: ${fn:escapeXml(q.questionIntent)}</p>
-               <p>Question text: ${fn:escapeXml(q.questionText)} ${fn:escapeXml(q.questionText2)}</p>
-               
-               <qddt:questionResponseDomain question="${q}" />
-               
-               <p><a href="<c:url value="/u/question?mvid=${moduleVersion.id}&qid=${q.id}" />">[edit question]</a></p>
+
+                  <table>
+                     <tbody>
+                        <tr><td class="helptext">Name/Number:</td><td>${fn:escapeXml(q.name)}</td></tr>
+                        <tr><td class="helptext">Question intent:</td><td>${fn:escapeXml(q.questionIntent)}</td></tr>
+                        <tr><td class="helptext">Question text:</td><td>${fn:escapeXml(q.questionText)} ${fn:escapeXml(q.questionText2)}</td></tr>
+                     </tbody>
+                  </table>
+                     <p class="topmarg helptext">Response:</p>
+                  <qddt:questionResponseDomain question="${q}" />
+
+                  <a class="button topmarg" href="<c:url value="/u/question?mvid=${moduleVersion.id}&qid=${q.id}" />">Update question</a>
                </div>
             </c:forEach>
 
