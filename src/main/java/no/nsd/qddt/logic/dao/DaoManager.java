@@ -13,7 +13,7 @@ import no.nsd.qddt.logic.dao.update.CodeListDaoUpdate;
 import no.nsd.qddt.logic.dao.update.CommentDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ConceptSchemeDaoUpdate;
-import no.nsd.qddt.logic.dao.update.FileDaoUpdate;
+import no.nsd.qddt.logic.dao.update.DocumentDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ModuleDaoUpdate;
 import no.nsd.qddt.logic.dao.update.ModuleVersionDaoUpdate;
 import no.nsd.qddt.logic.dao.update.QuestionDaoUpdate;
@@ -152,8 +152,12 @@ public class DaoManager {
       return new CodeDaoUpdate(this.getConnection());
    }
    
-   public FileDaoUpdate getFileDaoUpdate() throws SQLException {
-      return new FileDaoUpdate(this.getConnection());
+   public DocumentDaoUpdate getDocumentDaoUpdate() throws SQLException {
+      return new DocumentDaoUpdate(this.getConnection());
+   }
+   
+   public DocumentDao getDocumentDao() throws SQLException {
+      return new DocumentDao(this.getConnection());
    }
    
    

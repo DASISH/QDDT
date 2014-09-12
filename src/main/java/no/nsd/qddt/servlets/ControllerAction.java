@@ -31,6 +31,7 @@ import no.nsd.qddt.actions.update.AddCodeListToQuestionAction;
 import no.nsd.qddt.actions.update.AddCodeToCodeListAction;
 import no.nsd.qddt.actions.update.ChangeCodeListAction;
 import no.nsd.qddt.actions.update.ChangeCodeListCombinedAction;
+import no.nsd.qddt.actions.update.DownloadFileAction;
 import no.nsd.qddt.actions.update.NewCodeAction;
 import no.nsd.qddt.actions.update.NewCommentAction;
 import no.nsd.qddt.actions.update.NewConceptAction;
@@ -97,6 +98,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/category")) { new CategoryAction().process(request, response); }
       else if (uri.equals(context + "/u/code")) { new CodeAction().process(request, response); }
       else if (uri.equals(context + "/u/updatecode")) { new CodeUpdateAction().process(request, response); }
+      
+      else if (uri.equals(context + "/u/downloadfile")) { new DownloadFileAction().process(request, response); }
       
       
       else if (uri.equals(context + "/u/r/savemodule")) { new SaveModuleAction().process(request, response); }

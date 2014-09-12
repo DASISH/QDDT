@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.SortedMap;
 import javax.servlet.jsp.jstl.sql.Result;
 import javax.servlet.jsp.jstl.sql.ResultSupport;
@@ -18,6 +19,7 @@ public class SqlCommand {
 
    public SqlCommand(Connection conn) {
       this.conn = conn;
+      this.values = new ArrayList();
    }
 
    
@@ -63,6 +65,11 @@ public class SqlCommand {
       this.values = values;
    }
 
+   public void addParameter(Object o) {
+      this.values.add(o);
+   }
+   
+   
    /**
     * Executes the specified SQL string as a query and returns a Result object.
     *

@@ -13,6 +13,7 @@ import no.nsd.qddt.model.Module;
 import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.model.User;
 import no.nsd.qddt.service.ActorService;
+import no.nsd.qddt.service.DocumentService;
 import no.nsd.qddt.service.ModuleService;
 import no.nsd.qddt.service.ModuleVersionService;
 import no.nsd.qddt.servlets.ServletUtil;
@@ -77,7 +78,7 @@ public class UploadFileAction extends AbstractAction {
          for (Object o : items) {
             FileItem fileItem = (FileItem) o;
             if (fileItem.getName() != null && fileItem.getName().length() != 0) {
-               daoManager.getFileDaoUpdate().registerNewFile(fileItem, moduleVersion.getId());
+               (new DocumentService(daoManager)).registerNewDocuemnt(fileItem, moduleVersion.getId());
             }
          }
       } catch (Exception e) {

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/WEB-INF/jspf/top.jsp" />
 
@@ -21,6 +22,24 @@
                <input class="okbutton" value="Upload file" type="submit"></p>
          </form>
 
+         <c:if test="${empty documents}">
+            <p class="helptext">(No uploaded documents.)</p>
+         </c:if>
+
+         <c:if test="${!empty documents}">
+            <table>
+               <caption>Uploaded documents</caption>
+               <thead>
+                  <tr><th>Filename</th></tr>
+               </thead>
+               <tbody>
+                  <c:forEach items="${documents}" var="d">
+                     <tr><td>${fn:escapeXml(d)}</td><td><a class="button" href="<c:url value="/u/downloadfile?id=${d.id}" />">View/Download</a></td></tr>
+                  </c:forEach>
+               </tbody>
+            </table>
+         </c:if>
+            
 
       </div>
 
