@@ -73,9 +73,26 @@
                <qddt:questionResponseDomain question="${question}" />
                
                <p class="topmarg"><a class="button" href="<c:url value="/u/questionresponsedomain?mvid=${param.mvid}&qid=${param.qid}" />">Change response domain</a></p>
-            </c:if>
             
+            
+               <div class="boxheader">Response cardinality</div>
+
+               <form action="<c:url value="/u/r/saveresponsecardinality" />" method="post">
+                  <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                  <input type="hidden" name="cid" value="${param.cid}">
+                  <input type="hidden" name="qid" value="${param.qid}">
+
+                  <p class="topmarg">Minimum responses: <input class="w1" type="text" name="min" value="${question.minimumResponses}"></p>
+                  <p>Maximum responses: <input class="w1" type="text" name="max" value="${question.maximumResponses}"></p>
+
+                  <div class="topmarg">
+                     <input class="okbutton" type="submit" name="action" value="Update">
+                  </div>
+               </form>
+
                
+               
+            </c:if>
                
             
             

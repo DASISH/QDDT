@@ -15,19 +15,12 @@
 
       <div class="tab-box">
 
-         <p>(Not implemented.)</p>
-         
-         <h3>Background document</h3>
-         <p>Upload background document.
-            <input class="button" type="button" value="Upload">
-         </p>
+         <h3>Documents</h3>
+         <form action="<c:url value="/u/r/uploadfile/${param.mvid}" />" method="post" enctype="multipart/form-data">
+            <p>File: <input name="file" type="file">
+               <input class="okbutton" value="Upload file" type="submit"></p>
+         </form>
 
-         <br>
-         
-         <h3>Concepts and relationships</h3>
-         <p>Upload a document describing concepts and relationships with other concepts.
-            <input class="button" type="button" value="Upload">
-         </p>
 
       </div>
 

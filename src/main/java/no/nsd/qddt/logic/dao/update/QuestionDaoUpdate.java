@@ -74,6 +74,21 @@ public class QuestionDaoUpdate {
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
+
+   public void updateResponseCardinality(Question question) throws SQLException {
+      String sql = "update question set "
+              + "minimum_responses = ?, "
+              + "maximum_responses = ? "
+              + "where question_id = ?";
+
+      List values = new ArrayList();
+      values.add(question.getMinimumResponses());
+      values.add(question.getMaximumResponses());
+
+      values.add(question.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
    
 
    public void deleteQuestion(Question question) throws SQLException {

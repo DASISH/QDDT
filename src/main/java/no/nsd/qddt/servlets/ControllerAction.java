@@ -44,8 +44,10 @@ import no.nsd.qddt.actions.update.SaveConceptSchemeAction;
 import no.nsd.qddt.actions.update.SaveModuleAction;
 import no.nsd.qddt.actions.update.SaveQuestionAction;
 import no.nsd.qddt.actions.update.SaveQuestionSchemeAction;
+import no.nsd.qddt.actions.update.SaveResponseCardinalityAction;
 import no.nsd.qddt.actions.update.SaveTitleAction;
 import no.nsd.qddt.actions.update.SaveVersionInfoAction;
+import no.nsd.qddt.actions.update.UploadFileAction;
 
 public class ControllerAction {
    
@@ -108,6 +110,7 @@ public class ControllerAction {
 
       else if (uri.equals(context + "/u/r/savequestion")) { new SaveQuestionAction().process(request, response); }
       else if (uri.equals(context + "/u/r/addcodelisttoquestion")) { new AddCodeListToQuestionAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/saveresponsecardinality")) { new SaveResponseCardinalityAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savecategory")) { new SaveCategoryAction().process(request, response); }
       
@@ -121,6 +124,9 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/newcode")) { new NewCodeAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savecode")) { new SaveCodeAction().process(request, response); }
       else if (uri.equals(context + "/u/r/savecodecategory")) { new SaveCodeCategoryAction().process(request, response); }
+      
+      else if (uri.matches(context + "/u/r/uploadfile/\\d+")) { new UploadFileAction().process(request, response); }
+      
       
       else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }
       

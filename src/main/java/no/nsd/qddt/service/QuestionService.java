@@ -76,6 +76,19 @@ public class QuestionService {
       }
    }
 
+   public void updateResponseCardinality(Question question) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+
+         daoManager.getQuestionDaoUpdate().updateResponseCardinality(question);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+
    public void deleteQuestion(Question question) throws SQLException {
       try {
          daoManager.beginTransaction();

@@ -473,7 +473,7 @@ option {
    border-left: 1px solid #DDDDDD;
    border-right: 1px solid #DDDDDD;
    border-bottom: 1px solid #DDDDDD;
-   padding: 5px 15px;
+   padding: 5px 15px 15px;
    min-height: 300px;
 }
 
