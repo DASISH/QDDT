@@ -1,6 +1,7 @@
 package no.nsd.qddt.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.CodeList;
 import no.nsd.qddt.model.Question;
@@ -43,6 +44,13 @@ public class QuestionService {
       return cl;
    }
    
+   public List<Question> getQuestionsForScheme(Integer questionSchemeId) throws SQLException {
+
+      List<Question> questions = daoManager.getQuestionDao().getQuestionsForScheme(questionSchemeId);
+      (new CodeListService(daoManager)).addResponseDomainToQuestions(questions);
+
+      return questions;
+   }
    
    
    public void registerNewQuestion(Question question) throws SQLException {

@@ -47,7 +47,7 @@
 
 
                <c:if test="${param.cid == null}">
-                  <div class="boxheader">Concept scheme</div>
+                  <div class="boxheader">Concept list</div>
 
                   <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
 
@@ -86,10 +86,9 @@
 
 
 
-                  <c:if test="${conceptScheme != null}">
                      <div class="boxheader">Concepts</div>
                      <p class="helptext">
-                        All concepts in this concept scheme are listed to the left. 
+                        All concepts in this module version are listed to the left, under 'Concept hierarchy'. 
                         Click on the concept you want to update, or click the button below to add a new concept.
                      </p>
 
@@ -98,7 +97,6 @@
                         <input type="hidden" name="csid" value="${conceptScheme.id}">
                         <input class="okbutton" type="submit" value="Add new concept">
                      </form>
-                  </c:if>
 
                </c:if>
 
@@ -168,16 +166,16 @@
 
                   <div class="boxheader">Questions</div>
 
-                  <p>(Not implemented.)</p>
-                  <%--
-                  <form action="<c:url value="" />" method="post">
+                  <form action="<c:url value="/u/conceptquestion" />" method="get">
+                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="csid" value="${conceptScheme.id}">
+                     <input type="hidden" name="cid" value="${param.cid}">
                      <input class="button" type="submit" value="Add question">
                   </form>
 
                   <h3>Comments</h3>
 
                   <a href="">Add comment to question group</a>
-                  --%>
 
                </c:if>
 
