@@ -2,14 +2,17 @@ package no.nsd.qddt.actions;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
+import no.nsd.qddt.model.Question;
 import no.nsd.qddt.service.ConceptSchemeService;
 import no.nsd.qddt.service.ConceptService;
+import no.nsd.qddt.service.QuestionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
 public class ConceptSchemeAction extends AbstractAction {
@@ -44,7 +47,9 @@ public class ConceptSchemeAction extends AbstractAction {
    private void setConcept() throws SQLException {
       if (this.conceptId != null) {
          Concept c = (new ConceptService(daoManager)).getConcept(conceptId);
+         List<Question> questions = (new QuestionService(daoManager)).getQuestionsForConceptScheme(conceptId, moduleVersion.getConceptSchemeId());
          request.setAttribute("concept", c);
+         request.setAttribute("questions", questions);
       }
    }
 

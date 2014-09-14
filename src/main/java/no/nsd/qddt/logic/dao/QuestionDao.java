@@ -41,6 +41,20 @@ public class QuestionDao {
       SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
       return QuestionOrm.getQuestionList(rows);
    }
+
+   public List<Question> getQuestionsForConceptScheme(Integer concept, Integer conceptSchemeId) throws SQLException {
+      String sql = "select q.* from "
+              + "question as q inner join concept_in_question as ciq "
+              + "on q.question_id = ciq.question_id "
+              + "where ciq.concept_id = ? and ciq.concept_scheme_id = ?";
+      
+      List<Integer> values = new ArrayList<Integer>();
+      values.add(concept);
+      values.add(conceptSchemeId);
+      
+      SortedMap[] rows = SqlCommand.executeSqlQueryWithValuesOnConnection(sql, values, conn);
+      return QuestionOrm.getQuestionList(rows);
+   }
    
    
 }

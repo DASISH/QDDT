@@ -85,6 +85,34 @@ public class ConceptSchemeDaoUpdate {
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
    }
 
+
+   public void addQuestionToConcept(Integer questionId, Integer conceptId, Integer conceptSchemeId) throws SQLException {
+      String sql = "insert into concept_in_question ("
+              + "question_id, "
+              + "concept_id, "
+              + "concept_scheme_id) "
+              + "values (?, ?, ?)";
+
+      List values = new ArrayList();
+      values.add(questionId);
+      values.add(conceptId);
+      values.add(conceptSchemeId);
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   public void removeQuestionFromConcept(Integer questionId, Concept concept) throws SQLException {
+      String sql = "delete from concept_in_question where question_id = ? and concept_id = ? and concept_scheme_id = ?";
+
+      List values = new ArrayList();
+      values.add(questionId);
+      values.add(concept.getId());
+      values.add(concept.getConceptSchemeId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   
    public void setConceptSchemeUpdated(Integer conceptSchemeId) throws SQLException {
       String sql = "update concept_scheme set "
               + "version_updated = ? "

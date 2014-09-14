@@ -32,9 +32,6 @@ public class ConceptScheme extends Element implements Serializable {
       this.conceptMap.put(c.getId(), c);
    }
 
-   public Concept getConcept(Integer conceptId) {
-      return this.conceptMap.get(conceptId);
-   }
    
    
 }

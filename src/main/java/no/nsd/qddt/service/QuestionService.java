@@ -52,6 +52,14 @@ public class QuestionService {
       return questions;
    }
    
+   public List<Question> getQuestionsForConceptScheme(Integer conceptId, Integer conceptSchemeId) throws SQLException {
+
+      List<Question> questions = daoManager.getQuestionDao().getQuestionsForConceptScheme(conceptId, conceptSchemeId);
+      (new CodeListService(daoManager)).addResponseDomainToQuestions(questions);
+
+      return questions;
+   }
+
    
    public void registerNewQuestion(Question question) throws SQLException {
       try {

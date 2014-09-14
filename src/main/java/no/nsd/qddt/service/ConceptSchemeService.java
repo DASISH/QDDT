@@ -2,6 +2,7 @@ package no.nsd.qddt.service;
 
 import java.sql.SQLException;
 import no.nsd.qddt.logic.dao.DaoManager;
+import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 
 public class ConceptSchemeService {
@@ -37,5 +38,33 @@ public class ConceptSchemeService {
    public void updateConceptScheme(ConceptScheme conceptScheme) throws SQLException {
       daoManager.getConceptSchemeDaoUpdate().updateConceptScheme(conceptScheme);
    }
+
+
+   public void addQuestionToConcept(Integer questionId, Integer conceptId, Integer conceptSchemeId) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         
+         daoManager.getConceptSchemeDaoUpdate().addQuestionToConcept(questionId, conceptId, conceptSchemeId);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+
+   public void removeQuestionFromConcept(Integer questionId, Concept concept) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+         
+         daoManager.getConceptSchemeDaoUpdate().removeQuestionFromConcept(questionId, concept);
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+   }
+
 
 }

@@ -90,6 +90,9 @@ public class ControllerAction {
       
       else if (uri.matches(context + "/u/r/uploadfile/\\d+")) { new UploadFileAction().process(request, response); }
       
+      else if (uri.equals(context + "/u/r/addquestiontoconcept")) { new AddQuestionToConceptAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/removequestionfromconcept")) { new RemoveQuestionFromConceptAction().process(request, response); }
+      
       
       else { ServletUtil.forward("/WEB-INF/jsp/error/404.jsp", request, response); }
       

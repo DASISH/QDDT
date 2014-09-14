@@ -14,7 +14,7 @@
 
       <div class="tab-box">
 
-         <p class="helptext">Associate question to concept:</p>
+         <p class="helptext">Add question to concept:</p>
          <p>${fn:escapeXml(concept.label)} - ${fn:escapeXml(concept.name)}</p>
 
          <c:if test="${!empty questions}">
@@ -37,8 +37,8 @@
                   <form action="<c:url value="/u/r/addquestiontoconcept" />" class="topmarg" method="post">
                      <input type="hidden" name="mvid" value="${moduleVersion.id}">
                      <input type="hidden" name="qid" value="${q.id}">
-                     <input type="hidden" name="qsid" value="${param.qsid}">
-                     <input class="okbutton" type="submit" value="Add this">
+                     <input type="hidden" name="cid" value="${param.cid}">
+                     <input class="okbutton" type="submit" value="Add this question">
                   </form>
 
                </div>

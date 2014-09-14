@@ -16,6 +16,7 @@ import no.nsd.qddt.servlets.ServletUtil;
 public class SaveConceptAction extends AbstractAction {
 
    private Concept newConcept;
+   private Concept deleteConcept;
    private ModuleVersion moduleVersion;
    private boolean delete = false;
 
@@ -58,19 +59,34 @@ public class SaveConceptAction extends AbstractAction {
 
    private void deleteConcept() throws SQLException {
       ConceptScheme conceptScheme = (new ConceptSchemeService(daoManager)).getConceptScheme(moduleVersion.getConceptSchemeId());
-      Concept deleteConcept = conceptScheme.getConcept(newConcept.getId());
+      
+      this.getDeleteConcept(conceptScheme);
+      deleteConcept.setConceptSchemeId(conceptScheme.getId());
 
-      if (deleteConcept == null) { // no sub-concepts
-         newConcept.setConceptSchemeId(conceptScheme.getId());
-         (new ConceptService(daoManager)).deleteConcept(newConcept);
-      } else {
-         deleteConcept.setConceptSchemeId(conceptScheme.getId());
-         (new ConceptService(daoManager)).deleteConcept(deleteConcept);
-      }
+      (new ConceptService(daoManager)).deleteConcept(deleteConcept);
 
       delete = true;
    }
 
+   
+   private void getDeleteConcept(ConceptScheme conceptScheme) {
+      for (Concept c : conceptScheme.getConcepts()) {
+         this.getConceptInSub(c);
+      }
+   }
+   
+   private void getConceptInSub(Concept c) {
+      if (c.equals(newConcept)) {
+         deleteConcept = c;
+         return;
+      }
+      
+      for (Concept sub : c.getSubConcepts()) {
+         this.getConceptInSub(sub);
+      }
+   }
+   
+   
    private void redirectSuccessPage() throws IOException {
       String url = "/u/conceptscheme?mvid=" + moduleVersion.getId() + "&cid=" + newConcept.getId() + "&saved";
       if (delete) {
