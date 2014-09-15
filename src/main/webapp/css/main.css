@@ -274,6 +274,9 @@ option {
 .topmarg {
    margin-top: 10px;
 }
+.notopmarg {
+   margin-top: 0;
+}
 
 .border-r {
    border-right: 1px dotted #DDDDDD;

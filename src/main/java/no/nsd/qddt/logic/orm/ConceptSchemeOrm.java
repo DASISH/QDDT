@@ -44,7 +44,7 @@ public final class ConceptSchemeOrm {
       cs.setLabel(SqlUtil.getString("label", map));
       cs.setDescription(SqlUtil.getString("description", map));
       cs.setVersionDescription(SqlUtil.getString("version_description", map));
-      cs.setVersionUpdated((Boolean) map.get("version_updated"));
+      cs.setVersionChangeCode((Integer) map.get("version_change_code"));
       return cs;
    }
    

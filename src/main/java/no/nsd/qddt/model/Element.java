@@ -12,6 +12,9 @@ public class Element implements Serializable {
    private String versionDescription;
    private Boolean versionUpdated;
    private Integer moduleVersionId;
+   private Integer versionChangeCode;
+   
+   
    
    public Integer getId() {
       return id;
@@ -75,6 +78,14 @@ public class Element implements Serializable {
 
    public void setVersionUpdated(Boolean versionUpdated) {
       this.versionUpdated = versionUpdated;
+   }
+
+   public Integer getVersionChangeCode() {
+      return versionChangeCode;
+   }
+
+   public void setVersionChangeCode(Integer versionChangeCode) {
+      this.versionChangeCode = versionChangeCode;
    }
 
    

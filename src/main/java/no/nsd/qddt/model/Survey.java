@@ -7,6 +7,7 @@ public class Survey implements Serializable {
    private Integer id;
    private String name;
    private String shortName;
+   private Integer versionLevels;
 
    private Integer agencyId;
    
@@ -41,6 +42,14 @@ public class Survey implements Serializable {
 
    public void setAgencyId(Integer agencyId) {
       this.agencyId = agencyId;
+   }
+
+   public Integer getVersionLevels() {
+      return versionLevels;
+   }
+
+   public void setVersionLevels(Integer versionLevels) {
+      this.versionLevels = versionLevels;
    }
 
 

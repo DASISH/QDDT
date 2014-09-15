@@ -68,5 +68,21 @@
       </attribute>
    </tag>
 
+   <tag>
+      <description>Prints version info for given element.</description>
+      <name>version</name>
+      <tag-class>no.nsd.qddt.tags.VersionTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+         <name>element</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+         <name>onlyVersionChange</name>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
+
     
 </taglib>

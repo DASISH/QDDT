@@ -6,10 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.AbstractAction;
-import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
-import no.nsd.qddt.model.Urn;
 import no.nsd.qddt.service.ConceptSchemeService;
 import no.nsd.qddt.servlets.ServletUtil;
 
@@ -17,6 +15,7 @@ public class SaveConceptSchemeAction extends AbstractAction {
 
    private ConceptScheme newConceptScheme;
    private ModuleVersion moduleVersion;
+   private Integer oldModuleVersionId;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
@@ -30,34 +29,33 @@ public class SaveConceptSchemeAction extends AbstractAction {
    private void createNewConcept() throws ServletException {
       newConceptScheme = new ConceptScheme();
       newConceptScheme.setId(ServletUtil.getRequestParamAsInteger(request, "csid"));
+      newConceptScheme.setModuleVersionId(moduleVersion.getId());
       newConceptScheme.setName(request.getParameter("name"));
       newConceptScheme.setLabel(request.getParameter("label"));
       newConceptScheme.setDescription(request.getParameter("description"));
       newConceptScheme.setVersionDescription(request.getParameter("version_description"));
+      newConceptScheme.setVersionChangeCode(ServletUtil.getRequestParamAsInteger(request, "version_change_code"));
    }
    
    @Override
    protected void executeDao() throws SQLException {
-      if (newConceptScheme.getId() == null) {
-         this.registerNewConceptScheme();
-      } else {
+      if (moduleVersion.getId().equals(oldModuleVersionId)) {
          this.updateConceptScheme();
+      } else {
+         this.newVersionOfConceptScheme();
       }
    }
 
-   private void registerNewConceptScheme() throws SQLException {
-      Urn urn = UrnUtil.createNewUrn();
-      urn.setAgency(moduleVersion.getModule().getAgency());
-      newConceptScheme.setUrn(urn);
-      newConceptScheme.setModuleVersionId(moduleVersion.getId());
-      newConceptScheme.setVersionUpdated(Boolean.TRUE);
-      
-      (new ConceptSchemeService(daoManager)).registerNewConceptScheme(newConceptScheme);
+   private void updateConceptScheme() throws SQLException {
+      (new ConceptSchemeService(daoManager)).updateConceptScheme(newConceptScheme);
    }
 
-   private void updateConceptScheme() throws SQLException {
-      newConceptScheme.setVersionUpdated(Boolean.TRUE);
-      (new ConceptSchemeService(daoManager)).updateConceptScheme(newConceptScheme);
+   private void newVersionOfConceptScheme() throws SQLException {
+      ConceptScheme oldCS = (new ConceptSchemeService(daoManager)).getConceptScheme(newConceptScheme.getId());
+      
+      newConceptScheme.setUrn(oldCS.getUrn());
+      newConceptScheme.setModuleVersionId(moduleVersion.getId());
+      (new ConceptSchemeService(daoManager)).registerNewConceptScheme(newConceptScheme);
    }
 
    

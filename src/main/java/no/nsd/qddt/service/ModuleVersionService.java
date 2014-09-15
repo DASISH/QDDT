@@ -3,12 +3,14 @@ package no.nsd.qddt.service;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.model.Question;
 import no.nsd.qddt.model.QuestionScheme;
+import no.nsd.qddt.model.Urn;
 
 public class ModuleVersionService {
 
@@ -33,9 +35,7 @@ public class ModuleVersionService {
          Integer newModuleVersionId = daoManager.getModuleVersionDaoUpdate().registerNewModuleVersion(mv);
          mv.setId(newModuleVersionId);
 
-         this.copyConceptScheme(mv);
-
-         this.copyQuestionScheme(mv);
+         this.regConceptScheme(mv);
          
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -44,7 +44,25 @@ public class ModuleVersionService {
       }
    }
 
-   private void copyConceptScheme(ModuleVersion mv) throws SQLException {
+   private void regConceptScheme(ModuleVersion mv) throws SQLException {
+      if (mv.getConceptSchemeId() == null) {
+         this.registerNewConceptScheme(mv);
+      }
+   }
+   
+   private void registerNewConceptScheme(ModuleVersion mv) throws SQLException {
+      Urn urn = UrnUtil.createNewUrn();
+      urn.setAgency(mv.getModule().getAgency());
+      ConceptScheme cs = new ConceptScheme();
+      cs.setUrn(urn);
+      cs.setModuleVersionId(mv.getId());
+      
+      (new ConceptSchemeService(daoManager)).registerNewConceptScheme(cs);
+   }
+   
+   
+   
+   private void xxxcopyConceptScheme(ModuleVersion mv) throws SQLException {
       if (mv.getConceptSchemeId() == null) {
          return;
       }
@@ -85,7 +103,7 @@ public class ModuleVersionService {
    }
    
    
-   private void copyQuestionScheme(ModuleVersion mv) throws SQLException {
+   private void xxxcopyQuestionScheme(ModuleVersion mv) throws SQLException {
       if (mv.getQuestionSchemeId() == null) {
          return;
       }

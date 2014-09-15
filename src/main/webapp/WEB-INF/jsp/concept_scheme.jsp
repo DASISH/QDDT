@@ -53,6 +53,7 @@
 
                      <form action="<c:url value="/u/r/saveconceptscheme" />" method="post">
                      <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="old_mvid" value="${conceptScheme.moduleVersionId}">
                      <input type="hidden" name="csid" value="${conceptScheme.id}">
 
                      <h4>Name:</h4>
@@ -64,39 +65,35 @@
                      <h4>Description:</h4>
                      <textarea class="w10" name="description" rows="5">${fn:escapeXml(conceptScheme.description)}</textarea>
 
-                     <h4>Version description:</h4>
-                     <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(conceptScheme.versionDescription)}</textarea>
+                     <qddt:version element="${conceptScheme}" onlyVersionChange="true" />
 
-                     <c:if test="${conceptScheme == null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Create concept scheme"></div></c:if>
-                     <c:if test="${conceptScheme != null}"><div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div></c:if>
-                     </form>
+                     <div><input class="okbutton topmarg" type="submit" name="action" value="Save"></div>
+                  </form>
 
-                  <c:if test="${conceptScheme != null}">
-                     <h3>Comments</h3>
-                     
-                     <qddt:comments agencyId="${conceptScheme.urn.agency.id}" urnId="${conceptScheme.urn.id}" elementId="${conceptScheme.id}" />
-                     
-                     <c:import url="/WEB-INF/jspf/add_comment.jsp">
-                        <c:param name="elementId" value="${conceptScheme.id}" />
-                        <c:param name="agencyId" value="${conceptScheme.urn.agency.id}" />
-                        <c:param name="urnId" value="${conceptScheme.urn.id}" />
-                        <c:param name="fromUrl" value="/u/conceptscheme?mvid=${param.mvid}" />
-                     </c:import>
-                  </c:if>
+                  <h3>Comments</h3>
+
+                  <qddt:comments agencyId="${conceptScheme.urn.agency.id}" urnId="${conceptScheme.urn.id}" elementId="${conceptScheme.id}" />
+
+                  <c:import url="/WEB-INF/jspf/add_comment.jsp">
+                     <c:param name="elementId" value="${conceptScheme.id}" />
+                     <c:param name="agencyId" value="${conceptScheme.urn.agency.id}" />
+                     <c:param name="urnId" value="${conceptScheme.urn.id}" />
+                     <c:param name="fromUrl" value="/u/conceptscheme?mvid=${param.mvid}" />
+                  </c:import>
 
 
 
-                     <div class="boxheader">Concepts</div>
-                     <p class="helptext">
-                        All concepts in this module version are listed to the left, under 'Concept hierarchy'. 
-                        Click on the concept you want to update, or click the button below to add a new concept.
-                     </p>
+                  <div class="boxheader">Concepts</div>
+                  <p class="helptext">
+                     All concepts in this module version are listed to the left, under 'Concept hierarchy'. 
+                     Click on the concept you want to update, or click the button below to add a new concept.
+                  </p>
 
-                     <form action="<c:url value="/u/r/newconcept" />" method="post">
-                        <input type="hidden" name="mvid" value="${moduleVersion.id}">
-                        <input type="hidden" name="csid" value="${conceptScheme.id}">
-                        <input class="okbutton" type="submit" value="Add new concept">
-                     </form>
+                  <form action="<c:url value="/u/r/newconcept" />" method="post">
+                     <input type="hidden" name="mvid" value="${moduleVersion.id}">
+                     <input type="hidden" name="csid" value="${conceptScheme.id}">
+                     <input class="okbutton" type="submit" value="Add new concept">
+                  </form>
 
                </c:if>
 
@@ -123,8 +120,7 @@
                      <h4>Relationship with other concepts:</h4>
                      <textarea class="w10" name="relationship_concept" rows="5">${fn:escapeXml(concept.relationshipConcept)}</textarea>
 
-                     <h4>Version description:</h4>
-                     <textarea class="w10" name="version_description" rows="4">${fn:escapeXml(concept.versionDescription)}</textarea>
+                     <qddt:version element="${concept}" />
 
                      <div class="topmarg">
                         <input class="okbutton" type="submit" name="action" value="Update concept">
@@ -197,15 +193,7 @@
                      <input class="button" type="submit" value="Add question">
                   </form>
 
-                     
-                     
-                  
-                     
-                     <h3>Comments</h3>
 
-                  
-                     
-                     <a href="">Add comment to question group</a>
 
                </c:if>
 

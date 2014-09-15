@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 
@@ -26,8 +27,9 @@ public class ConceptSchemeDaoUpdate {
               + "label, "
               + "description, "
               + "version_description, "
-              + "version_updated) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+              + "version_change_code, "
+              + "version_date) "
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(conceptScheme.getUrn().getAgency().getId());
@@ -38,7 +40,8 @@ public class ConceptSchemeDaoUpdate {
       values.add(conceptScheme.getLabel());
       values.add(conceptScheme.getDescription());
       values.add(conceptScheme.getVersionDescription());
-      values.add(conceptScheme.getVersionUpdated());
+      values.add(conceptScheme.getVersionChangeCode());
+      values.add(SqlUtil.getDateNow());
 
       SqlCommand sqlCommand = new SqlCommand(conn);
       sqlCommand.setSqlString(sql);
@@ -53,7 +56,8 @@ public class ConceptSchemeDaoUpdate {
               + "label = ?, "
               + "description = ?, "
               + "version_description = ?, "
-              + "version_updated = ? "
+              + "version_change_code = ?, "
+              + "version_date = ? "
               + "where concept_scheme_id = ?";
 
       List values = new ArrayList();
@@ -61,7 +65,8 @@ public class ConceptSchemeDaoUpdate {
       values.add(conceptScheme.getLabel());
       values.add(conceptScheme.getDescription());
       values.add(conceptScheme.getVersionDescription());
-      values.add(conceptScheme.getVersionUpdated());
+      values.add(conceptScheme.getVersionChangeCode());
+      values.add(SqlUtil.getDateNow());
 
       values.add(conceptScheme.getId());
 
