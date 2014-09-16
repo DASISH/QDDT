@@ -25,29 +25,27 @@ public class ModuleVersionDaoUpdate {
               + "actor_id, "
               + "module_status, "
               + "urn_version, "
-              + "version_number, "
-              + "version_description, "
               + "module_title, "
               + "module_authors, "
               + "module_authors_affiliation, "
               + "module_abstract, "
               + "concept_scheme_id, "
-              + "question_scheme_id) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+              + "question_scheme_id, "
+              + "category_scheme_id) "
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(mv.getModule().getId());
       values.add(mv.getActor().getId());
       values.add(mv.getStatus());
       values.add(mv.getUrnVersion());
-      values.add(mv.getVersionNumber());
-      values.add(mv.getVersionDescription());
       values.add(mv.getTitle());
       values.add(mv.getAuthors());
       values.add(mv.getAuthorsAffiliation());
       values.add(mv.getModuleAbstract());
       values.add(mv.getConceptSchemeId());
       values.add(mv.getQuestionSchemeId());
+      values.add(mv.getCategorySchemeId());
 
       
       SqlCommand sqlCommand = new SqlCommand(conn);

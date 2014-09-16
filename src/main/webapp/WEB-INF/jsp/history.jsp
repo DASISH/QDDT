@@ -51,14 +51,12 @@
       </table>
 
 
-<%--
       <c:if test="${lastModuleVersion == null || lastModuleVersion.statusAsLong >= 3}">
          <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
             <input type="hidden" name="mid" value="${module.id}">
             <input class="okbutton topmarg" type="submit" value="New module version">
          </form>
       </c:if>
---%>
 
 
    </div>

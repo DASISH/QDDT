@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.logic.dao.DaoManager;
+import no.nsd.qddt.model.CategoryScheme;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
@@ -35,7 +36,9 @@ public class ModuleVersionService {
          Integer newModuleVersionId = daoManager.getModuleVersionDaoUpdate().registerNewModuleVersion(mv);
          mv.setId(newModuleVersionId);
 
-         this.regConceptScheme(mv);
+         this.registerNewConceptSchemeIfNull(mv);
+         this.registerNewQuestionSchemeIfNull(mv);
+         this.registerNewCategorySchemeIfNull(mv);
          
          daoManager.endTransaction();
       } catch (SQLException e) {
@@ -44,24 +47,66 @@ public class ModuleVersionService {
       }
    }
 
-   private void regConceptScheme(ModuleVersion mv) throws SQLException {
-      if (mv.getConceptSchemeId() == null) {
-         this.registerNewConceptScheme(mv);
-      }
-   }
    
-   private void registerNewConceptScheme(ModuleVersion mv) throws SQLException {
+   private void registerNewConceptSchemeIfNull(ModuleVersion mv) throws SQLException {
+      if (mv.getConceptSchemeId() != null) {
+         return;
+      }
+      
       Urn urn = UrnUtil.createNewUrn();
       urn.setAgency(mv.getModule().getAgency());
       ConceptScheme cs = new ConceptScheme();
       cs.setUrn(urn);
       cs.setModuleVersionId(mv.getId());
+      cs.setName(mv.getModule().getName());
+      cs.setLabel(mv.getModule().getName());
+      cs.setDescription("Concepts for module: " + mv.getModule().getName());
       
-      (new ConceptSchemeService(daoManager)).registerNewConceptScheme(cs);
+      daoManager.getConceptSchemeDaoUpdate().registerNewConceptScheme(cs);
+      daoManager.getModuleVersionDaoUpdate().updateConceptScheme(cs);
    }
    
+   private void registerNewQuestionSchemeIfNull(ModuleVersion mv) throws SQLException {
+      if (mv.getQuestionSchemeId() != null) {
+         return;
+      }
+      
+      Urn urn = UrnUtil.createNewUrn();
+      urn.setAgency(mv.getModule().getAgency());
+      QuestionScheme qs = new QuestionScheme();
+      qs.setUrn(urn);
+      qs.setModuleVersionId(mv.getId());
+      qs.setName(mv.getModule().getName());
+      qs.setLabel(mv.getModule().getName());
+      qs.setDescription("Questions for module: " + mv.getModule().getName());
+      
+      daoManager.getQuestionSchemeDaoUpdate().registerNewQuestionScheme(qs);
+      daoManager.getModuleVersionDaoUpdate().updateQuestionScheme(qs);
+   }   
    
-   
+   private void registerNewCategorySchemeIfNull(ModuleVersion mv) throws SQLException {
+      if (mv.getCategorySchemeId() != null) {
+         return;
+      }
+
+      CategoryScheme cs = new CategoryScheme();
+      Urn urn = UrnUtil.createNewUrn();
+      urn.setAgency(mv.getModule().getAgency());
+      cs.setUrn(urn);
+      cs.setModuleVersionId(mv.getId());
+      cs.setName(mv.getModule().getName());
+      cs.setLabel(mv.getModule().getName());
+      cs.setDescription("Default category scheme for module: " + mv.getModule().getName());
+      cs.setModuleDefaultScheme(Boolean.TRUE);
+
+      daoManager.getCategorySchemeDaoUpdate().registerNewCategoryScheme(cs);
+      mv.setCategorySchemeId(cs.getId());
+
+      daoManager.getModuleVersionDaoUpdate().updateCategoryScheme(cs);
+
+   }
+
+
    private void xxxcopyConceptScheme(ModuleVersion mv) throws SQLException {
       if (mv.getConceptSchemeId() == null) {
          return;
