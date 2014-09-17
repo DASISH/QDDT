@@ -1,6 +1,7 @@
 package no.nsd.qddt.model;
 
 import java.io.Serializable;
+import no.nsd.qddt.logic.VersionUtil;
 
 public class ModuleVersion implements Serializable {
    
@@ -8,6 +9,8 @@ public class ModuleVersion implements Serializable {
    private Module module;
    private Actor actor;
    private Integer status;
+   private Integer versionPublishCode;
+   private Integer versionChangeCode;
    private String urnVersion;
    private String versionNumber;
    private String versionDescription;
@@ -83,6 +86,21 @@ public class ModuleVersion implements Serializable {
       this.versionDescription = versionDescription;
    }
 
+   public Integer getVersionPublishCode() {
+      return versionPublishCode;
+   }
+
+   public Long getVersionPublishCodeAsLong() {
+      if (versionPublishCode == null) {
+         return null;
+      }
+      return versionPublishCode.longValue();
+   }
+
+   public void setVersionPublishCode(Integer versionPublishCode) {
+      this.versionPublishCode = versionPublishCode;
+   }
+
 
    public String getTitle() {
       return title;
@@ -141,6 +159,31 @@ public class ModuleVersion implements Serializable {
       this.categorySchemeId = categorySchemeId;
    }
 
+   public String getVersionPublishText() {
+      return VersionUtil.getVersionPublishText(versionPublishCode);
+   }
+
+   public Integer getVersionChangeCode() {
+      return versionChangeCode;
+   }
+
+   public Long getVersionChangeCodeAsLong() {
+      if (versionChangeCode == null) {
+         return null;
+      }
+      return versionChangeCode.longValue();
+   }
+
+   public void setVersionChangeCode(Integer versionChangeCode) {
+      this.versionChangeCode = versionChangeCode;
+   }
+   
+   public boolean isPublished() {
+      if (versionPublishCode == null) {
+         return false;
+      }
+      return versionPublishCode >= 1;
+   }
    
    
    public String getVersionText() {

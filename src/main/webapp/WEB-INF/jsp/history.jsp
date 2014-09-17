@@ -30,7 +30,7 @@
                <th>Release number</th>
                <th>Version description</th>
                <th>Actor</th>
-               <th>Status</th>
+               <th>Publish info</th>
                <th>Action</th>
             </tr>
          </thead>
@@ -43,15 +43,18 @@
                   <td>${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
                   <td>${fn:escapeXml(mv.actor.name)}</td>
-                  <td>${fn:escapeXml(mv.statusText)}</td>
-                  <td><a href="<c:url value="/u/title?mvid=${mv.id}" />">Update</a></td>
+                  <td>${fn:escapeXml(mv.versionPublishText)}</td>
+                  <td class="align-center">
+                     <c:if test="${mv.published}"><a href="<c:url value="/u/title?mvid=${mv.id}" />">View</a></c:if>
+                     <c:if test="${!mv.published}"><a class="button" href="<c:url value="/u/title?mvid=${mv.id}" />">Update</a></c:if>
+                  </td>
                </tr>
             </c:forEach>
          </tbody>
       </table>
 
 
-      <c:if test="${lastModuleVersion == null || lastModuleVersion.statusAsLong >= 3}">
+      <c:if test="${lastModuleVersion == null || lastModuleVersion.published}">
          <form action="<c:url value="/u/r/newmoduleversion" />" method="get">
             <input type="hidden" name="mid" value="${module.id}">
             <input class="okbutton topmarg" type="submit" value="New module version">

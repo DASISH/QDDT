@@ -189,8 +189,49 @@ public class ModuleVersionService {
       daoManager.getModuleVersionDaoUpdate().updateTitle(mv);
    }
 
-   public void updateVersionInfo(ModuleVersion mv) throws SQLException {
-      daoManager.getModuleVersionDaoUpdate().updateVersionInfo(mv);
+   public void updateVersionInfo(ModuleVersion newModuleVersion) throws SQLException {
+      daoManager.getModuleVersionDaoUpdate().updateVersionInfo(newModuleVersion);
    }
+
+   
+   public void updatePublishInfo(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) throws SQLException {
+      try {
+         daoManager.beginTransaction();
+
+         
+         this.updateUrnVersion(newModuleVersion, oldModuleVersion);
+         
+         daoManager.getModuleVersionDaoUpdate().updatePublishInfo(newModuleVersion);
+         
+         
+         daoManager.endTransaction();
+      } catch (SQLException e) {
+         daoManager.abortTransaction();
+         throw e;
+      }
+      
+   }
+   
+   public void updateUrnVersion(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) throws SQLException {
+      if (oldModuleVersion.isPublished()) {
+         return;
+      }
+      
+      int levels = oldModuleVersion.getModule().getStudy().getSurvey().getVersionLevels();
+      
+      if (oldModuleVersion.getUrnVersion() == null) {
+         String newUrnVersion = UrnUtil.createNewVersion(levels);
+         newModuleVersion.setUrnVersion(newUrnVersion);
+      } else {
+         String newUrnVersion = UrnUtil.computeNewVersion(oldModuleVersion.getUrnVersion(), oldModuleVersion.getVersionChangeCode(), levels);
+         newModuleVersion.setUrnVersion(newUrnVersion);
+      }
+      
+      daoManager.getModuleVersionDaoUpdate().updateUrnVersion(newModuleVersion);
+   }
+   
+   
+   
+   
 
 }

@@ -70,6 +70,7 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/r/newconcept")) { new NewConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveconcept")) { new SaveConceptAction().process(request, response); }
       else if (uri.equals(context + "/u/r/saveversioninfo")) { new SaveVersionInfoAction().process(request, response); }
+      else if (uri.equals(context + "/u/r/savepublishinfo")) { new SavePublishInfoAction().process(request, response); }
 
       else if (uri.equals(context + "/u/r/savequestion")) { new SaveQuestionAction().process(request, response); }
       else if (uri.equals(context + "/u/r/addcodelisttoquestion")) { new AddCodeListToQuestionAction().process(request, response); }

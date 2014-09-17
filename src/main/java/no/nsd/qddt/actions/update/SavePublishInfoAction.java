@@ -10,7 +10,7 @@ import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.service.ModuleVersionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
-public class SaveVersionInfoAction extends AbstractAction {
+public class SavePublishInfoAction extends AbstractAction {
 
    private ModuleVersion oldModuleVersion;
    private ModuleVersion newModuleVersion;
@@ -28,17 +28,15 @@ public class SaveVersionInfoAction extends AbstractAction {
       this.oldModuleVersion = (ModuleVersion) request.getAttribute("moduleVersion");
    }
    
-   private void setNewModuleVersion() throws ServletException {
+   private void setNewModuleVersion() {
       newModuleVersion = new ModuleVersion();
       newModuleVersion.setId(oldModuleVersion.getId());
-      newModuleVersion.setVersionNumber(request.getParameter("version_number"));
-      newModuleVersion.setVersionDescription(request.getParameter("version_description"));
-      newModuleVersion.setVersionChangeCode(ServletUtil.getRequestParamAsInteger(request, "version_change_code"));
+      newModuleVersion.setVersionPublishCode(ServletUtil.getRequestParamAsInteger(request, "version_publish_code"));
    }
    
    @Override
    protected void executeDao() throws SQLException {
-      (new ModuleVersionService(daoManager)).updateVersionInfo(newModuleVersion);
+      (new ModuleVersionService(daoManager)).updatePublishInfo(newModuleVersion, oldModuleVersion);
    }
 
    private void redirectSuccessPage() throws IOException {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Element implements Serializable {
    
+   
    private Integer id;
    private String name;
    private String label;

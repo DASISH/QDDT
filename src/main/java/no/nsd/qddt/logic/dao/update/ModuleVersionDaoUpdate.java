@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import no.nsd.qddt.logic.SqlCommand;
+import no.nsd.qddt.logic.SqlUtil;
 import no.nsd.qddt.model.CategoryScheme;
 import no.nsd.qddt.model.ConceptScheme;
 import no.nsd.qddt.model.ModuleVersion;
@@ -31,8 +32,9 @@ public class ModuleVersionDaoUpdate {
               + "module_abstract, "
               + "concept_scheme_id, "
               + "question_scheme_id, "
-              + "category_scheme_id) "
-              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+              + "category_scheme_id, "
+              + "version_date) "
+              + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       List values = new ArrayList();
       values.add(mv.getModule().getId());
@@ -46,7 +48,7 @@ public class ModuleVersionDaoUpdate {
       values.add(mv.getConceptSchemeId());
       values.add(mv.getQuestionSchemeId());
       values.add(mv.getCategorySchemeId());
-
+      values.add(SqlUtil.getDateNow());
       
       SqlCommand sqlCommand = new SqlCommand(conn);
       sqlCommand.setSqlString(sql);
@@ -77,14 +79,40 @@ public class ModuleVersionDaoUpdate {
    public void updateVersionInfo(ModuleVersion mv) throws SQLException {
       String sql = "update module_version set "
               + "version_number = ?, "
-              + "version_description = ?, "
-              + "module_status = ? "
+              + "version_change_code = ?, "
+              + "version_description = ? "
               + "where module_version_id = ?";
 
       List values = new ArrayList();
       values.add(mv.getVersionNumber());
+      values.add(mv.getVersionChangeCode());
       values.add(mv.getVersionDescription());
-      values.add(mv.getStatus());
+      values.add(mv.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+
+   public void updateUrnVersion(ModuleVersion mv) throws SQLException {
+      String sql = "update module_version set "
+              + "urn_version = ? "
+              + "where module_version_id = ?";
+
+      List values = new ArrayList();
+      values.add(mv.getUrnVersion());
+      values.add(mv.getId());
+
+      SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);
+   }
+   
+   public void updatePublishInfo(ModuleVersion mv) throws SQLException {
+      String sql = "update module_version set "
+              + "version_publish_code = ?, "
+              + "version_date = ? "
+              + "where module_version_id = ?";
+
+      List values = new ArrayList();
+      values.add(mv.getVersionPublishCode());
+      values.add(SqlUtil.getDateNow());
       values.add(mv.getId());
 
       SqlCommand.executeSqlUpdateWithValuesOnConnection(sql, values, conn);

@@ -45,6 +45,8 @@ public final class ModuleVersionOrm {
       mv.setActor(actors.get(actorId));
       
       mv.setStatus((Integer) map.get("module_status"));
+      mv.setVersionPublishCode((Integer) map.get("version_publish_code"));
+      mv.setVersionChangeCode((Integer) map.get("version_change_code"));
       mv.setUrnVersion(SqlUtil.getString("urn_version", map));
       mv.setVersionNumber(SqlUtil.getString("version_number", map));
       mv.setVersionDescription(SqlUtil.getString("version_description", map));
