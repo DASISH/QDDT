@@ -11,5 +11,6 @@
    <li ${param.page eq 'responsedomain' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/responsedomain?mvid=${param.mvid}" />">Response domains</a></li>
    <li ${param.page eq 'instrument' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/instrument?mvid=${param.mvid}" />">Instrument</a></li>
    <li ${param.page eq 'report' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/report?mvid=${param.mvid}" />">Reports</a></li>
-   <li ${param.page eq 'versioninfo' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/versioninfo?mvid=${param.mvid}" />">Version info</a></li>
+   <li ${param.page eq 'versioninfo' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/versioninfo?mvid=${param.mvid}" />">Version</a></li>
+   <li ${param.page eq 'publishinfo' ? 'class="active-tab"' : ''}><a href="<c:url value="/u/publishinfo?mvid=${param.mvid}" />">Publish</a></li>
 </ul>

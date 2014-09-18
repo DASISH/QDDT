@@ -37,8 +37,8 @@ public class ControllerAction {
       else if (uri.equals(context + "/u/questionscheme")) { new QuestionSchemeAction().process(request, response); }
       else if (uri.equals(context + "/u/instrument")) { new InstrumentAction().process(request, response); }
       else if (uri.equals(context + "/u/report")) { new ReportAction().process(request, response); }
-      else if (uri.equals(context + "/u/status")) { new StatusAction().process(request, response); }
       else if (uri.equals(context + "/u/versioninfo")) { ServletUtil.forward("/WEB-INF/jsp/version_info.jsp", request, response); }
+      else if (uri.equals(context + "/u/publishinfo")) { ServletUtil.forward("/WEB-INF/jsp/publish_info.jsp", request, response); }
       else if (uri.equals(context + "/u/comment")) { ServletUtil.forward("/WEB-INF/jsp/comment.jsp", request, response); }
       
       else if (uri.equals(context + "/u/history")) { new HistoryAction().process(request, response); }

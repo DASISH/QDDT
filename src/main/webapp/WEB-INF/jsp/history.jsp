@@ -31,16 +31,16 @@
                <th>Version description</th>
                <th>Actor</th>
                <th>Publish info</th>
-               <th>Action</th>
+               <th></th>
             </tr>
          </thead>
          <tbody>
             <c:forEach items="${moduleVersions}" var="mv">
                <c:set var="i" value="${i + 1}" />
                <tr>
-                  <td>${i}</td>
-                  <td>${fn:escapeXml(mv.urnVersion)}</td>
-                  <td>${fn:escapeXml(mv.versionNumber)}</td>
+                  <td class="align-right">${i}</td>
+                  <td class="align-center">${fn:escapeXml(mv.urnVersion)}</td>
+                  <td class="align-center">${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
                   <td>${fn:escapeXml(mv.actor.name)}</td>
                   <td>${fn:escapeXml(mv.versionPublishText)}</td>

@@ -16,12 +16,10 @@
 
       <div class="tab-box">
 
+         <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
+         
       <form action="<c:url value="/u/r/saveversioninfo" />" method="post">
          <input type="hidden" name="mvid" value="${moduleVersion.id}">
-
-         <c:if test="${param.saved != null}"><p class="ok">-- Save OK --</p></c:if>
-
-            <div class="boxheader">Version info</div>
             
          <c:if test="${moduleVersion.urnVersion != null}">
             <h4>Version change:</h4>
@@ -39,26 +37,11 @@
          <h4>Release number:</h4>
          <input class="w4" type="text" name="version_number" value="${fn:escapeXml(moduleVersion.versionNumber)}">
          
-         <div><input class="okbutton topmarg" type="submit" value="Save version info"></div>
-
-      </form>
-
-      <div class="boxheader">Publish info</div>
-      <form action="<c:url value="/u/r/savepublishinfo" />" method="post">
-         <input type="hidden" name="mvid" value="${moduleVersion.id}">
-
-         <h4>Version pubished status:</h4>
-         <select name="version_publish_code">
-            <option value="0" ${moduleVersion.versionPublishCodeAsLong == null || moduleVersion.versionPublishCodeAsLong eq 0 ? 'selected="selected"' : ''}>Not published</option>
-            <option value="1" ${moduleVersion.versionPublishCodeAsLong eq 1 ? 'selected="selected"' : ''}>Published internal</option>
-            <option value="2" ${moduleVersion.versionPublishCodeAsLong eq 2 ? 'selected="selected"' : ''}>Published external</option>
-         </select>
-
-
-         <div><input class="okbutton topmarg" type="submit" value="Save publish info"></div>
-
-      </form>
+         <c:if test="${!moduleVersion.published}">
+         <div><input class="okbutton topmarg" type="submit" value="Save"></div>
+         </c:if>
          
+      </form>
          
       </div>
 

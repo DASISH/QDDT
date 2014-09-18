@@ -38,7 +38,7 @@ public class SaveVersionInfoAction extends AbstractAction {
    
    @Override
    protected void executeDao() throws SQLException {
-      (new ModuleVersionService(daoManager)).updateVersionInfo(newModuleVersion);
+      (new ModuleVersionService(daoManager)).updateVersionInfo(newModuleVersion, oldModuleVersion);
    }
 
    private void redirectSuccessPage() throws IOException {

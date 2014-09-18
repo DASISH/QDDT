@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import no.nsd.qddt.actions.AbstractAction;
 import no.nsd.qddt.model.ModuleVersion;
+import no.nsd.qddt.model.exception.VersionException;
 import no.nsd.qddt.service.ModuleVersionService;
 import no.nsd.qddt.servlets.ServletUtil;
 
@@ -14,6 +15,7 @@ public class SavePublishInfoAction extends AbstractAction {
 
    private ModuleVersion oldModuleVersion;
    private ModuleVersion newModuleVersion;
+   private boolean error;
 
    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.setRequestAndResponse(request, response);
@@ -21,7 +23,7 @@ public class SavePublishInfoAction extends AbstractAction {
       this.setOldModuleVersion();
       this.setNewModuleVersion();
       this.executeDaoAndClose();
-      this.redirectSuccessPage();
+      this.redirectPage();
    }
 
    private void setOldModuleVersion() {
@@ -36,11 +38,35 @@ public class SavePublishInfoAction extends AbstractAction {
    
    @Override
    protected void executeDao() throws SQLException {
-      (new ModuleVersionService(daoManager)).updatePublishInfo(newModuleVersion, oldModuleVersion);
+      try {
+         
+         if (newModuleVersion.getVersionPublishCode().equals(0) ||
+                 newModuleVersion.getVersionPublishCode().equals(oldModuleVersion.getVersionPublishCode())) {
+            error = true;
+            return;
+         }
+         
+         (new ModuleVersionService(daoManager)).updatePublishInfo(newModuleVersion, oldModuleVersion);
+      } catch (VersionException e) {
+         error = true;
+         request.setAttribute("error", e.getMessage());
+      }
    }
 
+   private void redirectPage() throws ServletException, IOException {
+      if (error) {
+         this.forwardErrorPage();
+      } else {
+         this.redirectSuccessPage();
+      }
+   }
+   
+   private void forwardErrorPage() throws ServletException, IOException {
+      ServletUtil.forward("/WEB-INF/jsp/publish_info.jsp", request, response);
+   }
+   
    private void redirectSuccessPage() throws IOException {
-      ServletUtil.redirect("/u/versioninfo?mvid=" + oldModuleVersion.getId() + "&saved", request, response);
+      ServletUtil.redirect("/u/publishinfo?mvid=" + oldModuleVersion.getId() + "&saved", request, response);
    }
 
 }

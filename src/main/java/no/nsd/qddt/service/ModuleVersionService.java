@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import no.nsd.qddt.logic.UrnUtil;
 import no.nsd.qddt.logic.dao.DaoManager;
+import no.nsd.qddt.model.exception.AuthorisationException;
 import no.nsd.qddt.model.CategoryScheme;
 import no.nsd.qddt.model.Concept;
 import no.nsd.qddt.model.ConceptScheme;
@@ -12,6 +13,7 @@ import no.nsd.qddt.model.ModuleVersion;
 import no.nsd.qddt.model.Question;
 import no.nsd.qddt.model.QuestionScheme;
 import no.nsd.qddt.model.Urn;
+import no.nsd.qddt.model.exception.VersionException;
 
 public class ModuleVersionService {
 
@@ -189,15 +191,27 @@ public class ModuleVersionService {
       daoManager.getModuleVersionDaoUpdate().updateTitle(mv);
    }
 
-   public void updateVersionInfo(ModuleVersion newModuleVersion) throws SQLException {
+   public void updateVersionInfo(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) throws SQLException {
+      this.checkVersionStatus(newModuleVersion, oldModuleVersion);
       daoManager.getModuleVersionDaoUpdate().updateVersionInfo(newModuleVersion);
    }
 
+   private void checkVersionStatus(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) {
+      if (oldModuleVersion.isPublished()) {
+         throw new AuthorisationException("Cannot update version info on published version.");
+      }
+   }
+   
    
    public void updatePublishInfo(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) throws SQLException {
+      
+      this.checkPublishStatus(newModuleVersion, oldModuleVersion);
+      this.checkVersionChange(oldModuleVersion);
+
       try {
          daoManager.beginTransaction();
 
+         
          
          this.updateUrnVersion(newModuleVersion, oldModuleVersion);
          
@@ -211,6 +225,24 @@ public class ModuleVersionService {
       }
       
    }
+
+
+   private void checkPublishStatus(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) {
+      if (oldModuleVersion.getVersionPublishCode() == null) {
+         return;
+      }
+      
+      if (newModuleVersion.getVersionPublishCode() < oldModuleVersion.getVersionPublishCode()) {
+         throw new AuthorisationException("New publish status cannot be more restrictive than old status.");
+      }
+   }
+
+   private void checkVersionChange(ModuleVersion oldModuleVersion) {
+      if (oldModuleVersion.getVersionChangeCode() == null) {
+         throw new VersionException("No module version change code.");
+      }
+   }
+   
    
    public void updateUrnVersion(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) throws SQLException {
       if (oldModuleVersion.isPublished()) {

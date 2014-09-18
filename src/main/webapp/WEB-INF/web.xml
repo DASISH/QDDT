@@ -53,6 +53,11 @@
     </error-page>
 
     <error-page>
+        <exception-type>no.nsd.qddt.model.exception.AuthorisationException</exception-type>
+        <location>/WEB-INF/jsp/error/authorisation.jsp</location>
+    </error-page>
+
+    <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/WEB-INF/jsp/error/error.jsp</location>
     </error-page>
