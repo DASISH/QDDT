@@ -14,6 +14,7 @@ public class Element implements Serializable {
    private Boolean versionUpdated;
    private Integer moduleVersionId;
    private Integer versionChangeCode;
+   private Integer versionPublishCode;
    
    
    
@@ -89,6 +90,20 @@ public class Element implements Serializable {
       this.versionChangeCode = versionChangeCode;
    }
 
+   public Integer getVersionPublishCode() {
+      return versionPublishCode;
+   }
+
+   public void setVersionPublishCode(Integer versionPublishCode) {
+      this.versionPublishCode = versionPublishCode;
+   }
+
+   public boolean isPublished() {
+      if (versionPublishCode == null) {
+         return false;
+      }
+      return versionPublishCode >= 1;
+   }
    
    
    @Override

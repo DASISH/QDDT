@@ -64,10 +64,10 @@ public class VersionTag extends SimpleTagSupport {
    }
 
    private void printVersionCode() throws IOException {
-      out.println("<h4 class=\"notopmarg\">Version change:</h4>");      
+      out.println("<h4 class=\"notopmarg\">Change type:</h4>");      
 
-      if (element.getUrn().getVersion() == null) {
-         out.println("<p>[New element]</p>");
+      if (!element.isPublished()) {
+         out.println("<p>[New element - not published]</p>");
          return;
       }
       
@@ -96,15 +96,15 @@ public class VersionTag extends SimpleTagSupport {
    }
 
    private void printVersionDescription() throws IOException {
-      out.println("<h4>Version description:</h4>");
+      out.println("<h4>Version rationale description:</h4>");
       out.print("<textarea class=\"w10\" name=\"version_description\" rows=\"4\">");
       this.printElementVersionDescription();
       out.print("</textarea>");
    }
 
    private void printElementVersionDescription() throws IOException {
-      // only print version description if element is a 'new' element.
-      if (element.getModuleVersionId().equals(moduleVersion.getId())) {
+      // only print version description if element is a 'new' element, i.e not published.
+      if (!element.isPublished()) {
          out.print(escapeXml(element.getVersionDescription()));
       }
    }

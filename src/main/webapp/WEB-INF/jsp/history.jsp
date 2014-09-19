@@ -39,7 +39,7 @@
                <c:set var="i" value="${i + 1}" />
                <tr>
                   <td class="align-right">${i}</td>
-                  <td class="align-center">${fn:escapeXml(mv.urnVersion)}</td>
+                  <td class="align-center"><c:if test="${mv.published}">${fn:escapeXml(mv.urnVersion)}</c:if></td>
                   <td class="align-center">${fn:escapeXml(mv.versionNumber)}</td>
                   <td>${fn:escapeXml(mv.versionDescription)}</td>
                   <td>${fn:escapeXml(mv.actor.name)}</td>
