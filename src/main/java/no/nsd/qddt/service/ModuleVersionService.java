@@ -228,12 +228,11 @@ public class ModuleVersionService {
 
 
    private void checkPublishStatus(ModuleVersion newModuleVersion, ModuleVersion oldModuleVersion) {
-      if (oldModuleVersion.getVersionPublishCode() == null) {
-         return;
-      }
+      int newCode = newModuleVersion.getVersionPublishCode();
+      int oldCode = (oldModuleVersion.getVersionPublishCode() != null ? oldModuleVersion.getVersionPublishCode() : 0);
       
-      if (newModuleVersion.getVersionPublishCode() < oldModuleVersion.getVersionPublishCode()) {
-         throw new AuthorisationException("New publish status cannot be more restrictive than old status.");
+      if (newCode <= oldCode) {
+         throw new VersionException("New publish status is the same as or more restrictive than old status.");
       }
    }
 

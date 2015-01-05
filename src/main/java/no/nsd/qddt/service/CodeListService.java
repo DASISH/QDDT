@@ -67,8 +67,12 @@ public class CodeListService {
          if (!cl.isCombined()) {
             continue;
          }
-         cl.setValidCodeList(mapCodeListIdToCodeList.get(cl.getValidCodeListId()));
-         cl.setMissingCodeList(mapCodeListIdToCodeList.get(cl.getMissingCodeListId()));
+         if (cl.getValidCodeListId() != null) {
+            cl.setValidCodeList(mapCodeListIdToCodeList.get(cl.getValidCodeListId()));
+         }
+         if (cl.getMissingCodeListId() != null) {
+            cl.setMissingCodeList(mapCodeListIdToCodeList.get(cl.getMissingCodeListId()));
+         }
       }
       
       return codeLists;
@@ -97,6 +101,9 @@ public class CodeListService {
       
       // type valid or missing.
       for (CodeList cl : codeLists) {
+         if (cl.getId() == null) {
+            continue;
+         }
          List<Code> list = mapCodeListIdToCodes.get(cl.getId());
          if (list == null) {
             continue;
@@ -111,13 +118,19 @@ public class CodeListService {
          if (!cl.isCombined()) {
             continue;
          }
-         cl.setValidCodeList(mapCodeListIdToCodeList.get(cl.getValidCodeListId()));
-         cl.setMissingCodeList(mapCodeListIdToCodeList.get(cl.getMissingCodeListId()));
+         if (cl.getValidCodeListId() != null) {
+            cl.setValidCodeList(mapCodeListIdToCodeList.get(cl.getValidCodeListId()));
+         }
+         if (cl.getMissingCodeListId() != null) {
+            cl.setMissingCodeList(mapCodeListIdToCodeList.get(cl.getMissingCodeListId()));
+         }
       }
       
       
       for (Question q : questions) {
-         q.setCodeList(mapCodeListIdToCodeList.get(q.getCodeListId()));
+         if (q.getCodeListId() != null) {
+            q.setCodeList(mapCodeListIdToCodeList.get(q.getCodeListId()));
+         }
       }
    }
    

@@ -33,14 +33,6 @@
          <input class="button topmarg" type="submit" value="New module">
       </form>
 
-      <div class="boxheader">Surveys - Categories and Codes</div>
-      <ul class="plain-list">
-         <c:forEach items="${surveys}" var="s">
-            <li><a href="<c:url value="/u/survey?id=${s.id}" />">${fn:escapeXml(s.name)}</a></li>
-         </c:forEach>
-      </ul>
-
-
 
    </div>
 </div>

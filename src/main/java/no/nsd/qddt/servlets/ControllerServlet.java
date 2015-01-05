@@ -22,7 +22,7 @@ public class ControllerServlet extends HttpServlet {
       request.setCharacterEncoding("UTF-8");
       response.setContentType("text/html;charset=UTF-8");
       
-      (new ControllerFilter(request)).doFilterModule();
+      (new ControllerFilter(request)).doFilter();
       (new ControllerAction(request, response)).urlMapping();
    }
    

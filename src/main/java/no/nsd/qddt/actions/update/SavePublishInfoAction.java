@@ -39,13 +39,6 @@ public class SavePublishInfoAction extends AbstractAction {
    @Override
    protected void executeDao() throws SQLException {
       try {
-         
-         if (newModuleVersion.getVersionPublishCode().equals(0) ||
-                 newModuleVersion.getVersionPublishCode().equals(oldModuleVersion.getVersionPublishCode())) {
-            error = true;
-            return;
-         }
-         
          (new ModuleVersionService(daoManager)).updatePublishInfo(newModuleVersion, oldModuleVersion);
       } catch (VersionException e) {
          error = true;

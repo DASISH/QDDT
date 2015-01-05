@@ -1,7 +1,9 @@
 package no.nsd.qddt.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import no.nsd.qddt.logic.dao.DaoManager;
 import no.nsd.qddt.model.Actor;
 import no.nsd.qddt.model.Module;
@@ -16,8 +18,20 @@ public class ModuleService {
    }
 
    
-   public List<Module> getModules() throws SQLException {
-      return daoManager.getModuleDao().getModules();
+   public List<Module> getModules(User user) throws SQLException {
+      List<Module> allModules = daoManager.getModuleDao().getModules();
+      Set<Integer> moduleIds = daoManager.getUserDao().getModuleIdsForUser(user.getId());
+
+      List<Module> modules = new ArrayList<Module>();
+      if (allModules == null) {
+         return null;
+      }
+      for (Module m : allModules) {
+         if (moduleIds.contains(m.getId())) {
+            modules.add(m);
+         }
+      }
+      return modules;
    }
    
    public Module getModule(Integer moduleId) throws SQLException {
