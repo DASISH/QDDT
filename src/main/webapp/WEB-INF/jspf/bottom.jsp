@@ -12,7 +12,7 @@
          <div class="col">
 
             <div class="l-copyright">
-               <p>QDDT - Questionnaire Design and Development Tool</p>
+               <p>QDDT - Questionnaire Design and Documentation Tool</p>
                <p>DASISH - Data Service Infrastructure for the Social Sciences and Humanities</p>
             </div>
 

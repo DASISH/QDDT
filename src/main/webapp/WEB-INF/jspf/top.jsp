@@ -18,7 +18,7 @@
          <div class="wrap">
             <div class="grid">
                <div class="col">
-                  <div class="titleheader"><span class="dasishheader">DASISH</span> QDDT<div class="titleheadersub">Questionnaire Design and Development Tool</div></div>
+                  <div class="titleheader"><span class="dasishheader">DASISH</span> QDDT<div class="titleheadersub">Questionnaire Design and Documentation Tool</div></div>
 
                   <div class="headernav">
                      <c:if test="${sessionScope.user != null}">
