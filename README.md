@@ -8,7 +8,6 @@ The requirements for the QDDT are defined as follows:
  * Internal users can use the tool to document the question design process, whilst external users can use it to understand how each item and concept was developed
  * Different levels of access rights can be awarded to different users 
  * Once the design for a module in a round has been completed, the information can be made available for download and be permanently stored in the database for future use and reference.  
- * A reusable database model has been developed.
  * Compatibility with the DDI-Lifecycle is achieved, to allow for interoperability with other tools and systems.
  * A system architecture that enables easy exchange of metadata in DDI format to other task 3.2 tools has been built.
  * This should comprehend file-based import and export, as well as communication by web-services.
