@@ -12,3 +12,14 @@ The requirements for the QDDT are defined as follows:
  * A system architecture that enables easy exchange of metadata in DDI format to other task 3.2 tools has been built.
  * This should comprehend file-based import and export, as well as communication by web-services.
  * The QDDT has been tested for compliance with the identified use cases by members of WP3.2 as well as by selected external persons.
+
+
+### Software development status
+
+The QDDT is currently under development. A prototype with limited functionality is available.
+
+
+### Contact
+
+Contact email address for this tool: surveytools@nsd.uib.no
+
