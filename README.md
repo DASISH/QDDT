@@ -1,4 +1,6 @@
-DASISH QDDT - Questionnaire Design and Documentation Tool
+![](/DASISH/qddt-client/wiki/images/seriss-logo.jpg)
+
+# ![](/DASISH/qddt-client/wiki/images/qddt.png)DASISH QDDT - Questionnaire Design and Documentation Tool
 =========================================================
 
 The key aim of the DASISH QDDT is to provide a system for developing and documenting the entire questionnaire development of cross-national survey programmes, from the first concepts and questions to the final questionnaire. This will improve not only the quality and transparency, but also the efficiency, of the questionnaire design process.
